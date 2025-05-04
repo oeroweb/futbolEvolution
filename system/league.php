@@ -1,0 +1,170 @@
+<?php
+require "layout/header.php";
+require_once "controller/controllerUserData.php";
+require_once "controller/helpers.php";
+// require_once "controller/redireccion.php";
+?>
+
+<body>
+	<?php require "layout/navbar.php"; ?>
+	<div class="grid-container">
+		<?php require "layout/aside.php"; ?>
+		<div class="container-main">
+			<h2 class="title">PÁGINA LIGAS</h2>
+			<?php if (isset($_SESSION['completado'])): ?>
+				<div class="alerta-exito">
+					<?= $_SESSION['completado'] ?>
+				</div>
+			<?php elseif (isset($_SESSION['fallo'])): ?>
+				<div class="alerta-error">
+					<?= $_SESSION['fallo'] ?>
+				</div>
+			<?php endif; ?>
+
+			<div class="box-tabla mg-bt20">
+				<h3 class="subtitle">Sección Banner:</h3>
+				<table>
+					<thead>
+						<tr>
+							<th class="w30">Titulo</th>
+							<th class="w40">Descripción</th>
+							<th class="w30">Opciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$datos = selectalldatos($con, "ligasBannerTop");
+						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+							while ($dato = mysqli_fetch_assoc($datos)):
+						?>
+								<tr>
+									<td><strong>EN: </strong> <?= $dato['en_titulo'] ?> <br> <strong>ES: </strong><?= $dato['es_titulo'] ?></td>
+									<td><strong>EN: </strong><?= $dato['en_descripcion'] ?> <br><strong>ES: </strong><?= $dato['es_descripcion'] ?></td>
+									<td>
+										<div class="flex justify-center">
+											<a href="leaguebanner-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico">
+												<img src="assets/ico/edit.svg">
+											</a>
+										</div>
+									</td>
+								</tr>
+						<?php
+							endwhile;
+						endif; ?>
+					</tbody>
+				</table>
+			</div>
+
+      <div class="box-tabla mg-bt20">
+				<h3 class="subtitle">Sección Ligas Actuales:</h3>
+				<a href="league-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
+
+				<table>
+					<thead>
+						<tr>
+							<th class="w20">Imagen</th>
+							<th class="w10">Liga</th>
+							<th class="w10">Dirección</th>
+							<th class="w10">Fecha</th>							
+							<th class="w10">Opciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$datos = listaLigas($con, 2);
+						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+							while ($dato = mysqli_fetch_assoc($datos)):
+						?>
+								<tr>
+									<td>										
+										<img class="img-list" src="../assets/img/ligas/<?= $dato['imagen'] ?>" alt="imagen de ligas">										
+									</td>
+									<td><?= $dato['en_nombre'] ?> </td>
+									<td><?= $dato['en_direccion'] ?> </td>
+									<td><?= $dato['fecha_liga'] ?> </td>										
+									<td>
+										<div class="flex justify-center">
+											<a href="league-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar"><img src="assets/ico/edit.svg"> </a>
+											<a href="leagueposition-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Tabla de Posiciones"><img src="assets/ico/plus.svg"></a>
+											<a href="leaguefixture-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Fixture"><img src="assets/ico/plus-add.svg"> </a>
+										</div>
+									</td>
+								</tr>
+						<?php
+							endwhile;
+						endif; ?>
+					</tbody>
+				</table>
+			</div>
+
+      <div class="box-tabla mg-bt20">
+				<h3 class="subtitle">Sección Ligas Fixture:</h3>
+				<a href="league-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
+
+				<table>
+					<thead>
+						<tr>							
+							<th class="w10">Titulo</th>
+							<th class="w10">Descripción</th>												
+							<th class="w10">Opciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$datos = selectalldatos($con, "ligasfixture");
+						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+							while ($dato = mysqli_fetch_assoc($datos)):
+						?>
+							<tr>									
+								<td><strong>EN: </strong> <?= $dato['en_titulo'] ?> <br> <strong>ES: </strong><?= $dato['es_titulo'] ?></td>
+								<td><strong>EN: </strong><?= $dato['en_descripcion'] ?> <br><strong>ES: </strong><?= $dato['es_descripcion'] ?></td>
+								<td>										
+									<a href="leaguefixture-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar"><img src="assets/ico/edit.svg"> </a>										
+								</td>
+							</tr>
+						<?php
+							endwhile;
+						endif; ?>
+					</tbody>
+				</table>
+			</div>
+      
+			<div class="box-tabla mg-bt20">
+				<h3 class="subtitle">Sección Ligas Contacto:</h3>
+				<a href="league-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
+
+				<table>
+					<thead>
+						<tr>							
+							<th class="w10">Titulo</th>
+							<th class="w10">Descripción</th>												
+							<th class="w10">Opciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							$datos = selectalldatos($con, "ligascontacto");
+							if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+								while ($dato = mysqli_fetch_assoc($datos)):
+						?>
+							<tr>									
+								<td><strong>EN: </strong> <?= $dato['en_titulo'] ?> <br> <strong>ES: </strong><?= $dato['es_titulo'] ?></td>
+								<td><strong>EN: </strong><?= $dato['en_descripcion'] ?> <br><strong>ES: </strong><?= $dato['es_descripcion'] ?></td>
+								<td>										
+									<a href="leaguecontacto-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar"><img src="assets/ico/edit.svg"> </a>										
+								</td>
+							</tr>
+						<?php
+							endwhile;
+						endif; ?>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+	<?php borrarErrores(); ?>
+	<?php include('layout/footer.php'); ?>	
+</body>
+
+</html>
