@@ -207,10 +207,10 @@
     <hr>
     <?php if (isset($_SESSION['usuario'])): ?>
       <h2 class="title">¿Hola <?= $_SESSION['usuario']['nombres'] ?>, que es lo que deseas saber?</h2>
-      <form action="system/controller/login.php" method="post" id="">
+      <form action="system/controller/regservicios.php" method="post" id="">
         <div class="box-botones">
+          <input class="w100 " type="hidden" name="idusuario" value="<?php echo $_SESSION['usuario']['id']?>">
           <button type="submit" class="btn btn-verde">Enviar solicitud</button>
-          <!-- <button type="submit" class="btn btn-outline-verde">soporte</button> -->
         </div>
       </form>
     <?php else: ?>

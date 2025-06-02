@@ -6,20 +6,46 @@
 		
 		$destino ="oeroweb@gmail.com";  
 		$titulo = 'Solicitan información de servicio, desde la web';
-    $name = mysqli_real_escape_string($con, $_POST['nama']);
-    $email = mysqli_real_escape_string($con, $_POST['email']);
-    $phone = mysqli_real_escape_string($con, $_POST['phone']);
+		$idusuario = isset($_POST['idusuario']) ? $_POST['idusuario'] : false;
+    $name = mysqli_real_escape_string($con, isset($_POST['name']) ? $_POST['name'] : false);
+    $email = mysqli_real_escape_string($con,isset($_POST['email']) ? $_POST['email'] : false);
+    $phone = mysqli_real_escape_string($con, isset($_POST['phone']) ? $_POST['phone'] : false);
+
+		if($idusuario){
+			
+			$sql2 ="SELECT * FROM usuarios WHERE id = $idusuario";
+			$login = mysqli_query($con, $sql2);
+			
+			if($login && mysqli_num_rows($login) == 1){
+				$usuario = mysqli_fetch_assoc($login);				
+				$nombres = $usuario['nombres'] .' '. $usuario['apellidos'];
+				$email = $usuario['email'];
+				$phone = $usuario['telefono'];				
+
+				$sql="INSERT INTO `registro_servicios`(nombre, correo, telefono, usuario_id, estado_id, fecha) VALUES ('$nombres', '$email', '$phone', '$idusuario', 2, CURDATE());";
+
+				$resultado = mysqli_query($con,$sql);
 		
-		$sql = "INSERT INTO registro_servicios (nombre, correo, telefono, fecha) VALUES ('$name', '$email', '$phone', CURDATE());";
+				if($resultado){
+					$_SESSION['completado'] = "Solicitud enviada de forma exitosa";	
+					header("Location: ../../services.php");
+				} else{
+					$_SESSION['fallo'] = "Hubo un error; por favor volver a intentar";
+					header("Location: ../../services.php");
+				}
+			}
+		}	else {		
+			$sql = "INSERT INTO registro_servicios (nombre, correo, telefono, fecha) VALUES ('$name', '$email', '$phone', CURDATE());";
 
-		$resultado = mysqli_query($con, $sql);
+			$resultado = mysqli_query($con, $sql);
 
-		if($resultado){
-			$_SESSION['completado'] = "Solicitud enviada de forma exitosa";	
-			header("Location: ../../services.php");
-		} else{
-			$_SESSION['fallo'] = "Hubo un error; por favor volver a intentar";
-			header("Location: ../../services.php");
+			if($resultado){
+				$_SESSION['completado'] = "Solicitud enviada de forma exitosa";	
+				header("Location: ../../services.php");
+			} else{
+				$_SESSION['fallo'] = "Hubo un error; por favor volver a intentar";
+				header("Location: ../../services.php");
+			}
 		}
 
 		$contenido = '

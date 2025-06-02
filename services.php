@@ -23,7 +23,18 @@
 				</div>
 			</div>
 		</section>
+		
 		<section class="box-servicies">
+			<?php if (isset($_SESSION['completado'])): ?>
+				<div class="alerta-exito">
+					<?= $_SESSION['completado'] ?>
+				</div>
+			<?php elseif (isset($_SESSION['fallo'])): ?>
+				<div class="alerta-error">
+					<?= $_SESSION['fallo'] ?>
+				</div>
+			<?php endif; ?>
+
 			<?php
 				$datos = obtenerTodosDatosActivos($con, "servicios");
 				if (!empty($datos) && mysqli_num_rows($datos) >= 1):

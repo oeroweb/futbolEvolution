@@ -23,8 +23,8 @@ $subir_archivo = "";
 if ($nombre_imagen) {
   $subir_imagen = $tiempo .'.'. $extension;
 
-  $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/services/';	
-  // $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/PAGFutbolEvolution/assets/img/services/';
+  // $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/services/';	
+  $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/PAGFutbolEvolution/assets/img/services/';
   move_uploaded_file($_FILES['imagen']['tmp_name'], $carpeta_destino . $subir_imagen);
 } else {
   $subir_imagen = $imagen_existente;

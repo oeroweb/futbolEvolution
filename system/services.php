@@ -111,6 +111,37 @@ require_once "controller/helpers.php";
 					</tbody>
 				</table>
 			</div>			
+			
+			<div class="box-tabla mg-bt20">
+				<h3 class="subtitle">Solicitud de Servicios :</h3>
+				<table>
+					<thead>
+						<tr>
+							<th class="w20">Nombre</th>							
+							<th class="w20">Correo</th>
+							<th class="w20">Teléfono</th>
+							<th class="w20">Fecha</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$Somos = selectalldatos($con, "registro_servicios");
+						if (!empty($Somos) && mysqli_num_rows($Somos) >= 1):
+							while ($somo = mysqli_fetch_assoc($Somos)):
+						?>
+								<tr>
+									<td> <?= $somo['nombre'] ?> </td>									
+									<td><?= $somo['correo'] ?></td>
+									<td><?= $somo['telefono'] ?></td>
+									<td><?= formatearFecha($somo['fecha'])?></td>
+								</tr>
+						<?php
+							endwhile;
+						endif; ?>
+					</tbody>
+				</table>
+			</div>			
+		
 		</div>
 	</div>
 	<?php borrarErrores(); ?>
