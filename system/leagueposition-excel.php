@@ -41,7 +41,7 @@
 							<input class="w100" type="file" name="file" accept=".xlsx, .xls" id="txt_file">
 						</div>
 						<div class="flex">
-							<button class="btn2 btn-azul mg-r10" onclick="CargarExcel()">Mostrar datos del Excel</button>
+							<button class="btn2 btn-azul mg-r10" id="btn-mostrar" onclick="CargarExcel()">Mostrar datos del Excel</button>
 							<button class="btn-azul hidden" onclick="RegistrarExcel()" id="btn-guardar">Guardar Datos</button>
 						</div>											
 					</form>						
@@ -62,7 +62,10 @@
 		if(excel === ""){
 			$("#info").html("<div class='alerta-error'>Tienes que seleccionar un archivo.</div>");
 			return;
+		} else {
+			$("#info").html("");
 		}
+
 		var formData = new FormData();
 		var files = $("#txt_file")[0].files[0];
 		formData.append('archivoexcel', files);
@@ -77,6 +80,8 @@
 				$("#div_table").html(resp);
 				$("#btn-guardar").removeClass("hidden");
 				$("#btn-guardar").addClass("btn2");
+				$("#btn-mostrar").removeClass("btn-azul");
+				$("#btn-mostrar").addClass("btn-gris");
 			}
 		})
 		return false;

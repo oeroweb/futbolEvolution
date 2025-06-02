@@ -9,17 +9,19 @@ $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : false;
 $idlocal = isset($_POST['idlocal']) ? $_POST['idlocal'] : false;
 $en_descripcion = isset($_POST['en_descripcion']) ? $_POST['en_descripcion'] : false;
 $es_descripcion = isset($_POST['es_descripcion']) ? $_POST['es_descripcion'] : false;
+$imagen_existente = isset($_POST['imagen_existente']) ? $_POST['imagen_existente'] : false;
 $tiempo = time();
 
 $nombre_imagen = $_FILES['imagen']['name'];
 $tipo_imagen = $_FILES['imagen']['type'];
+$extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
 
 $subir_imagen = "";
 if ($nombre_imagen) {
-  $subir_imagen = $tiempo . $nombre_imagen;
+  $subir_imagen = $tiempo .'.'. $extension;
 
-  //$carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/slides/';	
-  $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/PAGFutbolEvolution/assets/img/ligas/';
+  $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/ligas/';	
+  // $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/PAGFutbolEvolution/assets/img/ligas/';
   move_uploaded_file($_FILES['imagen']['tmp_name'], $carpeta_destino . $subir_imagen);
 } else {
   $subir_imagen = $imagen_existente;

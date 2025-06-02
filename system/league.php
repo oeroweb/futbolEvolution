@@ -33,7 +33,7 @@ require_once "controller/helpers.php";
 					</thead>
 					<tbody>
 						<?php
-						$datos = selectalldatos($con, "ligasBannerTop");
+						$datos = selectalldatos($con, "ligasbannertop");
 						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
 							while ($dato = mysqli_fetch_assoc($datos)):
 						?>
@@ -85,8 +85,9 @@ require_once "controller/helpers.php";
 									<td>
 										<div class="flex justify-center">
 											<a href="league-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar"><img src="assets/ico/edit.svg"> </a>
+											<a href="leagueparties-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Subir partidos"><img src="assets/ico/upload.svg"> </a>
 											<a href="leagueposition-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Tabla de Posiciones"><img src="assets/ico/plus.svg"></a>
-											<a href="leaguefixture-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Fixture"><img src="assets/ico/plus-add.svg"> </a>
+											<a href="leaguefixture-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir y Editar Fixture"><img src="assets/ico/plus-add.svg"> </a>
 										</div>
 									</td>
 								</tr>
@@ -97,42 +98,8 @@ require_once "controller/helpers.php";
 				</table>
 			</div>
 
-      <div class="box-tabla mg-bt20">
-				<h3 class="subtitle">Sección Ligas Fixture:</h3>
-				<a href="league-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
-
-				<table>
-					<thead>
-						<tr>							
-							<th class="w10">Titulo</th>
-							<th class="w10">Descripción</th>												
-							<th class="w10">Opciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						$datos = selectalldatos($con, "ligasfixture");
-						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-							while ($dato = mysqli_fetch_assoc($datos)):
-						?>
-							<tr>									
-								<td><strong>EN: </strong> <?= $dato['en_titulo'] ?> <br> <strong>ES: </strong><?= $dato['es_titulo'] ?></td>
-								<td><strong>EN: </strong><?= $dato['en_descripcion'] ?> <br><strong>ES: </strong><?= $dato['es_descripcion'] ?></td>
-								<td>										
-									<a href="leaguefixture-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar"><img src="assets/ico/edit.svg"> </a>										
-								</td>
-							</tr>
-						<?php
-							endwhile;
-						endif; ?>
-					</tbody>
-				</table>
-			</div>
-      
 			<div class="box-tabla mg-bt20">
 				<h3 class="subtitle">Sección Ligas Contacto:</h3>
-				<a href="league-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
-
 				<table>
 					<thead>
 						<tr>							
@@ -160,6 +127,61 @@ require_once "controller/helpers.php";
 					</tbody>
 				</table>
 			</div>
+			
+			<hr class="mg-bt30">
+			
+			<div class="box-tabla ">
+				<h3 class="subtitle">Sección Partidos Actuales:</h3>
+				<a href="gamesoccer-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
+
+				<table>
+					<thead>
+						<tr>
+							<th class="w10">ID</th>
+							<th class="w10">Imagen</th>
+							<th class="w10">Campo/Sede</th>
+							<th class="w10">Dirección</th>
+							<th class="w10">Fecha</th>
+							<th class="w10">Genero</th>
+							<th class="w10">Hora</th>
+							<th class="w10">Costo</th>
+							<th class="w10">Versus</th>
+							<th class="w10">Opciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$datos = listaPartidos($con, 2);
+						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+							while ($dato = mysqli_fetch_assoc($datos)):
+						?>
+								<tr>
+									<td class="bold"><?= $dato['id'] ?> </td>
+									<td>
+										<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen1'] ?>" alt="img-partido">
+									</td>
+									<td><?= $dato['en_nombre'] ?> </td>
+									<td><?= $dato['en_direccion'] ?> </td>
+									<td><?= $dato['fecha_partido'] ?> </td>
+									<td><?= $dato['genero'] ?></td>
+									<td><?= $dato['hora'] ?></td>
+									<td>$<?= $dato['costo'] ?></td>
+									<td><?= $dato['nombreCantidad'] ?></td>
+									<td>
+										<div class="flex justify-center">
+											<a href="gamesoccer-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar"><img src="assets/ico/edit.svg"> </a>
+											<a href="gamesoccerteams.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Equipos"><img src="assets/ico/plus.svg"> </a>
+											<a href="gamesoccerplayers.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Jugadores"><img src="assets/ico/plus-add.svg"> </a>
+										</div>
+									</td>
+								</tr>
+						<?php
+							endwhile;
+						endif; ?>
+					</tbody>
+				</table>
+			</div>      
+			
 
 		</div>
 	</div>

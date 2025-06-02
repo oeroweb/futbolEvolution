@@ -28,12 +28,12 @@ require_once "controller/helpers.php";
 					<form action="models/add/addgamelocals.php" class="box-formulario" enctype="multipart/form-data" method="post">
 						<div class="w100 container-wrap mg-bt10">
 							<div class="box-input">
-								<label for="nombre">Nombre del Local/sede deportiva: </label>
-								<input class="w100 " type="text" name="en_nombre" value="" required>
+								<label for="nombre">Nombre del sede/complejo deportiva: </label>
+								<input class="w100 " type="text" name="en_nombre" placeholder="Enter the name of the Sports Complex" required>
 							</div>
 							<div class="box-input">
 								<label for="descripcion">Dirección: </label>
-								<input class="w100 " type="text" name="en_direccion" value="" required>
+								<input class="w100 " type="text" name="en_direccion" placeholder="Enter address" required>
 							</div>
 							<div class="box-galeria-partidos">
 								<div class="box-input">
@@ -60,11 +60,11 @@ require_once "controller/helpers.php";
 							<hr class="w100 mg-bt10">
 							<div class="box-input">
 								<label for="">Url Google Maps: </label>
-								<input class=" " type="text" name="url_google" value="">
+								<input class=" " type="text" name="url_google" placeholder="Copy the url with the location from google maps">
 							</div>
 							<div class="box-input">
 								<label for="">Url Apple Maps: </label>
-								<input class="w100 " type="text" name="url_apple" value="">
+								<input class="w100 " type="text" name="url_apple" placeholder="copy the url with the location from apple maps">
 							</div>
 							<div class="box-input">
 									<label for="">Añadir Imagen de Mapa:</label>

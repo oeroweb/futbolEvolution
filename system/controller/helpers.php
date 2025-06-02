@@ -55,6 +55,8 @@
 		$usuario = mysqli_query($conexion, $sql);
 		if($usuario && mysqli_num_rows($usuario) >=1){
 			$resultado = $usuario;
+		} else {
+			$resultado = '';
 		}
 		return $resultado;
 	}
@@ -72,7 +74,11 @@
 	}
 	
 	function obtenerdatosActivos($conexion, $tabla, $id){
-		$sql = "SELECT * FROM $tabla where estado_id = 2 and liga_id = $id";
+		if (!empty($id)) {
+			$sql = "SELECT * FROM $tabla where estado_id = 2 and liga_id = $id";
+		} else {
+			$sql = "SELECT * FROM $tabla where estado_id = 2";
+		}
 
 		$datos = mysqli_query($conexion, $sql);
 		if($datos && mysqli_num_rows($datos) >=1){

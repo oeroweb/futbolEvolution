@@ -23,10 +23,10 @@
 
 		if($resultado){
       $_SESSION['completado'] = "Actualizado forma exitosa";	
-      header("Location: ../../game.php");
+      header("Location: ../../league.php");
     } else{
       $_SESSION['fallo'] = "Hubo un error; por favor volver a intentar";
-      header("Location: ../../game.php");
+      header("Location: ../../league.php");
     }		 		
  	
 ?>

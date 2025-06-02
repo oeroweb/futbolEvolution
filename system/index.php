@@ -33,6 +33,7 @@
     }
 
     .container .form {
+      max-width: 450px;
       background: #fff;
       padding: 30px 35px;
       border-radius: 5px;

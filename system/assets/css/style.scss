@@ -58,7 +58,7 @@ html,body{
 .btn { padding: 2px; color: $crblanco; display: inline-flex; justify-content: center; align-items: center; transition: $trst3; border-radius: $radius; cursor: pointer; font-size: 14px; font-weight: 300; 
 }
 
-.btn2 { padding: 10px 24px; border-radius: $radius; color: $crblanco; border: 1px solid $crverde; transition: $trst3; font-size: 14px; font-weight: 700; display: inline-flex; justify-content: center;
+.btn2 { padding: 10px 24px; border-radius: $radius; color: $crblanco; border: none; transition: $trst3; font-size: 14px; font-weight: 700; display: inline-flex; justify-content: center; cursor: pointer;
 }
 
 .btn-rojo {
@@ -72,6 +72,7 @@ html,body{
 }
 .btn-azul { background-color: $crazul; border: 1px solid $crazul;  }
 .btn-verde { background-color: $crverde; }
+.btn-gris { background-color: $crgris; }
 
 /**************************************
 ***            LOADER             ****
@@ -163,9 +164,10 @@ html,body{
   .title{ margin-bottom: 24px; border-bottom: 2px solid $crazul; font-weight: 700;}
   .subtitle{ font-weight: 500; margin-bottom: 16px; color: $crazul; }
   .box-tabla{width: 100%; font-size: 14px; background-color: $crblanco2; padding: 20px 10px; border-radius: $radius; margin-bottom: 36px; box-sizing: border-box;  box-shadow:0px 0px 2px rgba(0, 0, 0, .5);
-    .btn-ico{ width: 30px;}
-    .btn{ padding: 10px 20px;}
-    table{ margin-top: 20px;}
+    .btn{ padding: 10px 20px;}    
+    table{ margin-top: 20px; width: 100%;      
+      .btn-ico{ width: 24px; padding: 8px; margin-right: 2px;}
+    }
     th{ font-size: 16px; color: $crazul;}
     td{ text-align: center; padding-bottom: 24px; }
     .box-imagenes{ display: grid; grid-template-columns: 1fr 1fr; gap: 2px; 
@@ -183,6 +185,7 @@ html,body{
       textarea{ resize: none;}
       img{height: 240px; object-fit: cover;}
       .img-beneficio{ width: 54px; height: auto;}
+      .box-archivo { background-color: $crazullight; color: $crblanco; padding: 10px 20px; border-left: 5px solid $crazul; width: fit-content; border-radius: $radius;}
     }
     .box-galeria-partidos{ display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 16px;} 
     .box-beneficios-partidos{ display: grid; grid-template-columns: repeat(5, 100px); column-gap: 16px;

@@ -37,8 +37,8 @@
 			if($tipo_imagen1=="image/jpeg" || $tipo_imagen1=="image/jpg" || $tipo_imagen1=="image/png"){
 				$subir_imagen1 = $tiempo . $nombre_imagen1;
 			
-				//$carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/slides/';	
-				$carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/PAGFutbolEvolution/assets/img/partidos/';
+				$carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/partidos/';	
+				// $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/PAGFutbolEvolution/assets/img/partidos/';
 				move_uploaded_file($_FILES['imagen1']['tmp_name'], $carpeta_destino.$subir_imagen1);
 			} else {					
 				$_SESSION['fallo'] = "Error la imagen 1 no es una imagen, vuele a probar";

@@ -19,11 +19,6 @@
       $_SESSION['fallo'] = "Hubo un error; por favor volver a intentar";
       header("Location: ../../league.php");
     }
-			
-		// if($resultado){
-		// 	echo json_encode(array('error' => false));
-		// }else{
-		// 	echo json_encode(array('error' => true));
-		// }			 		
+				 		
  	
 ?>

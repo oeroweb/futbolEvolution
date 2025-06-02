@@ -22,7 +22,7 @@ require_once "controller/helpers.php";
 			<?php endif; ?>
 
 			<div class="box-tabla mg-bt20">
-				<h3 class="subtitle">Sección Slider:</h3>
+				<h3 class="subtitle">Sección Slider Gancho:</h3>
 				<a href="homeslider-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
 
 				<table>
@@ -75,7 +75,52 @@ require_once "controller/helpers.php";
 			</div>
 
 			<div class="box-tabla mg-bt20">
-				<h3 class="subtitle">Sección Nosotros:</h3>
+				<h3 class="subtitle">Sección Partidos Gancho:</h3>
+				<a href="homeparties-excel.php" class="btn btn-azul" title="Subir partidos">
+					<img src="assets/ico/upload.png"> Añadir
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th class="w20">Titulo</th>
+							<th class="w30">Descripción</th>
+							<th class="w10">Estado</th>
+							<th class="w10">Opciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$Somos = selectalldatos($con, "homepartidos");
+						if (!empty($Somos) && mysqli_num_rows($Somos) >= 1):
+							while ($somo = mysqli_fetch_assoc($Somos)):
+						?>
+								<tr>
+									<td><strong>EN: </strong> <?= $somo['en_titulo'] ?> <br> <strong>ES: </strong><?= $somo['es_titulo'] ?></td>
+									<td><strong>EN: </strong><?= $somo['en_descripcion'] ?> <br><strong>ES: </strong><?= $somo['es_descripcion'] ?></td>
+									<td>
+										<div class="flex-col align-center">
+											<?php if ($somo['estado_id'] == 1) : ?>
+												<p class="estado">No Publicado</p>
+											<?php else : ?>
+												<p class="estado">Publicado</p>
+											<?php endif; ?>
+										</div>
+									</td>
+									<td>
+										<div class="flex justify-center">											
+											<a href="homeparties-edit.php?id=<?= $somo['id'] ?>" class="btn btn-ico"><img src="assets/ico/edit.svg"> </a>
+										</div>
+									</td>
+								</tr>
+						<?php
+							endwhile;
+						endif; ?>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="box-tabla mg-bt20">
+				<h3 class="subtitle">Sección Gancho Juega con Nosotros:</h3>
 				<table>
 					<thead>
 						<tr>
@@ -121,7 +166,7 @@ require_once "controller/helpers.php";
 			</div>
 
 			<div class="box-tabla mg-bt20">
-				<h3 class="subtitle">Sección Banner:</h3>
+				<h3 class="subtitle">Sección Gancho Ligas:</h3>
 				<table>
 					<thead>
 						<tr>

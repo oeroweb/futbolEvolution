@@ -55,58 +55,7 @@ require_once "controller/helpers.php";
 					</tbody>
 				</table>
 			</div>
-
-			<div class="box-tabla ">
-				<h3 class="subtitle">Sección Partidos Actuales:</h3>
-				<a href="gamesoccer-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
-
-				<table>
-					<thead>
-						<tr>
-							<th class="w10">ID</th>
-							<th class="w10">Imagen</th>
-							<th class="w10">Campo/Sede</th>
-							<th class="w10">Dirección</th>
-							<th class="w10">Fecha</th>
-							<th class="w10">Genero</th>
-							<th class="w10">Hora</th>
-							<th class="w10">Costo</th>
-							<th class="w10">Versus</th>
-							<th class="w10">Opciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						$datos = listaPartidos($con, 2);
-						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-							while ($dato = mysqli_fetch_assoc($datos)):
-						?>
-								<tr>
-									<td class="bold"><?= $dato['id'] ?> </td>
-									<td>
-										<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen1'] ?>" alt="img-partido">
-									</td>
-									<td><?= $dato['en_nombre'] ?> </td>
-									<td><?= $dato['en_direccion'] ?> </td>
-									<td><?= $dato['fecha_partido'] ?> </td>
-									<td><?= $dato['genero'] ?></td>
-									<td><?= $dato['hora'] ?></td>
-									<td>$<?= $dato['costo'] ?></td>
-									<td><?= $dato['nombreCantidad'] ?></td>
-									<td>
-										<div class="flex justify-center">
-											<a href="gamesoccer-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar"><img src="assets/ico/edit.svg"> </a>
-											<a href="gamesoccerteams.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Equipos"><img src="assets/ico/plus.svg"> </a>
-											<a href="gamesoccerplayers.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Jugadores"><img src="assets/ico/plus-add.svg"> </a>
-										</div>
-									</td>
-								</tr>
-						<?php
-							endwhile;
-						endif; ?>
-					</tbody>
-				</table>
-			</div>
+			
 
 			<hr class="mg-bt30">
 			<div class="box-tabla">
@@ -176,7 +125,7 @@ require_once "controller/helpers.php";
 				</table>
 			</div>
 			
-			<div class="box-tabla">
+			<!-- <div class="box-tabla">
 				<h3 class="subtitle">Sección Equipos:</h3>
 				<a href="gameteams-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
 
@@ -232,7 +181,7 @@ require_once "controller/helpers.php";
 						endif; ?>
 					</tbody>
 				</table>
-			</div>			
+			</div>			 -->
 
 		</div>
 		<?php borrarErrores(); ?>

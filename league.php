@@ -7,7 +7,7 @@
 		<section class="league-banner">
 			<div class="boxoverlay">
 				<div class="flex align-center center">
-				<?php
+					<?php
 						$datos = selectalldatos($con, "ligasBannerTop");
 						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
 							while ($dato = mysqli_fetch_assoc($datos)):
@@ -41,7 +41,7 @@
 					?>	
 					<div class="card-partido">
 						<a href="league-detail.php?id=<?=$dato['id']?>">
-							<img src="assets/img/partidos/<?=$dato['imagen1']?>" class="image-card" alt="">
+							<img src="assets/img/ligas/<?=$dato['imagen']?>" class="image-card" alt="">
 							<div class="box-precio">
 								<div class="texto"><?=$dato['en_nombre']?></div>
 							</div>							

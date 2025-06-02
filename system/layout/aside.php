@@ -40,7 +40,7 @@
             </li>            
           </ul>
         </li>
-        <!-- <li class="item-list">
+        <li class="item-list">
           <ul class="sublist">
             <li class="item-sublist">
               <a href="sponsor.php">
@@ -49,21 +49,21 @@
               </a>  
             </li>
           </ul>
+        </li>        
+        <li class="item-list">
+          <ul class="sublist">
+            <li class="item-sublist">
+              <a href="globales.php">
+                <img src="assets/ico/list_add.svg" class="icon-img" alt="icono">                  
+                <span>Globales - Cargas</span>
+              </a>  
+            </li>
+          </ul>
         </li> 
         <li class="item-list">
           <ul class="sublist">
             <li class="item-sublist">
-              <a href="upfiles.php">
-                <img src="assets/ico/list_add.svg" class="icon-img" alt="icono">                  
-                <span>Carga de Excel</span>
-              </a>  
-            </li>
-          </ul>
-        </li> -->
-        <li class="item-list">
-          <ul class="sublist">
-            <li class="item-sublist">
-              <a href="usuarios.php">
+              <a href="listado-usuarios.php">
                 <img src="assets/ico/user.png" class="icon-img" alt="icono">                  
                 <span>Usuarios</span>
               </a>  

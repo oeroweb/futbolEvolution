@@ -18,8 +18,7 @@
 		} else{
 			$_SESSION['fallo'] = "Hubo un error; por favor volver a intentar";
 			header("Location: ../../home.php");
-		}		 		
-
+		}
 	}
  	
 ?>

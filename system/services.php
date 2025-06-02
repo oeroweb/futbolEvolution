@@ -22,9 +22,49 @@ require_once "controller/helpers.php";
 			<?php endif; ?>
 
 			<div class="box-tabla mg-bt20">
-				<h3 class="subtitle">Sección:</h3>
-				<!-- <a href="homeslider-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a> -->
+				<h3 class="subtitle">Sección Banner:</h3>
+				<table>
+					<thead>
+						<tr>
+							<th class="w20">Titulo</th>
+							<th class="w30">Descripción</th>
+							<th class="w10">Estado</th>
+							<th class="w10">Opciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$Somos = selectalldatos($con, "serviciosbanner");
+						if (!empty($Somos) && mysqli_num_rows($Somos) >= 1):
+							while ($somo = mysqli_fetch_assoc($Somos)):
+						?>
+								<tr>
+									<td><strong>EN: </strong> <?= $somo['en_titulo'] ?> <br> <strong>ES: </strong><?= $somo['es_titulo'] ?></td>
+									<td><strong>EN: </strong><?= $somo['en_descripcion'] ?> <br><strong>ES: </strong><?= $somo['es_descripcion'] ?></td>
+									<td>
+										<div class="flex-col align-center">
+											<?php if ($somo['estado_id'] == 1) : ?>
+												<p class="estado">No Publicado</p>
+											<?php else : ?>
+												<p class="estado">Publicado</p>
+											<?php endif; ?>
+										</div>
+									</td>
+									<td>
+										<div class="flex justify-center">											
+											<a href="servicesbanner-edit.php?id=<?= $somo['id'] ?>" class="btn btn-ico"><img src="assets/ico/edit.svg"> </a>
+										</div>
+									</td>
+								</tr>
+						<?php
+							endwhile;
+						endif; ?>
+					</tbody>
+				</table>
+			</div>
 
+			<div class="box-tabla mg-bt20">
+				<h3 class="subtitle">Sección Nuestros Servicios:</h3>
 				<table>
 					<thead>
 						<tr>
@@ -37,12 +77,12 @@ require_once "controller/helpers.php";
 					</thead>
 					<tbody>
 						<?php
-						$Somos = selectalldatos($con, "homeslider");
+						$Somos = selectalldatos($con, "servicios");
 						if (!empty($Somos) && mysqli_num_rows($Somos) >= 1):
 							while ($somo = mysqli_fetch_assoc($Somos)):
 						?>
 								<tr>
-									<td><img class="img-list" src="../assets/img/slides/<?= $somo['imagen'] ?>" alt="img-slider"> </td>
+									<td><img src="../assets/img/services/<?= $somo['imagen'] ?>" </td>
 									<td><strong>EN: </strong> <?= $somo['en_titulo'] ?> <br> <strong>ES: </strong><?= $somo['es_titulo'] ?></td>
 									<td><strong>EN: </strong><?= $somo['en_descripcion'] ?> <br><strong>ES: </strong><?= $somo['es_descripcion'] ?></td>
 									<td>
@@ -57,13 +97,11 @@ require_once "controller/helpers.php";
 									<td>
 										<div class="flex justify-center">
 											<?php if ($somo['estado_id'] == 1) : ?>
-												<a href="models/updates/homeslider-public.php?id=<?= $somo['id'] ?>" class="btn btn-ico" title="Publicar"><img src="assets/ico/check.svg"></a>
+												<a href="models/updates/servicebanner-public.php?id=<?= $somo['id'] ?>" class="btn btn-ico" title="Publicar"><img src="assets/ico/check.svg"></a>
 											<?php else : ?>
-												<a href="models/updates/homeslider-private.php?id=<?= $somo['id'] ?>" class="btn btn-ico" title="Quitar Publicación"><img src="assets/ico/x.png"></a>
+												<a href="models/updates/servicebanner-private.php?id=<?= $somo['id'] ?>" class="btn btn-ico" title="Quitar Publicación"><img src="assets/ico/x.png"></a>
 											<?php endif; ?>
-											<a href="homeslider-edit.php?id=<?= $somo['id'] ?>" class="btn btn-ico"><img src="assets/ico/edit.svg"> </a>
-											<!-- <a href="deletes/homebanner-delete.php?id=<? //=$somo['id']
-																																			?>" class="btn btn-rojo btn-ico"><img src="assets/ico/delete.svg"> </a> -->
+											<a href="services-edit.php?id=<?= $somo['id'] ?>" class="btn btn-ico"><img src="assets/ico/edit.svg"> </a>
 										</div>
 									</td>
 								</tr>

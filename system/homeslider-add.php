@@ -30,13 +30,13 @@ require_once "controller/helpers.php";
 						<div class="w100 container-wrap mg-bt10">
 							<div class="box-input">
 								<label for="nombre">Titulo del Banner: </label>	
-								<input class="w100 " type="text" name="en_titulo" value="">
-								<input class="w100 " type="text" name="es_titulo" value="">
+								<input class="w100 " type="text" name="en_titulo" placeholder="Slider title">
+								<input class="w100 " type="text" name="es_titulo" placeholder="Titulo del slider">
 							</div>
 							<div class="box-input">
 								<label for="descripcion">Descripción: </label>						
-								<input class="w100 " type="text" name="en_descripcion" value="">
-								<input class="w100 " type="text" name="es_descripcion" value="">
+								<input class="w100 " type="text" name="en_descripcion" placeholder="Slider description">
+								<input class="w100 " type="text" name="es_descripcion" placeholder="Descripción del slider">
 							</div>
 
 							<div class="box-input">								

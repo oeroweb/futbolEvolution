@@ -1,10 +1,10 @@
 <?php
 
-  require_once '../controller/connection.php';
-  $sql = "SELECT * FROM usertable";
-//   $sql = "SELECT u.*, p.nombre as nombreperfil FROM usuarios u INNER JOIN perfil p 
-//   on u.perfil_id = p.id
-//   WHERE u.estado_id = 1 and p.id < 3";
+require_once '../controller/connection.php';
+  $sql = "SELECT u.*, e.nombre as nombreestado 
+  FROM usuarios u INNER JOIN estados e 
+  on u.estado_id = e.id
+  WHERE u.estado_id = 2";
 
   $result = mysqli_query($con, $sql);
 

@@ -2,6 +2,7 @@
 
   require '../modelo_excel.php';
   $ME = new Modelo_Excel();
+  require_once '../../controller/connection.php';
 
   $equipo = htmlspecialchars($_POST['equipo'],ENT_QUOTES,'UTF-8');
   $pj = htmlspecialchars($_POST['pj'],ENT_QUOTES,'UTF-8');
@@ -25,9 +26,14 @@
   $array_dg = explode(",", $dg);
   $array_pts = explode(",", $pts);
   
-  for($i = 0; $i < count($array_equipo); $i++){
-    $consulta = $ME -> Registrar_Excel($array_equipo[$i], $array_pj[$i], $array_g[$i], $array_e[$i], $array_p[$i], $array_gf[$i], $array_gc[$i], $array_dg[$i], $array_pts[$i], $idLiga, 2, $fecha);
+  $sql="UPDATE `ligas_tb_posiciones` SET estado_id= 1 where liga_id='$idLiga'";
+  $resultado = mysqli_query($con, $sql);
+
+  if($resultado){
+    for($i = 0; $i < count($array_equipo); $i++){
+      $consulta = $ME -> Registrar_Excel($array_equipo[$i], $array_pj[$i], $array_g[$i], $array_e[$i], $array_p[$i], $array_gf[$i], $array_gc[$i], $array_dg[$i], $array_pts[$i], $idLiga, 2, $fecha);
+    }
   }
-  echo $consulta; 
+  echo $consulta;
   
 ?>

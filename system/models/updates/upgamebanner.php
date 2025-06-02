@@ -1,4 +1,5 @@
 <?php 
+	if(isset($_POST)){
 		session_start();
 		require_once '../../controller/connection.php';
 		
@@ -8,7 +9,7 @@
     $en_descripcion = isset($_POST['en_descripcion']) ? $_POST['en_descripcion'] : false;		
     $es_descripcion = isset($_POST['es_descripcion']) ? $_POST['es_descripcion'] : false;
 
-		$sql="UPDATE partidosbanner SET en_titulo='$en_titulo', es_titulo='$es_titulo', en_descripcion='$en_descripcion', es_descripcion='$es_descripcion'  WHERE id = $id;";
+		$sql="UPDATE partidosbanner SET en_titulo='$en_titulo', es_titulo='$es_titulo', en_descripcion='$en_descripcion', es_descripcion='$es_descripcion' WHERE id = $id;";
 		
 		$resultado = mysqli_query($con,$sql);
 
@@ -19,11 +20,8 @@
       $_SESSION['fallo'] = "Hubo un error; por favor volver a intentar";
       header("Location: ../../game.php");
     }
-			
-		// if($resultado){
-		// 	echo json_encode(array('error' => false));
-		// }else{
-		// 	echo json_encode(array('error' => true));
-		// }			 		
+
+	}
+				 		
  	
 ?>

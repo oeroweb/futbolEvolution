@@ -20,20 +20,75 @@ $(document).ready(function(){
 		$(".navbar").toggleClass("left0");
 	});
 
+	$(".btn-cerrar").click(function(){
+		$("#modal").addClass("hidden");
+		$("#modal").removeClass("mostrar");
+		$("#modal2").addClass("hidden");
+		$("#modal2").removeClass("mostrar");
+		$("#modal3").addClass("hidden");
+		$("#modal3").removeClass("mostrar");
+		$("#modal11").addClass("hidden");
+		$("#modal11").removeClass("mostrar");
+		$("#modal12").addClass("hidden");
+		$("#modal12").removeClass("mostrar");
+		$("body").removeClass("overflow");
+	});
+
 	$("#btn-login").click(function(){
 		$("#modal").addClass("mostrar");
 		$("#modal").removeClass("hidden");
+		$("body").addClass("overflow");
+	});
+	
+	$("#btn-registrate").click(function(){
+		$("#modal").addClass("hidden");
+		$("#modal").removeClass("mostrar");
+		$("#modal2").addClass("mostrar");
+		$("#modal2").removeClass("hidden");
+		$("body").addClass("overflow");
+	});
+	
+	$(".btn-login").click(function(){
+		$("#modal").addClass("mostrar");
+		$("#modal").removeClass("hidden");
+		$("body").addClass("overflow");
+	});
+	
+	$("#btn-login2").click(function(){
+		$("#modal2").addClass("hidden");
+		$("#modal2").removeClass("mostrar");
+		$("#modal").addClass("mostrar");
+		$("#modal").removeClass("hidden");
+		$("body").addClass("overflow");
+	});
+
+	$("#btn-contacto").click(function(){
+		console.log('click');
+		$("#modal3").removeClass("hidden");
+		$("#modal3").addClass("mostrar");
 		$("body").addClass("overflow");
 	});
 
 	$("#btn-perfil").click(function(){
 		$(".sub-perfil").addClass("flex");
 		$(".sub-perfil").removeClass("hidden");
+		$("body").addClass("overflow");
 	});
 
 	$("#btn-perfil2").click(function(){
-		$("#modal2").addClass("mostrar");
-		$("#modal2").removeClass("hidden");
+		$("#modal11").addClass("mostrar");
+		$("#modal11").removeClass("hidden");
+		$("body").addClass("overflow");
+	});
+	
+	$("#btn-step").click(function(){
+		$("#step-2").addClass("grid");
+		$("#step-2").removeClass("hidden");
+		$("#step-1").addClass("hidden");
+		$("#step-1").removeClass("grid");
+		$(this).removeClass("btn");
+		$(this).addClass('hidden');
+		$("#btn-submit").addClass('btn');
 	});
 
 	// CERRAR ALERTAS
