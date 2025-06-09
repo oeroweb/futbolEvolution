@@ -33,11 +33,10 @@
 				</div>	
 				<div class="container-grid">
 					<?php 
-						$datos = listaLigas($con, 2);
-						$formato1 = 'd/m/Y';
+						$datos = listaLigas($con, 2);						
 						if(!empty($datos) && mysqli_num_rows($datos) >= 1):
 							while($dato = mysqli_fetch_assoc($datos)):	
-							$newFecha = formatearFecha($dato['fecha_liga'], $formato1);
+							$newFecha = formatearFecha($dato['fecha_liga']);
 					?>	
 					<div class="card-partido">
 						<a href="league-detail.php?id=<?=$dato['id']?>">

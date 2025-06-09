@@ -85,9 +85,10 @@ require_once "controller/helpers.php";
 									<td>
 										<div class="flex justify-center">
 											<a href="league-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar"><img src="assets/ico/edit.svg"> </a>
-											<a href="leagueparties-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Subir partidos"><img src="assets/ico/upload.svg"> </a>
+											<a href="leagueparties-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Partidos Destacados"><img src="assets/ico/upload.svg"> </a>
 											<a href="leagueposition-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Tabla de Posiciones"><img src="assets/ico/plus.svg"></a>
 											<a href="leaguefixture-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir y Editar Fixture"><img src="assets/ico/plus-add.svg"> </a>
+											<a href="models/updates/league-private.php?id=<?= $dato['id'] ?>" class="btn btn-rojo btn-ico" title="Eliminar Liga"><img src="assets/ico/delete.svg"> </a>
 										</div>
 									</td>
 								</tr>

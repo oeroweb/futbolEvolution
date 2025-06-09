@@ -8,8 +8,7 @@
 		$email = isset($_POST['email']) ? $_POST['email'] : false;	
     $telefono = isset($_POST['phone']) ? $_POST['phone'] : false;   
 
-		if($idusuario){
-			
+		if($idusuario){			
 			$sql2 ="SELECT * FROM usuarios WHERE id = $idusuario";
 			$login = mysqli_query($con, $sql2);
 			
@@ -19,9 +18,7 @@
 				$email = $usuario['email'];
 				$phone = $usuario['telefono'];				
 
-				$sql="INSERT INTO `sponsor`(nombre, capitan, liga, correo, telefono, usuario_id, estado_id, fecha) VALUES ('$nombre', '$capitan2', '$liga', '$email', '$phone', '$idusuario', 2, CURDATE());";
-
-				$resultado = mysqli_query($con,$sql);
+				$sql="INSERT INTO `sponsor`(nombre, capitan, liga, correo, telefono, usuario_id, estado_id, fecha) VALUES ('$nombre', '$capitan2', '$liga', '$email', '$phone', '$idusuario', 2, CURDATE());";				$resultado = mysqli_query($con,$sql);
 		
 				if($resultado){
 					$_SESSION['completado'] = "El registro se completo de forma exitosa";	
@@ -32,9 +29,7 @@
 				}
 			}
 		}	else {
-
-			$sql="INSERT INTO `sponsor`(nombre, capitan, liga, correo, telefono, estado_id, fecha) VALUES ('$nombre', '$capitan', '$liga', '$correo', '$telefono', 2, CURDATE());";
-				
+			$sql="INSERT INTO `sponsor`(nombre, capitan, liga, correo, telefono, estado_id, fecha) VALUES ('$nombre', '$capitan', '$liga', '$correo', '$telefono', 2, CURDATE());";				
 			$resultado = mysqli_query($con,$sql);
 			
 			if($resultado){

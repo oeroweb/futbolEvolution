@@ -30,16 +30,16 @@
 			<div class="center">
 				<div class="box-retorno">
 					<a href="javascript:history.back()" title="Atras" class="flex align-center">
-						<img src="assets/img/ico/arrow_back.svg" class="img-ico">Return to list
+						<img src="assets/img/ico/arrow_back.svg" class="img-ico">Return to List
 					</a>
 				</div>
 				<hr>
 				<?php 
 					$datos = detallePartido($con, $id);
-					$formato1 = 'd/m/Y';
+					
 					if(!empty($datos) && mysqli_num_rows($datos) >= 1):
 						while($dato = mysqli_fetch_assoc($datos)):	
-						$newFecha = formatearFecha($dato['fecha_partido'], $formato1);
+						$newFecha = formatearFecha($dato['fecha_partido']);
 				?>	
 				<div class="container-grid-detail">
 					<div class="card-partido">

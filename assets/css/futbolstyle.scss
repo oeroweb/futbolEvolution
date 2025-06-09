@@ -679,6 +679,7 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
   }
 }
 
+
 /************************************
 ***          LOGIN           ***
 *************************************/
@@ -763,6 +764,9 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
 /********************************************
 ****               MODAL                ****
 *********************************************/
+.text-red{ color: $crrojo;}
+.inputError{ border-color: $crrojo !important;}
+
 .modal{ 
   position: absolute; width:100%; height: 100vh; top:0; left: 0; 
   background-color: rgba(1, 16, 39, 0.8);   
@@ -772,18 +776,22 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
   .closed-modal{display:flex; justify-content: flex-end; padding:15px; font-size:20px; color:$crblanco; }
   .box-modal{ background-color: $crblanco; color: $crnegro; display: flex; flex-direction: column; border-radius: $radius; position: relative; font-family: "Lato", sans-serif;
     img{ width: 156px;}
+    .img-ico-small{ width: 16px; height: 16px; margin-right: 4px;}
     .img-ico{ width: 20px; height: 20px;}
     .header-modal{ display: flex; align-items: center; justify-content: space-between; }
     .title{ color: $texto; font-weight: 700; font-size: 24px; margin-bottom: 40px;}
     .title-big{ color: $texto; font-weight: 700; font-size: 32px; }
     .texto{ font-size: 12px; line-height: 28px; font-weight: 500;}
+    .texto-alerta{ font-size: 12px; line-height: 16px; display: flex; align-items: center;}
     .btn-outline{ color: $crverde; font-weight: 600;}
     form{
       input, select{font-size: 14px; padding: 0 12px; line-height: 36px; border-radius: 4px; border-color: $crgris; outline: none; }
-      label{ margin-left: 8px;}
+      label{ font-weight: 700; margin-bottom: 4px; display: block;}
       select{ padding: 12px;}
     }
-    .box-input{margin-bottom: 12px;}
+    .box-input{margin-bottom: 12px;      
+      .error{ height: 20px; }
+    }
     .inputBox { position: relative; min-height: 60px;
       input { position: absolute; left: 0; top: 0;        
       }
@@ -792,6 +800,7 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
         font-size: 16px; top: 42%; transform: translateY(-50%);
       }
     }
+    
     .box-botones{ display: flex; flex-direction: column; gap: 16px; }
     .sinlogin{ font-weight: 700; font-size: 24px; 
       .texto{margin-bottom: 40px;}
@@ -804,7 +813,7 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
   }
   .modal-little{width: 460px; padding: 24px;}
   .modal-midle{width: 806px; padding: 40px;}
-  .form-grid{ grid-template-columns: 1fr 1fr; column-gap: 24px; }
+  .form-grid{ grid-template-columns: 1fr 1fr; column-gap: 24px; max-height: 450px; height: 100%; min-height: 300px; overflow-y: auto;}
   // .box-fullModal{ width: 416px; background-color: $crblanco; color: $crnegro; right: 0; height: 100vh;    
   // }
 }

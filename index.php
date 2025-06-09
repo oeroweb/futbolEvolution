@@ -20,7 +20,7 @@
 						</div>
 						<div class="box-botones flex justify-end">
 							<!-- <a href="game.php" class="btn btn-outline">Next matches</a> -->
-							<a href="game.php#partidos" class="btn btn-verde">see list of matches</a>
+							<a href="game.php#partidos" class="btn btn-verde">See List of Matches</a>
 						</div>
 						<!-- <div class="box-image-number">
 								<img src="assets/img/slides/1.svg" alt="imagen slider">
@@ -108,7 +108,7 @@
 							<h2 class="title"><?= $dato['en_titulo'] ?></h2>
 							<h2 class="subtitle"><?= $dato['en_subtitulo'] ?></h2>
 							<p class="texto"> <?= $dato['en_descripcion'] ?></p>
-							<a href="game.php#partidos" class="btn btn-verde">Play a match</a>
+							<a href="game.php#partidos" class="btn btn-verde">Play a Match</a>
 						</div>
 						<div class="box-image">
 							<img class="img-list" src="assets/img/home/<?= $dato['imagen'] ?>" alt="imagen de partido">
@@ -129,7 +129,7 @@
 						<div class="box-texto">
 							<h2 class="title"><?= $dato['en_titulo'] ?></h2>
 							<p class="texto"> <?= $dato['en_descripcion'] ?></p>
-							<a href="league.php" class="btn btn-verde">Watch league</a>
+							<a href="league.php" class="btn btn-verde">Watch League</a>
 						</div>
 				<?php
 					endwhile;

@@ -2,6 +2,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 a {
@@ -95,6 +96,10 @@ html, body {
   display: none;
 }
 
+.mostrar {
+  display: flex;
+}
+
 .btn {
   padding: 2px;
   color: #ffffff;
@@ -132,6 +137,11 @@ html, body {
 
 .btn-azul {
   background-color: #003e68;
+  border: 1px solid #003e68;
+}
+
+.btn-azul-outline {
+  color: #003e68;
   border: 1px solid #003e68;
 }
 
@@ -349,8 +359,8 @@ html, body {
 }
 .container-main .box-tabla table .btn-ico {
   width: 24px;
-  padding: 8px;
-  margin-right: 2px;
+  margin-right: 8px;
+  padding: 0;
 }
 .container-main .box-tabla th {
   font-size: 16px;
@@ -383,6 +393,11 @@ html, body {
   font-size: 10px;
   font-weight: 700;
   border: 1px solid #011027;
+}
+.container-main .box-tabla-datatable .btn-ico {
+  width: 30px;
+  cursor: pointer;
+  display: inline-block;
 }
 .container-main .img-ico {
   width: 24px;
@@ -464,4 +479,168 @@ html, body {
 .container-main .tabla-resultados td {
   padding: 10px;
   text-align: center;
+}
+
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.25);
+  display: none;
+  top: 0;
+  left: 0;
+  z-index: 200;
+}
+.modal .body-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+.modal .body-modal .form {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+}
+.modal .body-modal .form .title {
+  text-align: center;
+  color: #4d8ae6;
+}
+.modal .body-modal .form hr {
+  width: 100%;
+  margin: 8px 0;
+  height: 2px;
+  background-color: #4d8ae6;
+}
+.modal .body-modal .form .container-modal {
+  width: 500px;
+  height: 65vh;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+.modal .body-modal .form .container-modal .box-input {
+  position: relative;
+  margin-bottom: 16px;
+}
+.modal .body-modal .form .container-modal .box-input input, .modal .body-modal .form .container-modal .box-input select, .modal .body-modal .form .container-modal .box-input textarea {
+  padding: 8px 16px;
+  width: 100%;
+  height: 40px;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid rgba(28, 117, 188, 0.5);
+  box-sizing: border-box;
+}
+.modal .body-modal .form .container-modal .box-input input:hover, .modal .body-modal .form .container-modal .box-input input:focus, .modal .body-modal .form .container-modal .box-input select:hover, .modal .body-modal .form .container-modal .box-input select:focus, .modal .body-modal .form .container-modal .box-input textarea:hover, .modal .body-modal .form .container-modal .box-input textarea:focus {
+  border: 1px solid rgba(28, 117, 188, 0.9);
+}
+.modal .body-modal .form .container-modal .box-input textarea {
+  resize: none;
+  height: 50px;
+  max-height: 240px;
+  padding: 10px;
+}
+.modal .body-modal .form .container-modal .box-input textarea::-webkit-scrollbar {
+  width: 0px;
+}
+.modal .body-modal .form .container-modal .box-input label {
+  font-size: 18px;
+  line-height: 18px;
+  color: #bfbfbf;
+  margin-bottom: 4px;
+  display: block;
+  color: #003e68;
+  font-weight: 700;
+}
+.modal .body-modal .form .container-modal .box-input .btn-file {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background-color: #003e68;
+  color: #4d8ae6;
+  margin-bottom: 10px;
+}
+.modal .body-modal .form .container-modal-delete .mensaje {
+  margin: 12px 0;
+}
+.modal .body-modal .form .container-modal-delete .texto {
+  line-height: 24px;
+  margin-bottom: 16px;
+}
+.modal .body-modal .form .box-botones {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.modal .body-modal .form .box-botones .btn2 {
+  width: 100%;
+  max-width: 220px;
+}
+
+/**************************************
+***            DATATABLES         ***
+*************************************/
+.dataTable {
+  margin-bottom: 20px;
+  font-size: 14px;
+  z-index: 10;
+}
+
+.dataTables_length {
+  display: inline-block;
+  font-size: 16px;
+}
+.dataTables_length select {
+  padding: 6px;
+}
+
+.dt-button {
+  padding: 6px 12px;
+  border: 1px solid #003e68;
+  background-color: #003e68;
+  border-radius: 8px;
+  color: #ffffff;
+  transition: all 1s ease;
+}
+.dt-button:hover {
+  background-color: #4d8ae6;
+}
+
+table.dataTable thead th {
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.paginate_button.current {
+  background-color: #003e68;
+  color: #ffffff;
+  border: 1px solid #003e68;
+}
+
+.dataTables_filter {
+  display: inline-block;
+  margin-bottom: 4px;
+}
+.dataTables_filter input[type=search] {
+  border: 1px solid #003e68;
+  width: 250px;
+  padding: 7px;
+  border-radius: 8px;
+}
+
+.dataTables_wrapper {
+  margin-bottom: 30px;
+}
+
+.sorting_asc, .sorting {
+  text-transform: uppercase;
+  font-size: 13px;
+  background-color: #003e68;
+  color: #ffffff;
+  border: 1px solid #ffffff;
 }/*# sourceMappingURL=style.css.map */

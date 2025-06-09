@@ -31,6 +31,7 @@ $(document).ready(function(){
 		$("#modal11").removeClass("mostrar");
 		$("#modal12").addClass("hidden");
 		$("#modal12").removeClass("mostrar");
+		$("#form_register_user")[0].reset();
 		$("body").removeClass("overflow");
 	});
 
@@ -62,8 +63,7 @@ $(document).ready(function(){
 		$("body").addClass("overflow");
 	});
 
-	$("#btn-contacto").click(function(){
-		console.log('click');
+	$("#btn-contacto").click(function(){		
 		$("#modal3").removeClass("hidden");
 		$("#modal3").addClass("mostrar");
 		$("body").addClass("overflow");
@@ -78,6 +78,8 @@ $(document).ready(function(){
 	$("#btn-perfil2").click(function(){
 		$("#modal11").addClass("mostrar");
 		$("#modal11").removeClass("hidden");
+		$(".sub-perfil").addClass("hidden");
+		$(".sub-perfil").removeClass("flex");
 		$("body").addClass("overflow");
 	});
 	

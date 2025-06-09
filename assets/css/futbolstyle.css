@@ -1852,6 +1852,14 @@ hr {
 /********************************************
 ****               MODAL                ****
 *********************************************/
+.text-red {
+  color: #ff0000;
+}
+
+.inputError {
+  border-color: #ff0000 !important;
+}
+
 .modal {
   position: absolute;
   width: 100%;
@@ -1886,6 +1894,11 @@ hr {
 .modal .box-modal img {
   width: 156px;
 }
+.modal .box-modal .img-ico-small {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
 .modal .box-modal .img-ico {
   width: 20px;
   height: 20px;
@@ -1911,6 +1924,12 @@ hr {
   line-height: 28px;
   font-weight: 500;
 }
+.modal .box-modal .texto-alerta {
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+}
 .modal .box-modal .btn-outline {
   color: #5ab206;
   font-weight: 600;
@@ -1924,13 +1943,18 @@ hr {
   outline: none;
 }
 .modal .box-modal form label {
-  margin-left: 8px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: block;
 }
 .modal .box-modal form select {
   padding: 12px;
 }
 .modal .box-modal .box-input {
   margin-bottom: 12px;
+}
+.modal .box-modal .box-input .error {
+  height: 20px;
 }
 .modal .box-modal .inputBox {
   position: relative;
@@ -1991,6 +2015,10 @@ hr {
   grid-template-columns: 1fr 1fr;
   -moz-column-gap: 24px;
        column-gap: 24px;
+  max-height: 450px;
+  height: 100%;
+  min-height: 300px;
+  overflow-y: auto;
 }
 
 .modalfull {

@@ -25,21 +25,21 @@
 		<section class="game-container-grid" id="partidos">
 			<div class="center">
 				<div class="box-filtros container-nowrap space-between">
-					<p class="texto">Búsqueda por filtros</p>
+					<p class="texto">Búsqueda por Filtros</p>
 					<div class="container-iconos">
 						<img src="assets/img/ico/calendar.png" class="icon-filter" alt="icono calendario">
 						<img src="assets/img/ico/location.png" class="icon-filter" alt="icono ubicación">
-						<img src="assets/img/ico/user_black.png" class="icon-filter" alt="icono usuario">
+						<!-- <img src="assets/img/ico/user_black.png" class="icon-filter" alt="icono usuario"> -->
 					</div>
 				</div>
 				<hr>
 				<div class="container-grid">
 					<?php 
 						$datos = listaPartidos($con, 2);
-						$formato1 = 'd/m/Y';
+						
 						if(!empty($datos) && mysqli_num_rows($datos) >= 1):
 							while($dato = mysqli_fetch_assoc($datos)):	
-							$newFecha = formatearFecha($dato['fecha_partido'], $formato1);
+							$newFecha = formatearFecha($dato['fecha_partido']);
 					?>	
 					<div class="card-partido">
 						<a href="game-detail.php?id=<?=$dato['id']?>">

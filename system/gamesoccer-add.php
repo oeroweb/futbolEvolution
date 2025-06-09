@@ -44,9 +44,9 @@ require_once "controller/helpers.php";
 								<?php endif; ?>
 							</div>
 							<div class="box-input">
-								<label for='local'>Local o Sede</label>
+								<label for='local'>Local o Sede:</label>
 								<select name="idlocal" class="w100">
-									<option>Selecciona una sede</option>
+									<option>Selecciona un opción</option>
 									<?php
 									$partidos = selectDatosEstado($con, "partidoslocales", 2);
 									if (!empty($partidos) && mysqli_num_rows($partidos) >= 1):
@@ -65,9 +65,9 @@ require_once "controller/helpers.php";
 								<label for="descripcion">Genero: </label>
 								<select name="genero" class="w100">
 									<option>Selecciona genero</option>
-									<option value="female">Femenino</option>
-									<option value="male">Masculino</option>
-									<option value="mixto">Mixto</option>
+									<option value="Female">Femenino</option>
+									<option value="Male">Masculino</option>
+									<option value="Mixto">Mixto</option>
 								</select>
 							</div>
 							<div class="box-input">
@@ -83,7 +83,7 @@ require_once "controller/helpers.php";
 								<input class="" type="number" name="total_jugadores" value="">
 							</div>
 							<div class="box-input">
-								<label for='local'>Versus</label>
+								<label for='local'>Versus:</label>
 								<select name="idversus" class="w100">
 									<?php
 									$partidos = selectalldatos($con, "partidoscantidad");
@@ -98,9 +98,9 @@ require_once "controller/helpers.php";
 							<div class="box-input">
 								<label for="descripcion">Nivel de Juego: </label>
 								<select name="nivel" class="w100">
-									<option value="advanced">Advanced</option>
-									<option value="middle">Middle</option>
-									<option value="basic">Basic</option>
+									<option value="Advanced">Advanced</option>
+									<option value="Middle">Middle</option>
+									<option value="Basic">Basic</option>
 								</select>
 							</div>
 							<label for="nombre">Beneficios del partido: </label>

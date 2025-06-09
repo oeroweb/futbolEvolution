@@ -30,7 +30,7 @@
 		return $borrado;
 	}
 
-	function formatearFecha($fecha_string, $formato_salida = 'd/m/Y'){
+	function formatearFecha($fecha_string, $formato_salida = 'm/d/Y'){
     $fecha = strtotime($fecha_string);
 
     if ($fecha === false) {
@@ -249,6 +249,16 @@
 
 	function selectFilterDatos($conexion, $tabla, $campo){
 		$sql = "SELECT DISTINCT $campo FROM $tabla";
+		
+		$datos = mysqli_query($conexion, $sql);
+		if($datos && mysqli_num_rows($datos) >=1){
+			$resultado = $datos;
+		}
+		return $resultado;
+	}
+
+	function obtenerDatosPorCampo($conexion, $tabla, $campo, $valor){
+		$sql = "SELECT * FROM $tabla WHERE $campo = '$valor'";
 		
 		$datos = mysqli_query($conexion, $sql);
 		if($datos && mysqli_num_rows($datos) >=1){

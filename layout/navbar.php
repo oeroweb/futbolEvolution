@@ -26,7 +26,7 @@
       <div class="list-nav-link">        
         <?php if(isset($_SESSION['usuario'])): ?>
           <a href="#" class="nav-link" id="btn-perfil">              
-            <?php if($_SESSION['usuario']['genero'] === "male"): ?>
+            <?php if($_SESSION['usuario']['genero'] === "Male"): ?>
               <span><img src="assets/img/ico/user_hombre.svg" class="ico-perfil"></span>
             <?php else: ?>
               <span><img src="assets/img/ico/user_mujer.svg" class="ico-perfil"></span>

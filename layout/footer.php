@@ -58,24 +58,20 @@
         <?= $_SESSION['error_login'] ?>
       </div>
     <?php endif; ?>
-    <form action="system/controller/login.php" class="flex-col" method="post" id="form-login">
+    <form action="system/controller/login.php" class="flex-col" method="post" id="form-login" autocomplete="FALSE">
       <div class="box-input inputEmail">
-        <input type="text" name="email" class="input w100" placeholder="Email" onkeydown="" required>
-        <span class="erroremail" id="erroremail"></span>
+        <input type="email" name="email" class="input w100" id="email" placeholder="Enter your Email" onkeydown="validaemail()" required>
+        <div class="error" id="validaemail"></div>      
       </div>
       <div class="box-input inputBox">
-        <input type="password" name="password" id="" class="input w100" placeholder="Password" required>
-        <div class="toggle toggle-pass" onclick="showHide()">
-          <span id="span3"><i class="far fa-eye-slash"></i></span>
-          <span id="span4" class="hidden"><i class="far fa-eye"></i> </span>
-        </div>
+        <input type="password" name="password" id="password" class="input w100" placeholder="Ingresa tu contraseña" onkeydown="showHide()" required>        
         <span class="errorpassword" id="errorpassword"></span>
       </div>
       <div class="flex justify-start mg-bt40">
         <input type="checkbox" name="" id="">
         <label for="">Recordar contraseña</label>
       </div>
-      <button type="submit" class="btn btn-verde">Ingresar</button>
+      <button type="submit" name="login" class="btn btn-verde">Ingresar</button>
     </form>
     <div class="footer-modal">
       <hr>
@@ -95,19 +91,19 @@
     <hr>
     <h2 class="title-big">Create Account</h2>
     <p class="texto">Enter the following information and continue.</p>
-    <form action="system/controller/adduser.php" method="post">
+    <form action="system/controller/adduser.php" method="post" id="form_register_user">
       <div class="w100 grid form-grid" id="step-1">
         <div class="box-input">
           <label for="nombre">Name: </label>
-          <input class="w100 " type="text" name="nombre" required>
+          <input class="w100 " type="text" name="nombre" id="nombre" required>
         </div>
         <div class="box-input">
           <label for="apellidos">Last Name: </label>
-          <input class="w100 " type="text" name="apellidos" required>
+          <input class="w100 " type="text" name="apellidos" id="apellidos" required>
         </div>
         <div class="box-input">
-          <label for="genero">Gender : </label>
-          <select name="genero" id="" class="w100" required>
+          <label for="genero">Gender: </label>
+          <select name="genero" id="genero" class="w100" required>
             <option>Select an option</option>
             <option value="female">Female</option>
             <option value="male">Male</option>
@@ -115,38 +111,40 @@
         </div>
         <div class="box-input">
           <label for="fecha">Date of Birth: </label>
-          <input class="w100 " type="date" name="fecha" required>
+          <input class="w100 " type="date" name="fecha" id="fecha" required>
         </div>
         <div class="box-input">
           <label for="nacionalidad">Country: </label>
-          <select name="nacionalidad" class="w100" required>
+          <select name="nacionalidad" id="nacionalidad" class="w100" required>
             <option>Select an option</option>
             <?php 
                 $datos = selectalldatos($con, 'paises');
                 if(!empty($datos) && mysqli_num_rows($datos) >= 1):
                   while($dato = mysqli_fetch_assoc($datos)):
               ?>		
-              <option value="<?=$dato['iso']?>">
+              <option value="<?=$dato['id']?>">
                 <?=$dato['nombre']?>								
               </option>
             <?php endwhile; endif; ?>			       
           </select>
         </div>
         <div class="box-input">
-          <label for="telefono">Phone : </label>
+          <label for="telefono">Phone: </label>
           <input class="w100 " type="number" name="telefono" required>
         </div>
         <div class="box-input">
-          <label for="email">Email : </label>
-          <input class="w100 " type="email" name="correo" value="" autocomplete="false" required>
+          <label for="email">Email: </label>
+          <input class="w100" type="email" name="correo" id="email2" autocomplete="false" placeholder="Enter your Email" onkeydown="validaemail()" required>
+          <div class="error" id="validaemail2"></div>
         </div>
         <div class="box-input">
-          <label for="email">Password : </label>
-          <input class="w100 " type="password" name="password" id="password" required>
+          <label >Password: </label>
+          <input class="w100" type="password" name="password" id="rpassword" onkeyup="validaPassword();" onkeydown="showHide();" required>
         </div>
         <div class="box-input">
-          <label for="email">Repeat Password : </label>
-          <input class="w100 " type="password" name="" id="password2" required>
+          <label >Repeat Password: </label>
+          <input class="w100" type="password" name="" id="rpassword2" onkeyup="validaPassword();" onkeydown="showHide();" required>
+          <div class="error" id="error_password"></div>
         </div>
       </div>
       <div class="w100 form-grid hidden" id="step-2">
@@ -248,7 +246,7 @@
 
     <div class="container-body flex-col">
       <div class="flex-col align-center">
-        <?php if($dato['genero'] === "male"): ?>
+        <?php if($dato['genero'] === "Male"): ?>
           <img src="assets/img/ico/user_hombre.svg" class="img-perfil">
         <?php else: ?>
           <img src="assets/img/ico/user_mujer.svg" class="img-perfil">
@@ -293,7 +291,15 @@
         </div>        
         <div class="flex space-between">
           <p>País</p>
-          <p><?=$dato['nacionalidad'] ?></p>
+            <?php
+              $paises = obtenerdatos($con, "paises", $dato['nacionalidad']);
+              if (!empty($paises) && mysqli_num_rows($paises) >= 1):
+                while ($pais = mysqli_fetch_assoc($paises)):
+            ?>
+          <p><?=$pais['nombre'] ?></p>
+           <?php
+            endwhile;
+          endif; ?>
         </div>
         <div class="flex space-between">
           <p>Teléfono:</p>
@@ -344,13 +350,13 @@
 <div class="modalfull hidden" id="modal12">
   <div class="box-fullModal modal-little">
     <h2 class="title">¡Es hora de jugar! Ingresa y encuentra tu próximo partido!</h2>
-    <form action="system/controller/login.php" class="flex-col" method="post" id="form-login">
+    <form action="system/controller/login.php" class="flex-col" method="post" id="">
       <div class="box-input inputEmail">
-        <input type="text" name="email" class="input w100" id="email" placeholder="Email" onkeydown="" required>
-        <span class="erroremail" id="erroremail"></span>
+        <input type="text" name="email" class="input w100 email" id="email3" placeholder="Enter your Email" onkeydown="" required>
+        <div class="error" id="validaemail3"></div>
       </div>
       <div class="box-input inputBox">
-        <input type="password" name="password" id="" class="input w100" placeholder="Password" required>
+        <input type="password" name="password" id="" class="input w100" placeholder="Contraseña" onkeydown="showHide();" required>
         <div class="toggle toggle-pass" onclick="showHide()">
           <span id="span3"><i class="far fa-eye-slash"></i></span>
           <span id="span4" class="hidden"><i class="far fa-eye"></i> </span>
@@ -366,9 +372,13 @@
   </div>
 </div>
 
-
-
 <?php borrarErrores(); ?>
+
+<script src="assets/js/futbolquery.js"></script>
+<script src="assets/js/square.min.js"></script>
+<script src="assets/js/jquery.aniview.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+
 <script type="text/javascript">
   const currentLocation = location.href;
   const menuItem = document.querySelectorAll(".nav-link");
@@ -381,35 +391,140 @@
   }
 
   const password = document.getElementById('password'),
+    rpassword = document.getElementById('rpassword'),
+    rpassword2 = document.getElementById('rpassword2'),
     span3 = document.querySelector('#span3'),
     span4 = document.querySelector('#span4');
 
   function showHide() {
-    if (password.type == 'password') {
-      password.setAttribute('type', 'text');
-      span3.style.display = "none";
-      span4.style.display = "block";
+    if(password.type == 'password'){
+      password.setAttribute('type','text');
+    }
+    setTimeout(() => {
+      password.setAttribute('type','password');
+    }, 1000);    
+    
+    if(rpassword.type == 'password'){
+      rpassword.setAttribute('type','text');							
+    }
+    setTimeout(() => {
+      rpassword.setAttribute('type','password');	
+    }, 1000);
+    
+    if(rpassword2.type == 'password'){
+      rpassword2.setAttribute('type','text');							
+    }
+    setTimeout(() => {
+      rpassword2.setAttribute('type','password');			
+    }, 1000);
+    
+  }
+
+  function validaemail(){
+    var email = document.getElementById("email").value;
+    var email2 = document.getElementById("email2").value;
+    var validaemail = document.getElementById("validaemail");
+    var validaemail2 = document.getElementById("validaemail2");
+    var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    if(!email.match(pattern)){      
+      validaemail.innerHTML = "Correo invalido!";
+      validaemail.style.color = "#ff0000";
     } else {
-      password.setAttribute('type', 'password');
-      span3.style.display = "block";
-      span4.style.display = "none";
+      validaemail.innerHTML = "";
+      validaemail.style.color = "#ffffff";
+    }
+    
+    if(!email2.match(pattern)){      
+      validaemail2.innerHTML = "Correo invalido!";
+      validaemail2.style.color = "#ff0000";
+    } else {
+      validaemail2.innerHTML = "";
+      validaemail2.style.color = "#ffffff";
+    }
+  }
+
+  function validaPassword() {    
+    let password = document.getElementById('rpassword').value,
+      password2 = document.getElementById('rpassword2').value,
+      messageError = document.getElementById('error_password'),
+      btnStep = document.getElementById('btn-step');
+
+    if(password !== password2){
+      messageError.innerHTML = "<p class='texto-alerta text-red'><img src='assets/img/ico/alert-triangle.png' class='img-ico-small'> Las contraseñas no conciden</p>";      
+      password.classList.add('inputError');
+      password2.classList.add('inputError');
+      document.getElementById('btn-step').setAttribute("disabled", "");
+    } else {
+      messageError.innerHTML = "";
+      password.classList.remove('inputError');
+      password2.classList.remove('inputError');
+      document.getElementById('btn-step').removeAttribute("disabled");
     }
   }
 
   const modal = document.getElementById('modal');
-  const body = document.getEle
+  // const body = document.getEle
 
-  window.addEventListener('click', function(event) {
-    // Si haces clic fuera del contenido del modal
-    if (event.target === modal) {
-      modal.classList.remove("mostrar");
-      modal.classList.add("hidden");
-      document.body.classList.remove("overflow");
-    }
-  });
+  // window.addEventListener('click', function(event) {
+  //   // Si haces clic fuera del contenido del modal
+  //   if (event.target === modal) {
+  //     modal.classList.remove("mostrar");
+  //     modal.classList.add("hidden");
+  //     document.body.classList.remove("overflow");
+  //   }
+  // });
 </script>
 
-<script src="assets/js/futbolquery.js"></script>
-<script src="assets/js/square.min.js"></script>
-<script src="assets/js/jquery.aniview.js"></script>
-<script src="assets/js/owl.carousel.min.js"></script>
+<script>
+  $(document).ready(function(){
+		login();
+		
+    $("#form_register_user").submit(function(e) {
+      e.preventDefault();
+
+      const nombre = $('#nombre').val();
+      const turno = $('#apellidos').val();
+      const date = $('#genero').val();
+      const day = $('#fecha').val();
+      const local = $('#local').val();
+      const email = $('#email').val();
+      const cantidad = $('#cantidad').val();
+      const telefono = $('#telefono').val();
+      const comentario = $('#comentario').val();
+      let hora = $('#hora').val();
+    })
+	});
+
+  // var login = function(){
+	// 	$("#form_login").on("submit", function(){		
+	// 		e.preventDefault();
+	// 		var frm = $(this).serialize();			
+	// 		$.ajax({
+	// 			method: "POST",
+	// 			url: "system/controller/login.php",
+	// 			dataType: 'json',
+	// 			data: frm
+	// 		}).done(function(resultado){
+  //         console.log(resultado);
+	// 				if(!resultado.error){						
+	// 					$("#info_login").html("<div class='alerta-exito'><i class='far fa-check-circle'> </i>Se actualizarón los datos con exito!</div>");		
+	// 					$("#info_login").fadeOut(5000, function(){
+	// 						$(this).html("");
+	// 						$(this).fadeIn(2000);
+	// 					});						
+	// 					// cerrarmodal();
+	// 					// refresh();										
+	// 				}else{
+	// 				$("#info_login").html("<div class='alerta-error'><i class='fas fa-times-circle'></i> Hubo un error en el proceso por favor volver a probar!!</div>");
+	// 				$("#info_login").fadeOut(5000, function(){
+	// 					$(this).html("");
+	// 					$(this).fadeIn(2000);
+	// 					});
+	// 				// cerrarmodal();	
+	// 				}							
+	// 		});
+	// 	});	
+	// }
+</script>
+
