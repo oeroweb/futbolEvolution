@@ -1820,13 +1820,13 @@ hr {
   text-decoration: underline;
 }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
   .login .box-login, .login .box-imagen {
     width: 50%;
     transition: all 0.5s ease;
   }
 }
-@media screen and (max-width: 500px) {
+@media (max-width: 500px) {
   .minheight100 {
     min-height: 50%;
   }
@@ -1868,6 +1868,12 @@ hr {
   width: -moz-fit-content;
   width: fit-content;
   height: auto;
+  z-index: 1200;
+}
+@media (max-width: 500px) {
+  #info {
+    width: 99%;
+  }
 }
 
 .text-red {
