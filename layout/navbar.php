@@ -25,20 +25,34 @@
       </div>
       <div class="list-nav-link">        
         <?php if(isset($_SESSION['usuario'])): ?>
-          <a href="#" class="nav-link" id="btn-perfil">              
+          <a href="#" class="nav-link web" id="btn-perfil">              
             <?php if($_SESSION['usuario']['genero'] === "Male"): ?>
               <span><img src="assets/img/ico/user_hombre.svg" class="ico-perfil"></span>
             <?php else: ?>
               <span><img src="assets/img/ico/user_mujer.svg" class="ico-perfil"></span>
-            <?php endif; ?>  
-            <span class="hidden">Profile</span>            
+            <?php endif; ?>                       
           </a>
         <?php else: ?>
-          <a href="#" class="nav-link" id="btn-login">
+          <a href="#" class="nav-link web btn-login">
             <span><img src="assets/img/ico/user.png"></span>
             <span class="hidden">Login</span>
           </a>
-        <?php endif; ?>                 
+        <?php endif; ?>
+        <?php if(isset($_SESSION['usuario'])): ?>
+          <a href="#" class="nav-link movil" id="btn-perfil2">              
+            <?php if($_SESSION['usuario']['genero'] === "Male"): ?>
+              <span><img src="assets/img/ico/user_hombre.svg" class="ico-perfil"></span>
+            <?php else: ?>
+              <span><img src="assets/img/ico/user_mujer.svg" class="ico-perfil"></span>
+            <?php endif; ?>
+            <span>Profile</span>                 
+          </a>
+        <?php else: ?>              
+        <a href="#" class="nav-link movil btn-login">
+            <span><img src="assets/img/ico/user.png"></span>
+            <span class="hidden">Login</span>
+          </a>
+        <?php endif; ?>
         <a href="system/models/cerrar.php" class="nav-link hidden">
           <span><img src="assets/img/ico/logout.png"></span>
           <span>Log Out</span>

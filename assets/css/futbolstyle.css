@@ -446,6 +446,9 @@ hr {
 .header .navbar .list-nav-link .nav-link.active {
   background: rgba(0, 0, 0, 0.6);
 }
+.header .navbar .list-nav-link .movil {
+  display: none;
+}
 .header .navbar .list-nav-link .sub-perfil {
   flex-direction: column;
   position: absolute;
@@ -514,6 +517,12 @@ hr {
   }
   .header .navbar .list-nav-link .nav-link .ico-perfil {
     height: 24px;
+  }
+  .header .navbar .list-nav-link .movil {
+    display: flex;
+  }
+  .header .navbar .list-nav-link .web {
+    display: none;
   }
 }
 /********************************************
@@ -1835,7 +1844,7 @@ hr {
   display: flex;
   justify-content: space-between;
   background-color: rgba(0, 161, 153, 0.9);
-  color: #003e68;
+  color: #ffffff;
   padding: 15px;
   margin: 16px 0;
 }
@@ -1844,7 +1853,7 @@ hr {
   display: flex;
   justify-content: space-between;
   background-color: rgba(255, 0, 0, 0.9);
-  color: #ff0000;
+  color: #ffffff;
   padding: 15px;
   margin: 16px 0;
 }

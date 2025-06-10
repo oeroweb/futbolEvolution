@@ -31,13 +31,29 @@ $(document).ready(function(){
 		$("#modal11").removeClass("mostrar");
 		$("#modal12").addClass("hidden");
 		$("#modal12").removeClass("mostrar");
+		$("#modal13").addClass("hidden");
+		$("#modal13").removeClass("mostrar");
 		$("#form_register_user")[0].reset();
 		$("body").removeClass("overflow");
 	});
 
-	$("#btn-login").click(function(){
+	$(".btn-login").click(function(){
 		$("#modal").addClass("mostrar");
 		$("#modal").removeClass("hidden");
+		$("body").addClass("overflow");
+	});
+
+	$("#btn-perfil").click(function(){
+		$(".sub-perfil").addClass("flex");
+		$(".sub-perfil").removeClass("hidden");
+		$("body").addClass("overflow");
+	});
+
+	$("#btn-perfil2").click(function(){
+		$("#modal11").addClass("mostrar");
+		$("#modal11").removeClass("hidden");
+		$(".sub-perfil").addClass("hidden");
+		$(".sub-perfil").removeClass("flex");
 		$("body").addClass("overflow");
 	});
 	
@@ -46,12 +62,6 @@ $(document).ready(function(){
 		$("#modal").removeClass("mostrar");
 		$("#modal2").addClass("mostrar");
 		$("#modal2").removeClass("hidden");
-		$("body").addClass("overflow");
-	});
-	
-	$(".btn-login").click(function(){
-		$("#modal").addClass("mostrar");
-		$("#modal").removeClass("hidden");
 		$("body").addClass("overflow");
 	});
 	
@@ -69,19 +79,7 @@ $(document).ready(function(){
 		$("body").addClass("overflow");
 	});
 
-	$("#btn-perfil").click(function(){
-		$(".sub-perfil").addClass("flex");
-		$(".sub-perfil").removeClass("hidden");
-		$("body").addClass("overflow");
-	});
-
-	$("#btn-perfil2").click(function(){
-		$("#modal11").addClass("mostrar");
-		$("#modal11").removeClass("hidden");
-		$(".sub-perfil").addClass("hidden");
-		$(".sub-perfil").removeClass("flex");
-		$("body").addClass("overflow");
-	});
+	
 	
 	$("#btn-edit-user").click(function(){
 		$("#modal12").addClass("mostrar");

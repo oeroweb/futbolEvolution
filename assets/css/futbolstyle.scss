@@ -212,6 +212,7 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
         .ico-perfil{height: 24px;}
       }      
       .nav-link.active{ background: rgba(0,0,0, 0.6); }
+      .movil{ display: none;}
       .sub-perfil{ flex-direction: column; position: absolute; top: 90%; left: -35%; 
         background-color: $crblanco; border-radius: 4px; padding: 4px 0; width: 82px;
         .nav-link{ display: flex; align-items: center; font-size: 12px; line-height: 20px; color: $texto; padding: 4px 8px; height: auto;
@@ -236,6 +237,8 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
           span{margin-right: 24px;}
           .ico-perfil{height: 24px;}
         }      
+        .movil{ display: flex;}
+        .web { display: none;}
       }
     }
   }    
