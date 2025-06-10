@@ -83,14 +83,41 @@ $(document).ready(function(){
 		$("body").addClass("overflow");
 	});
 	
+	$("#btn-edit-user").click(function(){
+		$("#modal12").addClass("mostrar");
+		$("#modal12").removeClass("hidden");
+		$("#modal11").addClass("hidden");
+		$("#modal11").removeClass("mostrar");
+		$("body").addClass("overflow");
+	});
+	
+	$("#btn-edit-user-habi").click(function(){
+		$("#modal13").addClass("mostrar");
+		$("#modal13").removeClass("hidden");
+		$("#modal11").addClass("hidden");
+		$("#modal11").removeClass("mostrar");
+		$("body").addClass("overflow");
+	});
+	
 	$("#btn-step").click(function(){
 		$("#step-2").addClass("grid");
 		$("#step-2").removeClass("hidden");
 		$("#step-1").addClass("hidden");
 		$("#step-1").removeClass("grid");
+		$("#btn-back").removeClass("hidden");
+		$("#btn-back").addClass("btn");
 		$(this).removeClass("btn");
 		$(this).addClass('hidden');
 		$("#btn-submit").addClass('btn');
+	});
+	$("#btn-back").click(function(){		
+		$("#step-1").addClass("grid");
+		$("#step-1").removeClass("hidden");
+		$("#step-2").addClass("hidden");
+		$("#step-2").removeClass("grid");
+		$(this).removeClass("btn");
+		$(this).addClass('hidden');
+		
 	});
 
 	// CERRAR ALERTAS

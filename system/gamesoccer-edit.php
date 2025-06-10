@@ -61,9 +61,9 @@ if (!isset($_GET)) {
 									<div class="box-input">
 										<label for="descripcion">Genero: </label>
 										<select name="genero" class="w100">											
-											<option value="Female" <?=($dato['genero']) == "female" ? 'selected="selected"' : '' ?>>Femenino</option>
-											<option value="Male" <?=($dato['genero']) == "male" ? 'selected="selected"' : '' ?>>Masculino</option>
-											<option value="Mixto" <?=($dato['genero']) == "mixto" ? 'selected="selected"' : '' ?>>Mixto</option>											
+											<option value="Female" <?=($dato['genero']) == "Female" ? 'selected="selected"' : '' ?>>Femenino</option>
+											<option value="Male" <?=($dato['genero']) == "Male" ? 'selected="selected"' : '' ?>>Masculino</option>
+											<option value="Mixto" <?=($dato['genero']) == "Mixto" ? 'selected="selected"' : '' ?>>Mixto</option>											
 										</select>		
 									</div>
 									<div class="box-input">

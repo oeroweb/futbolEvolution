@@ -23,7 +23,7 @@
 		}else{
 			$subir_imagen = $imagen_existente;
 		}
-		die();
+		
 
 		$sql="UPDATE equipos SET nombre='$nombre', descripcion='$descripcion', imagen='$subir_imagen' WHERE id = '$id';";
 		$resultado = mysqli_query($con,$sql);

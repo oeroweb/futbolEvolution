@@ -18,14 +18,13 @@
 				
 		$sql="INSERT INTO `usuarios`(nombres, apellidos, genero, fec_nac, nacionalidad, telefono, email, clave, rol, nivel_juego, posicion, posicion_dos, pie_dominante, estado_id, fecha) VALUES ('$nombres','$apellidos', '$genero', '$fec_nac', '$nacionalidad', '$telefono', '$correo', '$password', 'jugador', '$nivel', '$posicion', '$posicion2', '$pie', 2, CURDATE());";
 		$resultado = mysqli_query($con,$sql);
-
+		
 		if($resultado){
-			$_SESSION['completado'] = "El registro se completo de forma exitosa";	
-			header("Location: ../../index.php");
-		} else{
-			$_SESSION['fallo'] = "Hubo un error; por favor volver a intentar";
-			header("Location: ../../index.php");
-		}
+      echo json_encode(array('error' => false));
+    }else{
+      echo json_encode(array('error' => true));
+    }
+		
 	}
  	
 ?>

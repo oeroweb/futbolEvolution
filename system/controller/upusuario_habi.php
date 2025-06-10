@@ -16,10 +16,9 @@
     $partidos = isset($_POST['partidos']) ? $_POST['partidos'] : false;
 				
 		$sql="UPDATE `usuarios` SET nombres='$nombres', apellidos='$apellidos', nivel_juego='$nivel', posicion='$posicion1', posicion_dos='$posicion2', pie_dominante='$pie', nivel_interno='$nivel_fb', partidos_jugados=$partidos, mvp=$mvp, fecha=CURDATE() WHERE id = $id";
-        
-		$resultado = mysqli_query($con,$sql);
+    $resultado = mysqli_query($con,$sql);    
     // var_dump($sql);
-
+    // die();
 		if($resultado){
       echo json_encode(array('error' => false));
     }else{

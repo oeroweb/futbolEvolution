@@ -1834,7 +1834,7 @@ hr {
 .alerta-exito {
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 161, 153, 0.37);
+  background-color: rgba(0, 161, 153, 0.9);
   color: #003e68;
   padding: 15px;
   margin: 16px 0;
@@ -1843,7 +1843,7 @@ hr {
 .alerta-error {
   display: flex;
   justify-content: space-between;
-  background-color: rgba(255, 0, 0, 0.3);
+  background-color: rgba(255, 0, 0, 0.9);
   color: #ff0000;
   padding: 15px;
   margin: 16px 0;
@@ -1852,6 +1852,15 @@ hr {
 /********************************************
 ****               MODAL                ****
 *********************************************/
+#info {
+  position: absolute;
+  top: 60px;
+  right: 5px;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: auto;
+}
+
 .text-red {
   color: #ff0000;
 }
@@ -2016,7 +2025,7 @@ hr {
   -moz-column-gap: 24px;
        column-gap: 24px;
   max-height: 450px;
-  height: 100%;
+  height: 55vh;
   min-height: 300px;
   overflow-y: auto;
 }
@@ -2056,6 +2065,22 @@ hr {
   width: 100%;
   margin: 20px 0;
 }
+.modalfull .box-fullModal form input, .modalfull .box-fullModal form select {
+  font-size: 14px;
+  padding: 0 12px;
+  line-height: 36px;
+  border-radius: 4px;
+  border-color: #bfbfbf;
+  outline: none;
+}
+.modalfull .box-fullModal form label {
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: block;
+}
+.modalfull .box-fullModal form select {
+  padding: 12px;
+}
 .modalfull .box-fullModal .header-modal {
   display: flex;
   flex-direction: column;
@@ -2076,6 +2101,11 @@ hr {
   font-weight: 900;
   padding: 8px 16px;
 }
+.modalfull .box-fullModal .form-container-grid {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: calc(100vh - 92px);
+}
 .modalfull .box-fullModal .container-body {
   padding: 16px;
   color: #0a131c;
@@ -2094,12 +2124,20 @@ hr {
   margin-bottom: 8px;
   font-size: 14px;
 }
+.modalfull .box-fullModal .container-body .form-grid {
+  grid-template-columns: 1fr;
+  -moz-column-gap: 12px;
+       column-gap: 12px;
+  height: 100%;
+  overflow-y: auto;
+}
 .modalfull .box-fullModal .footer-modal {
   background-color: #F9F9FB;
   height: 72px;
   display: flex;
   justify-content: flex-end;
   padding: 16px;
+  gap: 12px;
 }
 
 @keyframes modal {

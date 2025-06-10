@@ -18,8 +18,7 @@
     $pie = isset($_POST['pie']) ? $_POST['pie'] : false;
 				
 		$sql="UPDATE `usuarios` SET nombres='$nombres', apellidos='$apellidos', genero='$genero', fec_nac='$fec_nac', nacionalidad='$nacionalidad', telefono='$telefono', clave='$password', rol='$rol', fecha=CURDATE() WHERE id = $id";
-        
-		$resultado = mysqli_query($con,$sql);
+    $resultado = mysqli_query($con,$sql);
     
 		if($resultado){
       echo json_encode(array('error' => false));
