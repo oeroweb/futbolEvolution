@@ -247,8 +247,8 @@
 		return $resultado;
 	}
 
-	function selectFilterDatos($conexion, $tabla, $campo){
-		$sql = "SELECT DISTINCT $campo FROM $tabla";
+	function obtenerDatosPorCampo($conexion, $tabla, $campo, $valor){
+		$sql = "SELECT * FROM $tabla WHERE $campo = '$valor'";
 		
 		$datos = mysqli_query($conexion, $sql);
 		if($datos && mysqli_num_rows($datos) >=1){
@@ -257,8 +257,21 @@
 		return $resultado;
 	}
 
-	function obtenerDatosPorCampo($conexion, $tabla, $campo, $valor){
-		$sql = "SELECT * FROM $tabla WHERE $campo = '$valor'";
+	function obtenerListadoServicios($conexion){
+		$sql = "SELECT reg.*, s.en_titulo as 'nombreServicio' 
+				FROM registro_servicios reg 
+				INNER JOIN servicios s on reg.servicio_id = s.id";
+		
+		$datos = mysqli_query($conexion, $sql);
+		if($datos && mysqli_num_rows($datos) >=1){
+			$resultado = $datos;
+		}
+		return $resultado;
+	}
+
+
+	function selectFilterDatos($conexion, $tabla, $campo){
+		$sql = "SELECT DISTINCT $campo FROM $tabla";
 		
 		$datos = mysqli_query($conexion, $sql);
 		if($datos && mysqli_num_rows($datos) >=1){

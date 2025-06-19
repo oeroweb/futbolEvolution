@@ -1977,8 +1977,9 @@ hr {
 .modal .box-modal .box-input {
   margin-bottom: 12px;
 }
-.modal .box-modal .box-input .error {
+.modal .box-modal .box-input .errorInput {
   height: 20px;
+  color: #ff0000;
 }
 .modal .box-modal .inputBox {
   position: relative;
@@ -2043,6 +2044,7 @@ hr {
   height: 55vh;
   min-height: 300px;
   overflow-y: auto;
+  margin-bottom: 30px;
 }
 
 .modalfull {

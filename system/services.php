@@ -117,22 +117,28 @@ require_once "controller/helpers.php";
 				<table>
 					<thead>
 						<tr>
+							<th class="w20">Usuario</th>							
 							<th class="w20">Nombre</th>							
 							<th class="w20">Correo</th>
-							<th class="w20">Teléfono</th>
-							<th class="w20">Fecha</th>
+							<th class="w10">Teléfono</th>
+							<th class="w20">Servicio</th>
+							<th class="w10">Fecha</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php
-						$Somos = selectalldatos($con, "registro_servicios");
+						$Somos = obtenerListadoServicios($con);
 						if (!empty($Somos) && mysqli_num_rows($Somos) >= 1):
 							while ($somo = mysqli_fetch_assoc($Somos)):
 						?>
 								<tr>
+									<td> 
+										<?=(isset($somo['usuario_id'])) ? '<p>Existente</p>' : '<p>Nuevo</p>' ?>										
+									</td>									
 									<td> <?= $somo['nombre'] ?> </td>									
 									<td><?= $somo['correo'] ?></td>
 									<td><?= $somo['telefono'] ?></td>
+									<td><?=($somo['nombreServicio']) ? $somo['nombreServicio'] : 'General' ?></td>
 									<td><?= formatearFecha($somo['fecha'])?></td>
 								</tr>
 						<?php

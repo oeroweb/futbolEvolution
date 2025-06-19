@@ -59,10 +59,10 @@
         <?= $_SESSION['error_login'] ?>
       </div>
     <?php endif; ?>
-    <form action="system/controller/login.php" class="flex-col" method="post" id="form_login" autocomplete="FALSE">
+    <form class="formulario flex-col" action="system/controller/login.php"  method="post" id="form_login" autocomplete="FALSE">
       <div class="box-input inputEmail">
-        <input type="email" name="email" class="input w100" id="email" placeholder="Enter your Email" onkeydown="validaemail()" required>
-        <div class="error" id="validaemail"></div>
+        <input type="email" name="email" class="input w100" id="email" placeholder="Enter your Email" required>
+        <div class="errorInput" >Correo no válido</div>
       </div>
       <div class="box-input inputBox">
         <input type="password" name="password" id="password" class="input w100" placeholder="Ingresa tu contraseña" onkeydown="showHide()" required>
@@ -92,7 +92,7 @@
     <hr>
     <h2 class="title-big">Create Account</h2>
     <p class="texto">Enter the following information and continue.</p>
-    <form method="post" id="form_register_user" onsubmit="event.preventDefault();">
+    <form class="formulario" method="post" id="form_register_user" onsubmit="event.preventDefault();">
       <div class="w100 grid form-grid" id="step-1">
         <div class="box-input">
           <label for="nombre">Name: </label>
@@ -137,16 +137,16 @@
         </div>
         <div class="box-input">
           <label for="email">Email: </label>
-          <input class="w100" type="email" name="correo" id="email2" autocomplete="false" placeholder="Enter your Email" onkeydown="validaemail()" required>
-          <div class="error" id="validaemail2"></div>
+          <input class="w100" type="email" name="correo" id="email2" autocomplete="false" placeholder="Enter your Email" required>
+          <div class="errorInput" >Correo no válido</div>
         </div>
         <div class="box-input">
           <label>Password: </label>
-          <input class="w100" type="password" name="password" id="rpassword" onkeyup="validaPassword();" onkeydown="showHide();" required>
+          <input class="w100" type="password" name="password" id="rpassword" onkeydown="showHide();" required>
         </div>
         <div class="box-input">
           <label>Repeat Password: </label>
-          <input class="w100" type="password" name="" id="rpassword2" onkeyup="validaPassword();" onkeydown="showHide();" required>
+          <input class="w100" type="password" name="" id="rpassword2" onkeydown="showHide();" onkeyup="validaPassword();" required>
           <div class="error" id="error_password"></div>
         </div>
       </div>
@@ -191,7 +191,7 @@
       </div>
       <div class="flex flex-col align-center">
         <button type="button" class="btn btn-verde w100" id="btn-step">Continuar</button>
-        <button type="submit" class="hidden btn-verde w100" id="">Crear cuenta</button>
+        <button type="submit" class="hidden btn-verde w100" id="btn-submit">Crear cuenta</button>
         <p>¿Ya tienes cuenta? <a href="#" class="btn-link btn-outline" id="btn-login2">INGRESA</a> </p>
         <button type="button" class="hidden btn-outline-verde" id="btn-back">Volver</button>
       </div>
@@ -209,21 +209,24 @@
     <hr>
     <?php if (isset($_SESSION['usuario'])): ?>
       <h2 class="title">¿Hola <?= $_SESSION['usuario']['nombres'] ?>, que es lo que deseas saber?</h2>
-      <form action="system/controller/regservicios.php" method="post" id="">
+      <form class="formulario" action="system/controller/regservicios.php" method="post">
         <div class="box-botones">
           <input class="w100 " type="hidden" name="idusuario" value="<?php echo $_SESSION['usuario']['id'] ?>">
+          <input class="w100 " type="hidden" name="idservicio" id="idservicio">
           <button type="submit" class="btn btn-verde">Enviar solicitud</button>
         </div>
       </form>
     <?php else: ?>
       <div class="sinlogin">
         <h2 class="title">Por favor ingresa los siguientes datos y nos pondremos en contacto</h2>
-        <form action="system/controller/regservicios.php" class="box-formulario" method="post">
+        <form class="formulario" action="system/controller/regservicios.php" method="post">
           <div class="box-input">
+            <input type="hidden" name="idservicio" id="idservicio">
             <input type="text" name="name" class="input w100" placeholder="Enter Name" required>
           </div>
           <div class="box-input">
-            <input type="text" name="email" class="input w100" placeholder="Enter Email" required>
+            <input type="email" name="email" class="input w100" placeholder="Enter Email" required>
+            <div class="errorInput" >Correo no válido</div>
           </div>
           <div class="box-input">
             <input type="number" name="phone" class="input w100" minlength="9" placeholder="Enter phone" required>
@@ -357,7 +360,7 @@
       <a href="#" class="btn-cerrar"><img src="assets/img/ico/x.png" alt="icono cerrar"> </a>
       <h3 class="title">Editar información personal</h3>
     </div>
-    <form class="form-container-grid" method="post" id="form_update_user" onsubmit="event.preventDefault();">
+    <form class="formulario form-container-grid" method="post" id="form_update_user" onsubmit="event.preventDefault();">
       <?php
       $datos = obtenerdatos($con, "usuarios", $_SESSION['usuario']['id']);
       if (!empty($datos) && mysqli_num_rows($datos) >= 1):
@@ -415,8 +418,7 @@
               </div>
               <div class="box-input">
                 <label for="email">Email: </label>
-                <input class="w100" type="email" name="correo" id="email3" autocomplete="false" value="<?= $dato['email'] ?>" onkeydown="validaemail()" required>
-                <div class="error" id="validaemail2"></div>
+                <input class="w100" type="email" name="correo" id="email3" autocomplete="false" value="<?= $dato['email'] ?>" readonly>
               </div>
               <div class="box-input">
                 <label>Password: </label>
@@ -441,7 +443,7 @@
       <a href="#" class="btn-cerrar"><img src="assets/img/ico/x.png" alt="icono cerrar"> </a>
       <h3 class="title">Editar información personal</h3>
     </div>
-    <form class="form-container-grid" method="post" id="form_update_user_habilidades" onsubmit="event.preventDefault();">
+    <form class="formulario form-container-grid" method="post" id="form_update_user_habilidades" onsubmit="event.preventDefault();">
       <?php
       $datos = obtenerdatos($con, "usuarios", $_SESSION['usuario']['id']);
       if (!empty($datos) && mysqli_num_rows($datos) >= 1):
@@ -548,57 +550,77 @@
     }
     setTimeout(() => {
       rpassword.setAttribute('type', 'password');
-    }, 1000);
+    }, 1500);
 
     if (rpassword2.type == 'password') {
       rpassword2.setAttribute('type', 'text');
     }
     setTimeout(() => {
       rpassword2.setAttribute('type', 'password');
-    }, 1000);
-
+    }, 1500);
   }
+  
+  document.querySelectorAll('.formulario').forEach(form => {
+    const emailInput = form.querySelector('input[type="email"]');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const errorMsg = form.querySelector('.errorInput');
+    const  buttonStep = document.getElementById('btn-step');    
 
-  function validaemail() {
-    var email = document.getElementById("email").value;
-    var email2 = document.getElementById("email2").value;
-    var validaemail = document.getElementById("validaemail");
-    var validaemail2 = document.getElementById("validaemail2");
-    var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    function validateEmail() {
+      const email = emailInput.value;
+      const isValid = /^[^\s@]+@[^\s@]+\.[a-z]{2,3}$/.test(email);
 
-    if (!email.match(pattern)) {
-      validaemail.innerHTML = "Correo invalido!";
-      validaemail.style.color = "#ff0000";
-    } else {
-      validaemail.innerHTML = "";
-      validaemail.style.color = "#ffffff";
+      if (!isValid && email.length > 5) {
+        buttonStep.disabled = true;
+        submitButton.disabled = true;
+        errorMsg.style.display = 'block';
+      } else {
+        buttonStep.disabled = false;
+        submitButton.disabled = false;
+        errorMsg.style.display = 'none';
+      }
     }
 
-    if (!email2.match(pattern)) {
-      validaemail2.innerHTML = "Correo invalido!";
-      validaemail2.style.color = "#ff0000";
-    } else {
-      validaemail2.innerHTML = "";
-      validaemail2.style.color = "#ffffff";
+    function validaClaves(){
+      const pass1 = rpassword.value;
+      const pass2 = rpassword2.value;
+
+      if (pass1 && pass2 && pass1 === pass2) {
+        buttonStep.disabled = false;
+      } else {
+        buttonStep.disabled = true;
+      }
     }
-  }
+
+    rpassword.addEventListener('input', validaClaves);
+    rpassword2.addEventListener('input', validaClaves);
+    emailInput.addEventListener('input', validateEmail);
+
+    form.addEventListener('submit', function (e) {
+      const email = emailInput.value;
+      if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,3}$/.test(email)) {
+        e.preventDefault();
+        alert('Por favor, ingresa un correo válido.');
+      }
+    });
+  });
 
   function validaPassword() {
-    let password = document.getElementById('rpassword').value,
-      password2 = document.getElementById('rpassword2').value,
-      messageError = document.getElementById('error_password'),
-      btnStep = document.getElementById('btn-step');
-
-    if (password !== password2) {
+    const password = document.getElementById('rpassword').value; 
+    const passwordRepeat = document.getElementById('rpassword2').value;
+    const messageError = document.getElementById('error_password');
+    // const  btnStep = document.getElementById('btn-step');
+    
+    if (password !== passwordRepeat) {      
       messageError.innerHTML = "<p class='texto-alerta text-red'><img src='assets/img/ico/alert-triangle.png' class='img-ico-small'> Las contraseñas no conciden</p>";
       password.classList.add('inputError');
-      password2.classList.add('inputError');
-      document.getElementById('btn-step').setAttribute("disabled", "");
-    } else {
+      passwordRepeat.classList.add('inputError');
+      // btnStep.disabled = true;
+    } else {      
       messageError.innerHTML = "";
       password.classList.remove('inputError');
-      password2.classList.remove('inputError');
-      document.getElementById('btn-step').removeAttribute("disabled");
+      passwordRepeat.classList.remove('inputError');
+      // btnStep.disabled = false;
     }
   }
 
@@ -622,6 +644,7 @@
     actualizar();
     actualizar_habilidades();
   });
+  
 
   function cerrarModal() {
     $("#modal2").addClass("hidden");

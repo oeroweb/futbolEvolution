@@ -7,10 +7,11 @@
 		$destino ="oeroweb@gmail.com";  
 		$titulo = 'Solicitan información de servicio, desde la web';
 		$idusuario = isset($_POST['idusuario']) ? $_POST['idusuario'] : false;
+		$idservicio = isset($_POST['idservicio']) ? $_POST['idservicio'] : false;
     $name = mysqli_real_escape_string($con, isset($_POST['name']) ? $_POST['name'] : false);
     $email = mysqli_real_escape_string($con,isset($_POST['email']) ? $_POST['email'] : false);
     $phone = mysqli_real_escape_string($con, isset($_POST['phone']) ? $_POST['phone'] : false);
-
+		
 		if($idusuario){
 			
 			$sql2 ="SELECT * FROM usuarios WHERE id = $idusuario";
@@ -22,8 +23,7 @@
 				$email = $usuario['email'];
 				$phone = $usuario['telefono'];				
 
-				$sql="INSERT INTO `registro_servicios`(nombre, correo, telefono, usuario_id, estado_id, fecha) VALUES ('$nombres', '$email', '$phone', '$idusuario', 2, CURDATE());";
-
+				$sql="INSERT INTO `registro_servicios`(nombre, correo, telefono, usuario_id, servicio_id, estado_id, fecha) VALUES ('$nombres', '$email', '$phone', '$idusuario', $idservicio,  2, CURDATE());";
 				$resultado = mysqli_query($con,$sql);
 		
 				if($resultado){
@@ -35,8 +35,7 @@
 				}
 			}
 		}	else {		
-			$sql = "INSERT INTO registro_servicios (nombre, correo, telefono, fecha) VALUES ('$name', '$email', '$phone', CURDATE());";
-
+			$sql = "INSERT INTO registro_servicios (nombre, correo, telefono, servicio_id, fecha) VALUES ('$name', '$email', '$phone', $idservicio, CURDATE());";
 			$resultado = mysqli_query($con, $sql);
 
 			if($resultado){

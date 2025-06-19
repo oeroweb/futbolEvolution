@@ -15,7 +15,11 @@
 					<div class="box-texto">
 						<h2 class="title"><?= $dato['en_titulo'] ?></h2>
 						<p class="texto"> <?= $dato['en_descripcion'] ?></p>
-						<a href="documentos/servicios.pdf" target="_blank" class="btn btn-verde">Download services</a>
+						<div class="box-botones">
+							<a href="documentos/servicios.pdf" target="_blank" class="btn btn-verde">Download services</a>
+							<a href="#" target="_blank" class="btn btn-outline-verde" id="">Contacto</a>
+							<input type="hidden" id="idServicio" value="4">
+						</div>
 					</div>
 					<?php
 							endwhile;
@@ -38,7 +42,10 @@
 			<?php
 				$datos = obtenerTodosDatosActivos($con, "servicios");
 				if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+					$contador = 0;
 					while ($dato = mysqli_fetch_assoc($datos)):
+						$contador = $contador + 1;																	
+
 				?>
 			<div class="box-image-service">
 				<img src="assets/img/services/<?= $dato['imagen'] ?>" class="img-service" alt="Imagen de servicio <?= $dato['en_titulo'] ?>">
@@ -52,7 +59,8 @@
 							<p class="texto"> <?= $dato['en_descripcion'] ?></p>
 							<div class="box-botones">
 								<a href="documentos/<?= $dato['archivo'] ?>" class="btn btn-verde">Download services</a>
-								<a href="#" class="btn btn-outline-verde" id="btn-contacto">Contact</a>
+								<a href="#" class="btn btn-outline-verde" id="btn-contacto-<?=$contador?>">Contact</a>
+								<input type="hidden" id="idServicio-<?=$contador?>" value="<?=$contador?>">
 							</div>
 						</div>
 					</div>

@@ -4,11 +4,13 @@
 		require_once '../../controller/connection.php';
 		
 		$idusuario = isset($_POST['idusuario']) ? $_POST['idusuario'] : false;
-		$nombre = isset($_POST['name']) ? $_POST['name'] : false;
-		$email = isset($_POST['email']) ? $_POST['email'] : false;	
-    $telefono = isset($_POST['phone']) ? $_POST['phone'] : false;   
+		$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
+		$capitan = isset($_POST['capitan']) ? $_POST['capitan'] : false;
+		$liga = isset($_POST['liga']) ? $_POST['liga'] : false;	
+		$correo = isset($_POST['correo']) ? $_POST['correo'] : false;	
+    $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : false;   
 
-		if($idusuario){			
+		if($idusuario){
 			$sql2 ="SELECT * FROM usuarios WHERE id = $idusuario";
 			$login = mysqli_query($con, $sql2);
 			
@@ -17,9 +19,10 @@
 				$capitan2 = $usuario['nombres'] .' '. $usuario['apellidos'];
 				$email = $usuario['email'];
 				$phone = $usuario['telefono'];				
-
-				$sql="INSERT INTO `sponsor`(nombre, capitan, liga, correo, telefono, usuario_id, estado_id, fecha) VALUES ('$nombre', '$capitan2', '$liga', '$email', '$phone', '$idusuario', 2, CURDATE());";				$resultado = mysqli_query($con,$sql);
-		
+				
+				$sql="INSERT INTO `sponsor`(nombre, capitan, liga, correo, telefono, usuario_id, estado_id, fecha) VALUES ('$nombre', '$capitan2', '$liga', '$email', '$phone', '$idusuario', 2, CURDATE());";
+				$resultado = mysqli_query($con, $sql);
+				
 				if($resultado){
 					$_SESSION['completado'] = "El registro se completo de forma exitosa";	
 					header("Location: ../../../sponsor.php");
@@ -31,7 +34,7 @@
 		}	else {
 			$sql="INSERT INTO `sponsor`(nombre, capitan, liga, correo, telefono, estado_id, fecha) VALUES ('$nombre', '$capitan', '$liga', '$correo', '$telefono', 2, CURDATE());";				
 			$resultado = mysqli_query($con,$sql);
-			
+
 			if($resultado){
 				$_SESSION['completado'] = "El registro se completo de forma exitosa";	
 				header("Location: ../../../sponsor.php");

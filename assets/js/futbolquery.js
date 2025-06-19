@@ -49,7 +49,7 @@ $(document).ready(function(){
 		$("body").addClass("overflow");
 	});
 
-	$("#btn-perfil2").click(function(){
+	$(".btn-perfil2").click(function(){
 		$("#modal11").addClass("mostrar");
 		$("#modal11").removeClass("hidden");
 		$(".sub-perfil").addClass("hidden");
@@ -73,13 +73,52 @@ $(document).ready(function(){
 		$("body").addClass("overflow");
 	});
 
-	$("#btn-contacto").click(function(){		
+	$("#btn-contacto").click(function(){
 		$("#modal3").removeClass("hidden");
 		$("#modal3").addClass("mostrar");
+		let idServicio = $("#idServicio").val();
+		console.log(idServicio);
+		localStorage.setItem("servicio", idServicio);
+		getStorage();
+		$("body").addClass("overflow");
+	});
+	
+	$("#btn-contacto-1").click(function(){
+		$("#modal3").removeClass("hidden");
+		$("#modal3").addClass("mostrar");
+		let idServicio = $("#idServicio-1").val();
+		console.log(idServicio);
+		localStorage.setItem("servicio", idServicio);
+		getStorage();
+		$("body").addClass("overflow");
+	});
+	
+	$("#btn-contacto-2").click(function(){
+		$("#modal3").removeClass("hidden");
+		$("#modal3").addClass("mostrar");
+		let idServicio = $("#idServicio-2").val();
+		console.log(idServicio);
+		localStorage.setItem("servicio", idServicio);
+		getStorage();
+		$("body").addClass("overflow");
+	});
+	
+	$("#btn-contacto-3").click(function(){
+		$("#modal3").removeClass("hidden");
+		$("#modal3").addClass("mostrar");
+		let idServicio = $("#idServicio-3").val();
+		console.log(idServicio);
+		localStorage.setItem("servicio", idServicio);
+		getStorage();
 		$("body").addClass("overflow");
 	});
 
-	
+	function getStorage() {
+		if(localStorage.getItem('servicio')){
+    	let servicioStorage = localStorage.getItem('servicio')
+			$("#idservicio").val(servicioStorage);
+		}
+	}
 	
 	$("#btn-edit-user").click(function(){
 		$("#modal12").addClass("mostrar");
@@ -98,24 +137,29 @@ $(document).ready(function(){
 	});
 	
 	$("#btn-step").click(function(){
+		$(this).removeClass("btn");
+		$(this).addClass('hidden');
 		$("#step-2").addClass("grid");
 		$("#step-2").removeClass("hidden");
 		$("#step-1").addClass("hidden");
 		$("#step-1").removeClass("grid");
 		$("#btn-back").removeClass("hidden");
 		$("#btn-back").addClass("btn");
-		$(this).removeClass("btn");
-		$(this).addClass('hidden');
 		$("#btn-submit").addClass('btn');
+		$("#btn-submit").removeClass('hidden');
 	});
+
 	$("#btn-back").click(function(){		
+		$(this).removeClass("btn");
+		$(this).addClass('hidden');		
 		$("#step-1").addClass("grid");
 		$("#step-1").removeClass("hidden");
 		$("#step-2").addClass("hidden");
 		$("#step-2").removeClass("grid");
-		$(this).removeClass("btn");
-		$(this).addClass('hidden');
-		
+		$("#btn-step").addClass("btn");
+		$("#btn-step").removeClass("hidden");
+		$("#btn-submit").addClass('hidden');
+		$("#btn-submit").removeClass('btn');
 	});
 
 	// CERRAR ALERTAS
