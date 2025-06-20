@@ -37,7 +37,7 @@
 					<form action="" enctype="multipart/form-data" class="box-formulario" onsubmit="event.preventDefault();">
 						<h2 class="title">Subir Excel</h2>												
 						<div class="box-input">							
-							<input class="w100" type="text" name="idliga" value="<?=$id ?>" id="idliga">
+							<input class="w100" type="hidden" name="idliga" value="<?=$id ?>" id="idliga">
 							<input class="w100" type="file" name="file" accept=".xlsx, .xls" id="txt_file">
 						</div>
 						<div class="flex">
@@ -182,11 +182,11 @@
 			}
 		}).done(function(resp){	
 			console.log(resp);
-			if(resp == 1){
+			if(!resp.error){
 				$("#info").html("<div class='alerta-exito'>Se guardaron los datos de forma correcta.</div>");
 				setTimeout(() => {
 					location.href ="http://localhost/pagfutbolevolution/system/league.php";					
-					// location.href ="https://futbolevalution.com/system/home.php";
+					// location.href ="https://futbolevolution.com/system/league.php";
 				}, 2000);
 			return;
 			} else {

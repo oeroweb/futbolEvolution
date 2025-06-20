@@ -1,7 +1,6 @@
 <?php 
   include 'layout/header.php';
-	require_once "controller/helpers.php";
-	
+	require_once "controller/helpers.php";	
 ?>
 
 <body>
@@ -126,7 +125,7 @@
 			}
 		}).done(function(resp){	
 			console.log(resp);
-			if(resp == 1){
+			if(!resp.error){
 				$("#info").html("<div class='alerta-exito'>Se guardaron los datos de forma correcta.</div>");
 				setTimeout(() => {
 					location.href ="http://localhost/pagfutbolevolution/system/home.php";					
@@ -136,7 +135,8 @@
 			} else {
 				$("#info").html("<div class='alerta-error'>Hubo un error; por favor volver a intentar.</div>");
 			}
-		});
-		
+		});		
 	}
+
+
 </script>
