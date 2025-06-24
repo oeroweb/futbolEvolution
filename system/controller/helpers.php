@@ -269,6 +269,41 @@
 		return $resultado;
 	}
 
+	function obtenerGameRoster($conexion, $detalleid){
+		$sql = "SELECT p.*, u.nombres, u.apellidos FROM partidos_jugados p  
+			INNER join usuarios u on p.usuario_id = u.id
+			WHERE u.estado_id = 2 and p.detallepartido_id = '$detalleid'";
+		
+		$datos = mysqli_query($conexion, $sql);
+		if($datos && mysqli_num_rows($datos) >=1){
+			$resultado = $datos;
+		} else {
+		 $resultado = '';
+		}
+		return $resultado;
+	}
+
+	function obtenerCantidadGameRoster($conexion, $detalleid){
+		$sql = "SELECT COUNT(detallepartido_id) as Cantidad FROM partidos_jugados  
+		WHERE detallepartido_id = '$detalleid'";
+		
+		$datos = mysqli_query($conexion, $sql);
+		if($datos && mysqli_num_rows($datos) >=1){
+			$resultado = $datos;
+		}
+		return $resultado;
+	}
+
+	function obtenerListadoUsuaiosLibres($conexion){
+		$sql = "SELECT u.* FROM usuarios u LEFT JOIN partidos_jugados pj ON u.id = pj.usuario_id WHERE pj.usuario_id IS NULL";
+		
+		$datos = mysqli_query($conexion, $sql);
+		if($datos && mysqli_num_rows($datos) >=1){
+			$resultado = $datos;
+		}
+		return $resultado;
+	}
+
 
 	function selectFilterDatos($conexion, $tabla, $campo){
 		$sql = "SELECT DISTINCT $campo FROM $tabla";

@@ -27,6 +27,10 @@ $(document).ready(function(){
 		$("#modal2").removeClass("mostrar");
 		$("#modal3").addClass("hidden");
 		$("#modal3").removeClass("mostrar");
+		$("#modal4").addClass("hidden");
+		$("#modal4").removeClass("mostrar");
+		$("#modal5").addClass("hidden");
+		$("#modal5").removeClass("mostrar");
 		$("#modal11").addClass("hidden");
 		$("#modal11").removeClass("mostrar");
 		$("#modal12").addClass("hidden");
@@ -73,11 +77,19 @@ $(document).ready(function(){
 		$("body").addClass("overflow");
 	});
 
+	$("#btn-login3").click(function(){
+		$("#modal4").addClass("hidden");
+		$("#modal4").removeClass("mostrar");
+		$("#modal").addClass("mostrar");
+		$("#modal").removeClass("hidden");
+		$("body").addClass("overflow");
+	});
+
 	$("#btn-contacto").click(function(){
 		$("#modal3").removeClass("hidden");
 		$("#modal3").addClass("mostrar");
 		let idServicio = $("#idServicio").val();
-		console.log(idServicio);
+		
 		localStorage.setItem("servicio", idServicio);
 		getStorage();
 		$("body").addClass("overflow");
@@ -87,7 +99,7 @@ $(document).ready(function(){
 		$("#modal3").removeClass("hidden");
 		$("#modal3").addClass("mostrar");
 		let idServicio = $("#idServicio-1").val();
-		console.log(idServicio);
+		
 		localStorage.setItem("servicio", idServicio);
 		getStorage();
 		$("body").addClass("overflow");
@@ -97,7 +109,7 @@ $(document).ready(function(){
 		$("#modal3").removeClass("hidden");
 		$("#modal3").addClass("mostrar");
 		let idServicio = $("#idServicio-2").val();
-		console.log(idServicio);
+		
 		localStorage.setItem("servicio", idServicio);
 		getStorage();
 		$("body").addClass("overflow");
@@ -107,7 +119,6 @@ $(document).ready(function(){
 		$("#modal3").removeClass("hidden");
 		$("#modal3").addClass("mostrar");
 		let idServicio = $("#idServicio-3").val();
-		console.log(idServicio);
 		localStorage.setItem("servicio", idServicio);
 		getStorage();
 		$("body").addClass("overflow");
@@ -117,6 +128,9 @@ $(document).ready(function(){
 		if(localStorage.getItem('servicio')){
     	let servicioStorage = localStorage.getItem('servicio')
 			$("#idservicio").val(servicioStorage);
+
+			let ligaStorage =  localStorage.getItem('liga');
+			$(".idliga").val(ligaStorage);
 		}
 	}
 	
@@ -160,6 +174,25 @@ $(document).ready(function(){
 		$("#btn-step").removeClass("hidden");
 		$("#btn-submit").addClass('hidden');
 		$("#btn-submit").removeClass('btn');
+	});
+
+	$("#btn-free-player").click(function(){
+		$("#modal4").addClass("mostrar");
+		let idLiga = $("#idLigaSeleccion").val();		
+		localStorage.setItem("liga", idLiga);
+		
+		getStorage();
+		$("body").addClass("overflow");
+	});
+
+	$("#btn-team-player").click(function(){
+		$("#modal5").addClass("mostrar");
+		let idLiga = $("#idLigaSeleccion").val();
+		console.log(idLiga);
+		localStorage.setItem("liga", idLiga);
+		
+		getStorage();
+		$("body").addClass("overflow");
 	});
 
 	// CERRAR ALERTAS

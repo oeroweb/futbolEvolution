@@ -47,7 +47,7 @@
         }
       }
 
-      if (mysqli_affected_rows($db) > 0) {
+      if (mysqli_affected_rows($con) > 0) {
         echo json_encode(array('error' => false));
       } else {
         echo json_encode(array('error' => true));

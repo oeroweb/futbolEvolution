@@ -12,7 +12,7 @@ if (!isset($_GET)) {
 		<?php include('layout/navbar.php'); ?>
 
 		<section class="league-banner">
-			<div class="boxoverlay">
+			<div class="boxoverlay">				
 				<?php
 				$datos = detalleLigas($con, $id);
 				if (!empty($datos) && mysqli_num_rows($datos) >= 1):
@@ -24,8 +24,9 @@ if (!isset($_GET)) {
 								<p class="texto"><?= $dato['en_descripcion'] ?></p>
 							</div>
 							<div class="box-botones">
-								<a href="" class="btn btn-outline">Free player libre</a>
-								<a href="" class="btn btn-verde">Register team</a>
+								<input type="hidden" id="idLigaSeleccion" value="<?=$id?>">
+								<a href="#" class="btn btn-outline" id="btn-free-player">Free player libre</a>
+								<a href="#" class="btn btn-verde" id="btn-team-player">Register team</a>
 							</div>
 						</div>
 				<?php
@@ -33,7 +34,15 @@ if (!isset($_GET)) {
 				endif; ?>
 			</div>
 		</section>
-
+			<?php if (isset($_SESSION['completado'])): ?>					
+				<div class="alerta-exito">
+					<?= $_SESSION['completado'] ?>
+				</div>
+			<?php elseif (isset($_SESSION['fallo'])): ?>
+				<div class="alerta-error">
+					<?= $_SESSION['fallo'] ?>
+				</div>
+			<?php endif; ?>
 		<section class="home-partidos">
 			<div class="flex align-center h100 center">
 				<img src="assets/img/short-logo-white.png" class="img-back">

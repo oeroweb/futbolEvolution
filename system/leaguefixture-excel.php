@@ -118,7 +118,7 @@ if (!isset($_POST)) {
 				return;
 			} else {
 				$("#info").html("");
-			}
+			} 
 
 			var formData = new FormData();
 			var files = $("#txt_file")[0].files[0];
@@ -173,22 +173,22 @@ if (!isset($_POST)) {
 				data: {
 					equipo_a: equipo_a,
 					resultados: resultados,
-					equipo_b: equipo_b,
 					subtitulo: subtitulo,
+					equipo_b: equipo_b,
 					idLiga: idLiga,
 				}
 			}).done(function(resp) {
-				console.log('respuesta', resp);
-				// if (resp == 1) {
-				// 	$("#info").html("<div class='alerta-exito'>Se guardaron los datos de forma correcta.</div>");
-				// 	setTimeout(() => {
-				// 		location.href = "http://localhost/pagfutbolevolution/system/league.php";
-				// 		// location.href ="https://acreditacions.com/system/league.php";
-				// 	}, 2000);
-				// 	return;
-				// } else {
-				// 	$("#info").html("<div class='alerta-error'>Hubo un error; por favor volver a intentar.</div>");
-				// }
+				
+				if(!resp.error){
+				$("#info").html("<div class='alerta-exito'>Se guardaron los datos de forma correcta.</div>");
+				setTimeout(() => {
+					location.href ="http://localhost/pagfutbolevolution/system/league.php";					
+					// location.href ="https://futbolevalution.com/system/league.php";
+				}, 2000);
+			return;
+			} else {
+				$("#info").html("<div class='alerta-error'>Hubo un error; por favor volver a intentar.</div>");
+			}
 			});
 
 

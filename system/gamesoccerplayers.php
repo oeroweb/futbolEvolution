@@ -1,6 +1,7 @@
 <?php
 include 'layout/header.php';
 require_once "controller/helpers.php";
+
 if (!isset($_GET)) {
 	header("Location:game.php");
 } else {
@@ -15,9 +16,9 @@ if (!isset($_GET)) {
 
 		<div class="container-main">
 			<div class="center">
-				<h2 class="title">Editando Partido - Página Partidos</h2>
+				<h2 class="title">Editando Partidos</h2>
 				<div class="box-retorno">
-					<a href="javascript:history.back()" title="Atras" class="flex align-center">
+					<a href="game.php" title="Atras" class="flex align-center">
 						<img src="../assets/img/ico/arrow_back.svg" class="img-ico">Volver
 					</a>
 				</div>
@@ -38,52 +39,53 @@ if (!isset($_GET)) {
 					if (!empty($datos) && mysqli_num_rows($datos) >= 1):
 						while ($dato = mysqli_fetch_assoc($datos)):
 					?>
-							<form action="models/updates/upgamesoccerplayers.php" class="box-formulario" enctype="multipart/form-data" method="post">
-								<div class="w100 container-wrap mg-bt10">
-									<input type="hidden" name="id" value="<?= $id ?>">
-									<label class="w100">Añadir Jugadores al partido: </label>
-									<hr>
-
-									<div class="flex-wrap w100">
-										<div class="box-input w50">
-											<label for='local'>Selecciona Jugadores</label>
+							<div class="w100 container-wrap mg-bt10">
+								<h2 class="w100">Jugadores del Partido</h2>
+								<hr>
+								<div class="flex-wrap w100 box-resultados">
+									<div class="w50 pd-20">
+										<label class="flex mg-bt10">Jugadores Registrados:</label>
+										<ul class="pd-lt30">
 											<?php
-											$jugadores = selectDatosEstado($con, "usuarios", 2);
-											if (!empty($jugadores) && mysqli_num_rows($jugadores) >= 1):
-												while ($jugador = mysqli_fetch_assoc($jugadores)):
+											$datos = obtenerGameRoster($con, $id);
+											if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+												while ($jugador = mysqli_fetch_assoc($datos)):
 											?>
-												<div class="flex align-center">
-													<input type="checkbox" name=""> Nombre de Jugador
-												</div>
+													<li class="mg-bt10"><?= $jugador['nombres'] . ' ' . $jugador['apellidos'] ?> - <strong><?= $jugador['posicion'] ?></strong></li>
 											<?php endwhile;
 											endif; ?>
-										</div>
-
-										<div class="box-input w50">
-											<label for='local'>Selecciona Jugadores</label>
-											<?php
-											$jugadores = selectDatosEstado($con, "usuarios", 2);
-											if (!empty($jugadores) && mysqli_num_rows($jugadores) >= 1):
-												while ($jugador = mysqli_fetch_assoc($jugadores)):
-											?>
-												<div class="flex align-center">
-													<input type="checkbox" name=""> Nombre de Jugador
-												</div>
-											<?php endwhile;
-											endif; ?>
-										</div>
+										</ul>
 									</div>
-									<input type="submit" value="Guardar" class="btn2 btn-azul" >
-							</form>
-					<?php
+								</div>
+								<div class="flex-wrap w100">									
+										<form action="models/add/registrar_jugador_partido.php" class="box-formulario" enctype="multipart/form-data" method="post">
+											<label>Añadir mas Jugadores:</label>
+											<input type="hidden" name="idDetallePartido" value="<?= $id ?>">
+											<?php
+											$jugadores = obtenerListadoUsuaiosLibres($con);
+											if (!empty($jugadores) && mysqli_num_rows($jugadores) >= 1):
+												while ($jugador = mysqli_fetch_assoc($jugadores)):
+											?>
+													<div class="flex align-center mg-bt10">
+														<input type="checkbox" name="idUsuario" value="<?= $jugador['id'] ?>"> <?= $jugador['nombres'] . ', ' . $jugador['apellidos'] . '(' . $jugador['posicion'] . ') - Nivel Interno: ' . $jugador['nivel_interno'] ?>
+														<input type="hidden" name="posicion" value="<?= $jugador['posicion'] ?>">
+													</div>
+											<?php endwhile;
+											endif; ?>
+											<input type="submit" value="Guardar" class="btn2 btn-azul">
+										</form>
+									
+								</div>
+
+						<?php
 						endwhile;
 					endif;
-					?>
+						?>
+							</div>
 				</div>
+				<?php borrarErrores(); ?>
 			</div>
-			<?php borrarErrores(); ?>
-		</div>
-		</section>
+			</section>
 
-	</div>
-	</main>
+		</div>
+		</main>

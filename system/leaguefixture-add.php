@@ -38,7 +38,7 @@
 						<div class="w100 container-wrap mg-bt10" >
 							<div class="box-input">
 								<label for="nombre">Titulo: </label>	
-								<input type="text" name="ligaid" value="<?php echo $id?>">
+								<input type="hidden" name="ligaid" value="<?php echo $id?>">
 								<input class="w100 " type="text" name="en_titulo" placeholder="Enter title">
 								<input class="w100 " type="text" name="es_titulo" placeholder="Ingresa titulo">
 							</div>

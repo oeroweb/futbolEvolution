@@ -1,7 +1,5 @@
 <?php
 
-  // require '../modelo_fixture.php';
-  // $ME = new Modelo_Fixture();
   require_once '../../controller/connection.php';
 
   $equipo_a = htmlspecialchars($_POST['equipo_a'],ENT_QUOTES,'UTF-8');
@@ -11,39 +9,43 @@
   $idLiga = $_POST['idLiga'];
   $fecha = DATE('Y-m-d');
 
-  $array_equipo_a = explode(",", $equipo_a);
-  $array_resultados = explode(",", $resultados);
-  $array_subtitulo = explode(",", $subtitulo);
-  $array_equipo_b = explode(",", $equipo_b);
+  $arreglo_columna_a = explode(",", $equipo_a);
+  $arreglo_columna_b = explode(",", $resultados);
+  $arreglo_columna_c = explode(",", $subtitulo);
+  $arreglo_columna_d = explode(",", $equipo_b);
   
-  $consulta="SELECT * FROM `ligas_tb_fixture` WHERE liga_id='$idLiga'";
-  $cambioEstado = mysqli_query($con, $sql);
+  $sql="UPDATE `ligas_tb_fixture` SET estado_id= 1 where liga_id='$idLiga'";
+  $resultado = mysqli_query($con, $sql);
   
-  if($cambioEstado){
-    $sql="UPDATE `ligas_tb_fixture` SET estado_id= 1 where liga_id='$idLiga'";
-    $resultado = mysqli_query($con, $sql);      
-  } 
-  
-  $sql = "INSERT INTO ligas_tb_fixture (equipo_id_a, resultados, subtitulo, equipo_id_b, liga_id, estado_id, fecha) VALUES ";
-    for($i = 0; $i < count($array_equipo_a); $i++){
-      $sql .= "('".$array_equipo_a[$i]."', '".$array_resultados[$i]."', '".$array_subtitulo[$i]."', '".$array_equipo_b[$i]."', '$idLiga', 2, $fecha),";
+  if ($resultado) { }
+    $total = count($arreglo_columna_a);
+    if (
+      $total === count($arreglo_columna_b) &&
+      $total === count($arreglo_columna_c) &&
+      $total === count($arreglo_columna_d)     
+    ) {
+      $insertados = 0;
+
+      for ($i = 0; $i < $total; $i++) {       
+        $a = mysqli_real_escape_string($con, trim($arreglo_columna_a[$i]));
+        $b = mysqli_real_escape_string($con, trim($arreglo_columna_b[$i]));
+        $c = mysqli_real_escape_string($con, trim($arreglo_columna_c[$i]));
+        $d = mysqli_real_escape_string($con, trim($arreglo_columna_d[$i]));
+
+        $sql2 = "INSERT INTO ligas_tb_fixture (equipo_id_a, resultados, subtitulo, equipo_id_b, liga_id, estado_id, fecha) 
+            VALUES ('$a', '$b', '$c', '$d', $idLiga, 2, CURDATE());";
+        $ingreso = mysqli_query($con, $sql2);
+
+        if ($ingreso) {
+          $insertados++;
+        }
+      }
+      if (mysqli_affected_rows($con) > 0) {
+        echo json_encode(array('error' => false));
+      } else {
+        echo json_encode(array('error' => true));
+      }
     }
-
-  $sql_final = substr($sql, 0, -1);
-  $sql_final.=";";
  
-  // for($i = 0; $i < count($array_equipo_a); $i++){
-  //   $sql = "INSERT INTO ligas_tb_fixture (equipo_id_a, resultados, subtitulo, equipo_id_b, liga_id, estado_id, fecha) VALUES ($array_equipo_a[$i], $array_resultados[$i], $array_subtitulo[$i], $array_equipo_b[$i], $idLiga, 2, $fecha);";
-  // }
- 
-  // $resultado = mysqli_query($con, $sql);
-
-  if ($guardar = mysqli_query($con, $sql_final)) {
-		// $_SESSION['completado'] = "El registro se completo de forma exitosa";
-		header("Location: ../../game.php");
-	} else {
-		// $_SESSION['fallo'] = "Hubo un error; por favor volver a intentar";
-		header("Location: ../../game.php");
-	}
   
 ?>

@@ -133,7 +133,7 @@
         </div>
         <div class="box-input">
           <label for="telefono">Phone: </label>
-          <input class="w100 " type="number" name="telefono" required>
+          <input class="w100 " type="number" minlength="10" maxlength="11" name="telefono" required>
         </div>
         <div class="box-input">
           <label for="email">Email: </label>
@@ -229,7 +229,83 @@
             <div class="errorInput" >Correo no válido</div>
           </div>
           <div class="box-input">
-            <input type="number" name="phone" class="input w100" minlength="9" placeholder="Enter phone" required>
+            <input type="number" name="phone" class="input w100" minlength="10" maxlength="11" placeholder="Enter phone" required>
+          </div>
+          <button type="submit" class="btn btn-verde">Enviar</button>
+        </form>
+      </div>
+    <?php endif; ?>
+  </div>
+</div>
+
+<!-- Modal de Ligas -->
+<div class="modal hidden" id="modal4">
+  <div class="box-modal modal-little">
+    <div class="header-modal">
+      <img src="assets/img/logo.png" alt="logo">
+      <a href="#" class="btn-cerrar"><img src="assets/img/ico/x.png" alt="cerrar" class="img-ico"></a>
+    </div>
+    <hr>
+    <?php if (isset($_SESSION['usuario'])): ?>
+      <h2 class="title">¿Hola <?= $_SESSION['usuario']['nombres'] ?>, deseas inscribirte a la liga?</h2>
+      <form class="formulario" action="system/controller/regligas.php" id="form_registrar_ligas" method="post">
+        <div class="box-botones">
+          <input class="w100 " type="hidden" name="idusuario" value="<?php echo $_SESSION['usuario']['id'] ?>">
+          <input class="w100 idliga" type="hidden" name="idliga" >
+          <button type="submit" class="btn btn-verde">Si, enviar solicitud</button>
+        </div>
+      </form>
+    <?php else: ?>
+      <div class="sinlogin">
+        <h2 class="title">Para inscribirte a la liga, primero tienes que iniciar sesión.</h2>
+        <button type="button" class="btn btn-verde w100" id="btn-login3">Login</button>
+      </div>
+    <?php endif; ?>
+  </div>
+</div>
+
+<!-- Modal de Ligas Team -->
+<div class="modal hidden" id="modal5">
+  <div class="box-modal modal-little">
+    <div class="header-modal">
+      <img src="assets/img/logo.png" alt="logo">
+      <a href="#" class="btn-cerrar"><img src="assets/img/ico/x.png" alt="cerrar" class="img-ico"></a>
+    </div>
+    <hr>
+    <?php if (isset($_SESSION['usuario'])): ?>
+      <h2 class="title">Inscribe a tu equipo</h2>
+      <p class="mg-bt24">Ingresa los siguientes datos y continua</p>
+      <form class="formulario" action="system/controller/regligas.php" id="form_registrar_ligas" method="post">
+        <div class="box-botones">
+          <input class="w100 " type="hidden" name="idusuario" value="<?php echo $_SESSION['usuario']['id'] ?>">
+          <input class="w100 idliga" type="hidden" name="idliga">
+          <div class="box-input">
+            <label class="">Nombre del equipo</label>
+            <input type="text" class="w100" name="name" placeholder="Ingresar información">
+          </div>
+          <button type="submit" class="btn btn-verde">Solicitar inscripción</button>
+        </div>
+      </form>
+    <?php else: ?>
+      <div class="sinlogin">
+        <form class="formulario" action="system/controller/regligas.php" method="post">
+          <div class="box-input">
+            <input class="w100 idliga" type="hidden" name="idliga">
+            <label for="">Team Name</label>
+            <input type="text" name="name" class="input w100" placeholder="Enter information" required>
+          </div>
+          <div class="box-input">
+            <label for="">Team captain</label>
+            <input type="text" name="capitan" class="input w100" placeholder="Enter information" required>
+          </div>
+          <div class="box-input">
+             <label for="">Number Phone</label>
+            <input type="number" name="telefono" class="input w100" minlength="10" maxlength="11" placeholder="Enter information" required>
+          </div>
+          <div class="box-input">
+            <label for="">Email</label>
+            <input type="email" name="correo" class="input w100" placeholder="Enter information" required>
+            <div class="errorInput" >Correo no válido</div>
           </div>
           <button type="submit" class="btn btn-verde">Enviar</button>
         </form>
@@ -414,7 +490,7 @@
               </div>
               <div class="box-input">
                 <label for="telefono">Phone: </label>
-                <input class="w100 " type="text" name="telefono" value="<?= $dato['telefono'] ?>" required>
+                <input class="w100 " type="text" name="telefono" minlength="10" maxlength="11" value="<?= $dato['telefono'] ?>" required>
               </div>
               <div class="box-input">
                 <label for="email">Email: </label>
@@ -740,4 +816,6 @@
       });
     });
   }
+
+  
 </script>
