@@ -49,8 +49,7 @@ $(document).ready(function(){
 
 	$("#btn-perfil").click(function(){
 		$(".sub-perfil").addClass("flex");
-		$(".sub-perfil").removeClass("hidden");
-		$("body").addClass("overflow");
+		$(".sub-perfil").removeClass("hidden");		
 	});
 
 	$(".btn-perfil2").click(function(){

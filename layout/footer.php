@@ -490,7 +490,7 @@
               </div>
               <div class="box-input">
                 <label for="telefono">Phone: </label>
-                <input class="w100 " type="text" name="telefono" minlength="10" maxlength="11" value="<?= $dato['telefono'] ?>" required>
+                <input class="w100 " type="text" name="telefono" minlength="11" maxlength="12" value="<?= $dato['telefono'] ?>" required>
               </div>
               <div class="box-input">
                 <label for="email">Email: </label>
@@ -720,7 +720,13 @@
     actualizar();
     actualizar_habilidades();
   });
-  
+
+  function refresh() {
+    setTimeout(function () {
+			location.reload();
+			listar();
+    }, 3000);
+	}  
 
   function cerrarModal() {
     $("#modal2").addClass("hidden");
@@ -771,10 +777,11 @@
       }).done(function(resultado) {
         if (!resultado.error) {
           $("#info").html("<div class='alerta-exito'><i class='far fa-check-circle'> </i>Se actualizaron los datos con éxito!</div>");
-          $("#info").fadeOut(10000, function() {
+          $("#info").fadeOut(5000, function() {
             $(this).html("");
             $(this).fadeIn(2000);
           });
+          refresh();
           cerrarModal();
         } else {
           $("#info").html("<div class='alerta-error'><i class='fas fa-times-circle'></i> Hubo un error en el proceso por favor volver a probar!!</div>");
@@ -800,10 +807,11 @@
         console.log(resultado);
         if (!resultado.error) {
           $("#info").html("<div class='alerta-exito'><i class='far fa-check-circle'> </i>Se actualizaron los datos con éxito!</div>");
-          $("#info").fadeOut(10000, function() {
+          $("#info").fadeOut(5000, function() {
             $(this).html("");
             $(this).fadeIn(2000);
           });
+          refresh();
           cerrarModal();
         } else {
           $("#info").html("<div class='alerta-error'><i class='fas fa-times-circle'></i> Hubo un error en el proceso por favor volver a probar!!</div>");
