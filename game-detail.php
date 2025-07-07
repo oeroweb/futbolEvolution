@@ -39,7 +39,7 @@ if (!isset($_GET)) {
 				$datos = detallePartido($con, $id);
 				if (!empty($datos) && mysqli_num_rows($datos) >= 1):
 					while ($dato = mysqli_fetch_assoc($datos)):
-						// echo var_dump($dato);
+						$cantidad = $dato['total_jugadores'] / $dato['total_equipos'];
 						$newFecha = formatearFecha($dato['fecha_partido']);
 				?>
 						<div class="container-grid-detail">
@@ -54,12 +54,11 @@ if (!isset($_GET)) {
 									</div>
 								</div>
 								<div class="card-options">
-									<p class="texto-icon"><img src="assets/img/ico/user_black.png" class="img-ico"><span><?= $dato['nombreCantidad'] ?></span> </p>
+									<p class="texto-icon"><img src="assets/img/ico/user_black.png" class="img-ico"><span><?= $cantidad.'v'.$cantidad ?></span> </p>
 									<p class="texto-icon"><img src="assets/img/ico/calendar.png" class="img-ico"><span><?= $newFecha ?></span> </p>
 									<p class="texto-icon"><img src="assets/img/ico/estrella.png" class="img-ico"><span><?= $dato['en_nivel'] ?></span> </p>
 									<p class="texto-icon"><img src="assets/img/ico/clock.png" class="img-ico"><span><?= $dato['hora'] ?> </span> </p>
 									<p class="texto-icon"><img src="assets/img/ico/user_black.png" class="img-ico"><span><?= $dato['genero'] ?></span> </p>
-									<p class="texto-icon"><img src="assets/img/ico/servicios_black.png" class="img-ico">9/<?= $dato['total_jugadores'] ?> (players)</p>
 								</div>
 								<hr>
 								<div class="container-wrap items-center space-between">
@@ -70,9 +69,9 @@ if (!isset($_GET)) {
 									</div>
 
 									<?php
-									$totales = obtenerCantidadGameRoster($con, $id);
-									if (!empty($totales) && mysqli_num_rows($totales) >= 1):
-										while ($total = mysqli_fetch_assoc($totales)):
+										$totales = obtenerCantidadGameRoster($con, $id);
+										if (!empty($totales) && mysqli_num_rows($totales) >= 1):
+											while ($total = mysqli_fetch_assoc($totales)):
 									?>
 											<p class="texto-count"><?= $total['Cantidad'] ?>/<?= $dato['total_jugadores'] ?> SPOTS FILLED</p>
 									<?php

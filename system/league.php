@@ -58,7 +58,6 @@ require_once "controller/helpers.php";
       <div class="box-tabla mg-bt20">
 				<h3 class="subtitle">Sección Ligas Actuales:</h3>
 				<a href="league-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
-
 				<table>
 					<thead>
 						<tr>
@@ -134,19 +133,21 @@ require_once "controller/helpers.php";
 			<div class="box-tabla ">
 				<h3 class="subtitle">Sección Partidos Actuales:</h3>
 				<a href="gamesoccer-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
-
+				<!-- <a href="pickups-excel.php" class="btn btn-azul" title="Subir partidos">
+					<img src="assets/ico/upload.svg" class="img-ico"> Subir Partidos - Pickups
+				</a> -->
 				<table>
 					<thead>
 						<tr>
 							<th class="w10">ID</th>
 							<th class="w10">Imagen</th>
 							<th class="w10">Campo/Sede</th>
-							<th class="w10">Dirección</th>
 							<th class="w10">Fecha</th>
-							<th class="w10">Genero</th>
 							<th class="w10">Hora</th>
-							<th class="w10">Costo</th>
+							<th class="w10">Genero</th>
+							<th class="w10">Cant. Jugadores y Equipos</th>
 							<th class="w10">Versus</th>
+							<th class="w10">Costo</th>
 							<th class="w10">Opciones</th>
 						</tr>
 					</thead>
@@ -155,6 +156,8 @@ require_once "controller/helpers.php";
 						$datos = listaPartidos($con, 2);
 						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
 							while ($dato = mysqli_fetch_assoc($datos)):
+								$cantidad = $dato['total_jugadores'] / $dato['total_equipos'];
+								$newFecha = formatearFecha($dato['fecha_partido']);
 						?>
 								<tr>
 									<td class="bold"><?= $dato['id'] ?> </td>
@@ -162,16 +165,23 @@ require_once "controller/helpers.php";
 										<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen1'] ?>" alt="img-partido">
 									</td>
 									<td><?= $dato['en_nombre'] ?> </td>
-									<td><?= $dato['en_direccion'] ?> </td>
-									<td><?= $dato['fecha_partido'] ?> </td>
-									<td><?= $dato['genero'] ?></td>
+									<td><?= $newFecha ?> </td>
 									<td><?= $dato['hora'] ?></td>
+									<td><?= $dato['genero'] ?></td>
+									<td><?=  $dato['total_jugadores'] .' / ' .$dato['total_equipos'] ?> </td>
+									<td><?= $cantidad.'v'.$cantidad ?></td>
 									<td>$<?= $dato['costo'] ?></td>
-									<td><?= $dato['nombreCantidad'] ?></td>
 									<td>
-										<div class="flex justify-center">
+										<div class="flex justify-center">											
 											<a href="gamesoccer-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar"><img src="assets/ico/edit.svg"> </a>
-											<a href="gamesoccerteams.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Equipos"><img src="assets/ico/plus.svg"> </a>
+											<?php
+												$partidos = obtenerDatosPorCampo($con, "detallepartido_equipos", "detallepartido_id", $dato['id']);
+												if (!empty($partidos) && mysqli_num_rows($partidos) >= 1):													
+											?>
+												<a href="gamesoccerteams.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar Equipos"><img src="assets/ico/edit_2.svg"></a>
+											<?php  else: ?>
+												<a href="gamesoccerteams_add.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Equipos"><img src="assets/ico/plus.svg"> </a>
+											<?php endif; ?>
 											<a href="gamesoccerplayers.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Jugadores"><img src="assets/ico/plus-add.svg"> </a>
 										</div>
 									</td>

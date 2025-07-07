@@ -15,7 +15,7 @@ if (!isset($_GET)) {
 
 		<div class="container-main">
 			<div class="center">
-				<h2 class="title">Editando Partido - Página Partidos</h2>
+				<h2 class="title">Editando Partidos</h2>
 				<div class="box-retorno">
 					<a href="javascript:history.back()" title="Atras" class="flex align-center">
 						<img src="../assets/img/ico/arrow_back.svg" class="img-ico">Volver
@@ -34,55 +34,35 @@ if (!isset($_GET)) {
 
 				<div class="container-wrap w100">
 					<?php
-					$datos = detallePartido($con, $id);
+					$datos = obtenerDatosPorCampo($con, 'detallepartido_equipos','detallepartido_id', $id);
 					if (!empty($datos) && mysqli_num_rows($datos) >= 1):
 						while ($dato = mysqli_fetch_assoc($datos)):
-					?>
-							<form action="models/updates/upgamesoccerteams.php" class="box-formulario" enctype="multipart/form-data" method="post">
-								<div class="w100 container-wrap mg-bt10">
-									<input type="hidden" name="id" value="<?=$id?>">
-									<div class="box-input">
-										<label for='local'>Selecciona primer equipo</label>															
-										<select name="idequipo1" class="w100">
-											<?php 
-												$partidos = selectDatosEstado($con, "equipos", 2);
-												if(!empty($partidos) && mysqli_num_rows($partidos) >= 1):
-													while($partido = mysqli_fetch_assoc($partidos)):		
-											?>
-												<option value="<?=$partido['id']?>" <?=($partido['id']) == $dato['equipo1_id'] ? 'selected="selected"' : '' ?>><?=$partido['nombre']?></option>
-											<?php endwhile; 
-											endif; ?>
-										</select>								
-									</div>								
-									<div class="box-input">
-										<label for='local'>Selecciona segundo equipo</label>															
-										<select name="idequipo2" class="w100">
-											<?php 
-												$partidos = selectDatosEstado($con, "equipos", 2);
-												if(!empty($partidos) && mysqli_num_rows($partidos) >= 1):
-													while($partido = mysqli_fetch_assoc($partidos)):		
-											?>
-												<option value="<?=$partido['id']?>" <?=($partido['id']) == $dato['equipo2_id'] ? 'selected="selected"' : '' ?>><?=$partido['nombre']?></option>
-											<?php endwhile; 
-											endif; ?>
-										</select>								
-									</div>
-									<div class="flex-wrap">
-										<label class="w100">Resultados: </label>
-										<div class="box-input w50">
-											<label for="" class="w100">Equipo 1: </label>
-											<input class="w50" type="number" name="resultado_equipo1" value="0">
-										</div>								
-										<div class="box-input w50">
-											<label for="" class="w100">Equipo 2: </label>
-											<input class="w50" type="number" name="resultado_equipo2" value="0">
-										</div>								
-
-									</div>
-								</div>
-								<input type="submit" value="Actualizar Datos" class="btn2 btn-azul" name="editar">
-
-							</form>
+					?>							
+						<form action="models/updates/upgamesoccerteams.php" class="box-formulario box-resultados mg-bt30" enctype="multipart/form-data" method="post">
+							<input type="hidden" name="idDetalle" value="<?=$id?>">								
+							<input type="hidden" name="id" value="<?=$dato['id']?>">								
+							<div class="w100 flex-wrap mg-bt10">
+								<div class="box-input w50 mg-r10">
+									<label for='local'>Selecciona equipo:</label>															
+									<select name="idequipo" class="w100">
+										<option>Select an option</option>
+										<?php 
+											$partidos = selectDatosEstado($con, "equipos", 2);
+											if(!empty($partidos) && mysqli_num_rows($partidos) >= 1):
+												while($partido = mysqli_fetch_assoc($partidos)):		
+										?>
+											<option value="<?=$partido['id']?>" <?=($partido['id']) == $dato['equipo_id'] ? 'selected="selected"' : '' ?>><?=$partido['nombre']?></option>
+										<?php endwhile; 
+										endif; ?>
+									</select>								
+								</div>																
+								<div class="box-input w40">
+									<label for="" class="w100">Resultados (Goles): </label>
+									<input class="w50" type="number" name="goles" value="<?=$dato['cantidad_goles'] ?>">
+								</div>									
+							</div>								
+							<input type="submit" value="Actualizar Datos" class="btn2 btn-azul">
+						</form>							
 					<?php
 						endwhile;
 					endif;

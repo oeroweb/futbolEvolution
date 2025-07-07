@@ -953,7 +953,7 @@ hr {
 }
 @media (max-width: 870px) {
   .game-banner {
-    height: auto;
+    height: 250px;
   }
   .game-banner .box-texto-detail {
     width: 100%;

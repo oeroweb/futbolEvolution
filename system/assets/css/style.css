@@ -52,6 +52,10 @@ html, body {
   height: calc(100vh - 86px);
 }
 
+.overflowAuto {
+  overflow: auto;
+}
+
 .bold {
   font-weight: 700;
 }
@@ -146,6 +150,9 @@ html, body {
 .btn-azul {
   background-color: #003e68;
   border: 1px solid #003e68;
+}
+.btn-azul:hover {
+  background-color: #011027;
 }
 
 .btn-azul-outline {
@@ -408,7 +415,8 @@ html, body {
   display: inline-block;
 }
 .container-main .img-ico {
-  width: 24px;
+  width: 22px;
+  margin-right: 4px;
 }
 .container-main .box-retorno {
   width: 300px;

@@ -42,6 +42,7 @@ html,body{
   // grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
+.overflowAuto { overflow: auto;}
 .bold{font-weight: 700;}
 .w10{ width: 10%; }
 .w20{ width: 20%; }
@@ -73,7 +74,7 @@ html,body{
 		background: $crrojo;
 	}
 }
-.btn-azul { background-color: $crazul; border: 1px solid $crazul;  }
+.btn-azul { background-color: $crazul; border: 1px solid $crazul;  &:hover{ background-color: $crazulfuerte;}  }
 .btn-azul-outline { color: $crazul; border: 1px solid $crazul;  }
 .btn-verde { background-color: $crverde; }
 .btn-gris { background-color: $crgris; }
@@ -183,7 +184,7 @@ html,body{
     .btn-ico{ width: 30px; cursor: pointer; display: inline-block; }    
   }
  
-  .img-ico{ width: 24px; }
+  .img-ico{ width: 22px; margin-right: 4px; }
   .box-retorno{ width: 300px; margin-bottom: 12px;}
   .box-formulario{ width: 80%; padding: 20px;
     label{font-weight: 700;}

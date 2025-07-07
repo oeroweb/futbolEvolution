@@ -119,11 +119,11 @@ require_once "controller/helpers.php";
         <h2 class="title mg-bt10">Modificar Habilidades del Usuario</h2>
         <hr>
         <div class="container-modal">
-          <input  type="hidden" name="id" id="id" readonly>
-          <input type="text" name="nombre" id="nombre" readonly>
-          <input type="text" name="apellidos" id="apellidos" readonly>
-          <input  type="email" name="email" id="email" readonly>
-          <input class="w100" type="text" name="password" id="clave" readonly>
+          <input type="hidden" name="id" id="id" readonly>
+          <input type="hidden" name="nombre" id="nombre" readonly>
+          <input type="hidden" name="apellidos" id="apellidos" readonly>
+          <input type="hidden" name="email" id="email" readonly>
+          <input type="hidden" name="password" id="clave" readonly>
           <div class=" box-input">
             <label for="nivel_fb">Posición Interna (FE)</label>
             <input type="text" name="nivel_fb" id="nivel_fb">
@@ -167,11 +167,11 @@ require_once "controller/helpers.php";
           </div>
           <div class=" box-input">
             <label for="partidos">Partidos Jugados</label>
-            <input type="text" name="partidos" id="partidos">
+            <input type="number" name="partidos" id="partidos" value="0">
           </div>
           <div class=" box-input">
             <label for="mvp">MVP Totales</label>
-            <input type="text" name="mvp" id="mvp">
+            <input type="number" name="mvp" id="mvp" value="0">
           </div>             
         </div>
         <hr>
@@ -250,7 +250,6 @@ require_once "controller/helpers.php";
 
     var actualizar_habilidades = function() {
       $("#frm_actualizar_habilidades").on("submit", function() {
-        console.log('clic');
         var frm = $(this).serialize();
         
         $.ajax({

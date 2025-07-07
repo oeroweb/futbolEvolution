@@ -77,7 +77,7 @@ require_once "controller/helpers.php";
 			<div class="box-tabla mg-bt20">
 				<h3 class="subtitle">Sección Partidos Gancho:</h3>
 				<a href="homeparties-excel.php" class="btn btn-azul" title="Subir partidos">
-					<img src="assets/ico/upload.png"> Añadir
+					<img src="assets/ico/upload.svg"> Añadir
 				</a>
 				<table>
 					<thead>

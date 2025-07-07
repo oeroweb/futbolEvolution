@@ -79,18 +79,9 @@ if (!isset($_GET)) {
 										<input class="" type="text" name="total_jugadores" value="<?=$dato['total_jugadores']?>">
 									</div>
 									<div class="box-input">
-										<label for='local'>Versus:</label>															
-										<select name="idversus" class="w100">
-											<?php 
-												$partidos = selectalldatos($con, "partidoscantidad");
-												if(!empty($partidos) && mysqli_num_rows($partidos) >= 1):
-													while($partido = mysqli_fetch_assoc($partidos)):		
-											?>
-												<option value="<?=$partido['id']?>" <?=($partido['id']) == $dato['cantidad_id'] ? 'selected="selected"' : '' ?>><?=$partido['nombre']?></option>
-											<?php endwhile; 
-											endif; ?>
-										</select>								
-									</div>
+										<label for="nombre">Total de jugadores: </label>
+										<input class="" type="text" name="total_equipos" value="<?=$dato['total_equipos']?>">
+									</div>									
 									<div class="box-input">
 										<label for="descripcion">Nivel de Juego: </label>
 										<select name="nivel" class="w100">											

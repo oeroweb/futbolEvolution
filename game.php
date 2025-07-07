@@ -40,6 +40,7 @@
 						if(!empty($datos) && mysqli_num_rows($datos) >= 1):
 							while($dato = mysqli_fetch_assoc($datos)):	
 							$newFecha = formatearFecha($dato['fecha_partido']);
+							$cantidad = $dato['total_jugadores'] / $dato['total_equipos'];
 					?>	
 					<div class="card-partido">
 						<a href="game-detail.php?id=<?=$dato['id']?>">
@@ -48,10 +49,18 @@
 								<div class="box-texto">
 									<h2 class="title"><?=$dato['en_nombre']?></h2>
 									<p class="texto"><?=$dato['en_direccion']?></p>
-									<p class="texto-count">9/<?=$dato['total_jugadores']?> SPOTS FILLED</p>
+									<?php
+										$totales = obtenerCantidadGameRoster($con, $dato['id']);
+										if (!empty($totales) && mysqli_num_rows($totales) >= 1):
+											while ($total = mysqli_fetch_assoc($totales)):
+									?>
+											<p class="texto-count"><?= $total['Cantidad'] ?>/<?= $dato['total_jugadores'] ?> SPOTS FILLED</p>
+									<?php
+										endwhile;
+									endif; ?>
 									<p class="texto-icon"><img src="assets/img/ico/user_black.png"><span><?=$dato['genero']?></span> </p>
 									<p class="texto-icon"> <img src="assets/img/ico/calendar.png"><span><?=$newFecha?></span> </p>
-									<p class="texto-icon"><img src="assets/img/ico/clock.png"><span><?=$dato['hora']?> |  <?=$dato['nombreCantidad']?></span> </p>
+									<p class="texto-icon"><img src="assets/img/ico/clock.png"><span><?=$dato['hora']?> |  <?=$cantidad.'v'.$cantidad ?></span> </p>
 								</div>						
 								<div class="box-precio">
 									<div class="texto">$<?=$dato['costo']?></div>

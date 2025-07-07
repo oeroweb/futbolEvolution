@@ -135,7 +135,7 @@
 		$datos = mysqli_query($conexion, $sql);
 		if($datos && mysqli_num_rows($datos) >=1){
 			$resultado = $datos;
-		}else{
+		} else{
 			$resultado = '';
 		}
 		return $resultado;
@@ -159,30 +159,36 @@
 		$usuario = mysqli_query($conexion, $sql);
 		if($usuario && mysqli_num_rows($usuario) >=1){
 			$resultado = $usuario;
+		} else{
+			$resultado = '';
 		}
 		return $resultado;
 	}
 	
 	function listaPartidos($conexion, $estatoId){
-		$sql = "SELECT en_nombre, en_direccion, imagen1, pd.genero, pd.fecha_partido, pd.hora, pd.costo, pd.estado_id, pd.id, pd.total_jugadores, pc.nombre as nombreCantidad 
+		$sql = "SELECT en_nombre, en_direccion, imagen1, pd.genero, pd.fecha_partido, pd.hora, pd.costo, pd.estado_id, pd.id, pd.total_jugadores, pd.total_equipos
 		FROM partidoslocales pl 
-		INNER JOIN detallepartido pd on pl.id = pd.local_id
-		INNER JOIN partidoscantidad pc on pc.id = pd.cantidad_id
-		WHERE pd.estado_id = $estatoId";
+		INNER JOIN detallepartido pd on pl.id = pd.local_id		
+		WHERE pl.estado_id = $estatoId";
 		
 		$datos = mysqli_query($conexion, $sql);
 		if($datos && mysqli_num_rows($datos) >=1){
 			$resultado = $datos;
+		} else{
+			$resultado = '';
 		}
 		return $resultado;
 	}
 
 	function detallePartido($conexion, $id){
-		$sql = "SELECT pd.id as IdDetalle, fecha_partido, hora, genero, en_nivel, es_nivel, total_jugadores, costo, en_descripcion, es_descripcion, beneficio1, beneficio2, beneficio3, beneficio4, beneficio5, cantidad_id, local_id, equipo1_id, equipo2_id, resultado_equipo1, resultado_equipo2, pd.estado_id, pd.fecha, pl.en_nombre as nombreLocal, pl.en_direccion, pl.imagen1, pl.imagen2, pl.imagen3, pl.imagen4, pl.imagen5, url_google, url_apple, pc.nombre as nombreCantidad, pc.cantidad, pc.cantidad_total as cantidadTotal 
+		$sql = "SELECT pd.id as IdDetalle, pd.*, pl.en_nombre as nombreLocal, pl.en_direccion, pl.imagen1, pl.imagen2, pl.imagen3, pl.imagen4, pl.imagen5, url_google, url_apple
 		FROM detallepartido pd 
-		INNER JOIN partidoslocales pl on pd.local_id = pl.id 
-		INNER JOIN partidoscantidad pc on pd.cantidad_id = pc.id 
+		INNER JOIN partidoslocales pl on pd.local_id = pl.id		
 		WHERE pd.id = '$id'";
+		// $sql = "SELECT pd.id as IdDetalle, fecha_partido, hora, genero, en_nivel, es_nivel, total_jugadores,  total_equipos, costo, en_descripcion, es_descripcion, beneficio1, beneficio2, beneficio3, beneficio4, beneficio5, cantidad_id, local_id, pd.estado_id, pd.fecha, pl.en_nombre as nombreLocal, pl.en_direccion, pl.imagen1, pl.imagen2, pl.imagen3, pl.imagen4, pl.imagen5, url_google, url_apple
+		// FROM detallepartido pd 
+		// INNER JOIN partidoslocales pl on pd.local_id = pl.id		
+		// WHERE pd.id = '$id'";
 		
 		$datos = mysqli_query($conexion, $sql);
 		if($datos && mysqli_num_rows($datos) >=1){
@@ -253,6 +259,8 @@
 		$datos = mysqli_query($conexion, $sql);
 		if($datos && mysqli_num_rows($datos) >=1){
 			$resultado = $datos;
+		} else{
+			$resultado = '';
 		}
 		return $resultado;
 	}
@@ -265,6 +273,8 @@
 		$datos = mysqli_query($conexion, $sql);
 		if($datos && mysqli_num_rows($datos) >=1){
 			$resultado = $datos;
+		} else{
+			$resultado = '';
 		}
 		return $resultado;
 	}
@@ -290,9 +300,12 @@
 		$datos = mysqli_query($conexion, $sql);
 		if($datos && mysqli_num_rows($datos) >=1){
 			$resultado = $datos;
+		} else{
+			$resultado = '';
 		}
 		return $resultado;
 	}
+
 
 	function obtenerListadoUsuaiosLibres($conexion){
 		$sql = "SELECT u.* FROM usuarios u LEFT JOIN partidos_jugados pj ON u.id = pj.usuario_id WHERE pj.usuario_id IS NULL";
@@ -300,10 +313,13 @@
 		$datos = mysqli_query($conexion, $sql);
 		if($datos && mysqli_num_rows($datos) >=1){
 			$resultado = $datos;
+		} else{
+			$resultado = '';
 		}
 		return $resultado;
 	}
 
+	// ----------------
 
 	function selectFilterDatos($conexion, $tabla, $campo){
 		$sql = "SELECT DISTINCT $campo FROM $tabla";
@@ -311,6 +327,8 @@
 		$datos = mysqli_query($conexion, $sql);
 		if($datos && mysqli_num_rows($datos) >=1){
 			$resultado = $datos;
+		} else{
+			$resultado = '';
 		}
 		return $resultado;
 	}

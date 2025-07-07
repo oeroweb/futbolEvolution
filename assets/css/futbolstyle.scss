@@ -380,7 +380,8 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
   }
   @media (max-width: 700px){
     padding: 90px 45px;  height: auto;
-    .box-texto{ width: 100%; text-align: center; align-items: center; .title{width: 100%; font-size: 40px;}}
+    .box-texto{ width: 100%; text-align: center; align-items: center; 
+      .title{width: 100%; font-size: 40px;}}
   }
 }
 
@@ -397,7 +398,7 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
     .texto{ margin-bottom: 24px; font-weight: 400; font-size: 14px; background-color: $crblanco; line-height: 20px; color: $crlink; padding: 10px; border-radius: 4px; width: fit-content;}
   }
   @media (max-width: 870px){
-    height: auto;
+    height: 250px;
     .box-texto-detail{ width: 100%; 
       .title{width: 100%; font-size: 48px;}
     }
