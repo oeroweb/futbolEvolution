@@ -27,11 +27,6 @@
         <td>Total Jugadores</td>        
         <td>Cantidad Equipos</td>        
         <td>Nivel Partido</td>        
-        <td>Beneficio Coach</td>        
-        <td>Beneficio MVP</td>        
-        <td>Beneficio Parking</td>        
-        <td>Beneficio Referee</td>        
-        <td>Beneficio Vest</td>       
       </tr>
     </thead>
     <tbody id='tbody_tabla_detalle'>";
@@ -45,11 +40,6 @@
       $columna_g = $hoja -> getCell('G'. $row)->getValue();
       $columna_h = $hoja -> getCell('H'. $row)->getValue();
       $columna_i = $hoja -> getCell('I'. $row)->getValue();
-      $columna_j = $hoja -> getCell('J'. $row)->getValue();
-      $columna_k = $hoja -> getCell('K'. $row)->getValue();
-      $columna_l = $hoja -> getCell('L'. $row)->getValue();
-      $columna_m = $hoja -> getCell('M'. $row)->getValue();
-      $columna_n = $hoja -> getCell('N'. $row)->getValue();
       
       if($columna_a <> ""){
         echo "<tr>";
@@ -62,11 +52,6 @@
         echo "<td>" . $columna_g . "</td>";        
         echo "<td>" . $columna_h . "</td>";        
         echo "<td>" . $columna_i . "</td>";        
-        echo "<td>" . $columna_j . "</td>";        
-        echo "<td>" . $columna_k . "</td>";        
-        echo "<td>" . $columna_l . "</td>";        
-        echo "<td>" . $columna_m . "</td>";        
-        echo "<td>" . $columna_n . "</td>";        
         echo "</tr>";
       }
     }

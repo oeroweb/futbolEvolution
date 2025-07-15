@@ -160,8 +160,8 @@
 			if(!resp.error){
 				$("#info").html("<div class='alerta-exito'>Se guardaron los datos de forma correcta.</div>");
 				setTimeout(() => {
-					// location.href ="http://localhost/pagfutbolevolution/system/league.php";					
-					location.href ="https://futbolevalution.com/system/league.php";
+					location.href ="http://localhost/pagfutbolevolution/system/league.php";					
+					// location.href ="https://futbolevalution.com/system/league.php";
 				}, 2000);
 			return;
 			} else {
