@@ -92,11 +92,6 @@
 		var arreglo_columna_g = new Array;		
 		var arreglo_columna_h = new Array;		
 		var arreglo_columna_i = new Array;		
-		var arreglo_columna_j = new Array;		
-		var arreglo_columna_k = new Array;		
-		var arreglo_columna_l = new Array;		
-		var arreglo_columna_m = new Array;		
-		var arreglo_columna_n = new Array;		
 
 		$("#dt_listaEventos tbody#tbody_tabla_detalle tr").each(function(){
 			arreglo_columna_a.push($(this).find('td').eq(0).text());
@@ -108,11 +103,6 @@
 			arreglo_columna_g.push($(this).find('td').eq(6).text());			
 			arreglo_columna_h.push($(this).find('td').eq(7).text());			
 			arreglo_columna_i.push($(this).find('td').eq(8).text());			
-			arreglo_columna_j.push($(this).find('td').eq(9).text());			
-			arreglo_columna_k.push($(this).find('td').eq(10).text());			
-			arreglo_columna_l.push($(this).find('td').eq(11).text());			
-			arreglo_columna_m.push($(this).find('td').eq(12).text());			
-			arreglo_columna_n.push($(this).find('td').eq(13).text());			
 			contador++;
 		});
 
@@ -130,11 +120,6 @@
 		var columna_g = arreglo_columna_g.toString();
 		var columna_h = arreglo_columna_h.toString();
 		var columna_i = arreglo_columna_i.toString();
-		var columna_j = arreglo_columna_j.toString();
-		var columna_k = arreglo_columna_k.toString();
-		var columna_l = arreglo_columna_l.toString();
-		var columna_m = arreglo_columna_m.toString();
-		var columna_n = arreglo_columna_n.toString();
 
 		$.ajax({
 			url: 'models/add/addLeaguePickups.php',
@@ -149,11 +134,6 @@
 				columna_g,
 				columna_h,
 				columna_i,
-				columna_j,
-				columna_k,
-				columna_l,
-				columna_m,
-				columna_n,
 			}
 		}).done(function(resp){	
 			console.log(resp);
@@ -161,7 +141,7 @@
 				$("#info").html("<div class='alerta-exito'>Se guardaron los datos de forma correcta.</div>");
 				setTimeout(() => {
 					location.href ="http://localhost/pagfutbolevolution/system/league.php";					
-					// location.href ="https://futbolevalution.com/system/league.php";
+					// location.href ="https://futbolevolution.com/system/league.php";
 				}, 2000);
 			return;
 			} else {
