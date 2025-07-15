@@ -133,9 +133,9 @@ require_once "controller/helpers.php";
 			<div class="box-tabla ">
 				<h3 class="subtitle">Sección Partidos Actuales:</h3>
 				<a href="gamesoccer-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
-				<!-- <a href="pickups-excel.php" class="btn btn-azul" title="Subir partidos">
-					<img src="assets/ico/upload.svg" class="img-ico"> Subir Partidos - Pickups
-				</a> -->
+				<a href="pickups-excel.php" class="btn btn-azul" title="Subir partidos">
+					<img src="assets/ico/upload_white.svg" class="img-ico"> Subir Partidos - Pickups
+				</a>
 				<table>
 					<thead>
 						<tr>

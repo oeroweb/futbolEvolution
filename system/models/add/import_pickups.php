@@ -1,4 +1,6 @@
 <?php  
+  require_once ('../../controller/helpers.php');
+
   if(is_array($_FILES['archivoexcel']) && count($_FILES['archivoexcel']) >0){
     session_start();
 		require_once '../../controller/connection.php';
@@ -53,10 +55,10 @@
         echo "<tr>";
         echo "<td>" . $columna_a . "</td>";
         echo "<td>" . $columna_b . "</td>";
-        echo "<td>" . $columna_c . "</td>";        
+        echo "<td>" . convertirNumeroAFecha($columna_c) . "</td>";        
         echo "<td>" . $columna_d . "</td>";        
-        echo "<td>" . $columna_e . "</td>";        
-        echo "<td>" . $columna_f . "</td>";        
+        echo "<td>" . convertirNumeroAHora($columna_e) . "</td>";        
+        echo "<td>" . $columna_f . "</td>";    
         echo "<td>" . $columna_g . "</td>";        
         echo "<td>" . $columna_h . "</td>";        
         echo "<td>" . $columna_i . "</td>";        

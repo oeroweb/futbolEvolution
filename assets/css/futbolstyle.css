@@ -727,8 +727,12 @@ hr {
   width: 261px;
   height: 225px;
 }
+.home-partidos .box-container-texto {
+  transition: all 0.5s ease;
+}
 .home-partidos .box-container-texto .box-texto {
   width: 261px;
+  transition: all 0.5s ease;
 }
 .home-partidos .box-container-texto .box-texto .title {
   margin-bottom: 12px;
@@ -782,6 +786,22 @@ hr {
 @media (max-width: 700px) {
   .home-partidos {
     overflow: hidden;
+    height: auto;
+  }
+  .home-partidos div:first-child {
+    flex-wrap: wrap;
+  }
+  .home-partidos .box-container-texto, .home-partidos .box-container-card {
+    width: 100%;
+  }
+  .home-partidos .box-container-texto {
+    padding: 20px;
+  }
+  .home-partidos .box-container-texto .box-texto {
+    width: 100%;
+  }
+  .home-partidos .img-back {
+    display: none;
   }
 }
 

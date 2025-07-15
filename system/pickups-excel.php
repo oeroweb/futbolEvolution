@@ -137,7 +137,7 @@
 		var columna_n = arreglo_columna_n.toString();
 
 		$.ajax({
-			url: 'models/add/addHomePickups.php',
+			url: 'models/add/addLeaguePickups.php',
 			type: 'post',
 			data:{
 				columna_a,

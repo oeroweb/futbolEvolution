@@ -47,6 +47,36 @@
 	
 		return $idFormateado;
 	}
+
+	function convertirNumeroAFecha($numero_dias, $formato = 'Y-m-d'){
+    // Crear un objeto DateTime con la fecha de inicio de Excel
+    $fecha_base = new DateTime('1899-12-30'); 
+
+    // Sumar el número de días al objeto DateTime
+    // Usamos 'P' de 'Period' seguido del número de días y 'D' de 'Days'
+    $intervalo = 'P' . $numero_dias . 'D';
+    $fecha_base->add(new DateInterval($intervalo));
+
+    // Devolver la fecha formateada
+    return $fecha_base->format($formato);
+	}
+
+	function convertirNumeroAHora($valor_decimal, $formato = 'H:i:s'){
+    // Obtener el número total de segundos en un día
+    $segundos_en_dia = 86400; // 24 * 60 * 60
+
+    // Calcular los segundos totales a partir del valor decimal
+    $segundos_a_sumar = round($valor_decimal * $segundos_en_dia);
+
+    // Crear un objeto de fecha con la hora base (medianoche)
+    $fecha_base = new DateTime('today');
+
+    // Sumar los segundos calculados
+    $fecha_base->add(new DateInterval('PT' . $segundos_a_sumar . 'S'));
+
+    // Devolver la hora formateada
+    return $fecha_base->format($formato);
+	}
 	
 	// Funciones
 	function selectalldatos($conexion, $tabla){

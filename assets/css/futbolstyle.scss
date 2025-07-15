@@ -327,8 +327,8 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
 *********************************************/
 .home-partidos{ background-color: $texto; color: $crblanco; height: 225px; width: 100%; position: relative;
   .img-back{position: absolute; left: 0; width: 261px; height: 225px;} 
-  .box-container-texto{ 
-    .box-texto{ width: 261px;
+  .box-container-texto{ transition: $trst2;
+    .box-texto{ width: 261px; transition: $trst2;
       .title{ margin-bottom: 12px; font-size: 30px; line-height: 100%; font-weight: 700;}
       .texto{ font-size: 14px; }
     }
@@ -348,7 +348,15 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
 
   @media (max-width: 700px){
     overflow: hidden;
+    height: auto;
+    div:first-child {
+      flex-wrap: wrap;
+    }
+    .box-container-texto,.box-container-card{ width: 100%;}
+    .box-container-texto{ padding: 20px; .box-texto{ width: 100%;}}
+    .img-back{display: none;}
   }
+
 }
 
 .home-nosotros{ background: url('../img/background.svg'); background-repeat: no-repeat; height: 585px; background-position: center;

@@ -83,7 +83,7 @@ require_once "controller/helpers.php";
 								<input type="number" min="4" name="total_jugadores" >
 							</div>
 							<div class="box-input">
-								<label for="nombre">Total de Equipos: </label>
+								<label for="nombre">Cantidad de Equipos: </label>
 								<input type="number" min="2" name="total_equipos" >
 							</div>							
 							<div class="box-input">

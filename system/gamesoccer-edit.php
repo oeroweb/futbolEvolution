@@ -79,7 +79,7 @@ if (!isset($_GET)) {
 										<input class="" type="text" name="total_jugadores" value="<?=$dato['total_jugadores']?>">
 									</div>
 									<div class="box-input">
-										<label for="nombre">Total de jugadores: </label>
+										<label for="nombre">Cantidad de Equipos: </label>
 										<input class="" type="text" name="total_equipos" value="<?=$dato['total_equipos']?>">
 									</div>									
 									<div class="box-input">
