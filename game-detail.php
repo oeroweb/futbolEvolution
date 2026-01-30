@@ -18,6 +18,8 @@ if (!isset($_GET)) {
 				if (!empty($datos) && mysqli_num_rows($datos) >= 1):
 					while ($dato = mysqli_fetch_assoc($datos)):
 				?>
+						<img src="assets/img/partidos/<?php echo $dato['imagen'] ?>" class="img-hover">
+
 						<div class="box-texto-detail">
 							<h2 class="title"><?= $dato['nombreLocal'] ?></h2>
 						</div>
@@ -25,6 +27,31 @@ if (!isset($_GET)) {
 					endwhile;
 				endif; ?>
 			</div>
+		</section>
+
+		<section class="game-banner-carousel">
+			<?php
+			$datos = detallePartido($con, $id);
+			if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+				while ($dato = mysqli_fetch_assoc($datos)):
+			?>
+					<div class="box-imagenes">
+						<div class="owl-carousel">
+							<img src="assets/img/partidos/<?= $dato['imagen1'] ?>" alt="img-partido">
+							<?php if ($dato['imagen2']): ?>
+								<img src="assets/img/partidos/<?= $dato['imagen2'] ?>" alt="img-partido">
+							<?php endif; ?>
+							<?php if ($dato['imagen3']): ?>
+								<img src="assets/img/partidos/<?= $dato['imagen3'] ?>" alt="img-partido">
+							<?php endif; ?>
+							<?php if ($dato['imagen4']): ?>
+								<img src="assets/img/partidos/<?= $dato['imagen4'] ?>" alt="img-partido">
+							<?php endif; ?>
+						</div>
+					</div>
+			<?php
+				endwhile;
+			endif; ?>
 		</section>
 
 		<section class="game-container-grid" id="partidos">
@@ -54,7 +81,7 @@ if (!isset($_GET)) {
 									</div>
 								</div>
 								<div class="card-options">
-									<p class="texto-icon"><img src="assets/img/ico/user_black.png" class="img-ico"><span><?= $cantidad.'v'.$cantidad ?></span> </p>
+									<p class="texto-icon"><img src="assets/img/ico/user_black.png" class="img-ico"><span><?= $cantidad . 'v' . $cantidad ?></span> </p>
 									<p class="texto-icon"><img src="assets/img/ico/calendar.png" class="img-ico"><span><?= $newFecha ?></span> </p>
 									<p class="texto-icon"><img src="assets/img/ico/estrella.png" class="img-ico"><span><?= $dato['en_nivel'] ?></span> </p>
 									<p class="texto-icon"><img src="assets/img/ico/clock.png" class="img-ico"><span><?= $dato['hora'] ?> </span> </p>
@@ -69,21 +96,21 @@ if (!isset($_GET)) {
 									</div>
 
 									<?php
-										$totales = obtenerCantidadGameRoster($con, $id);
-										if (!empty($totales) && mysqli_num_rows($totales) >= 1):
-											while ($total = mysqli_fetch_assoc($totales)):
+									$totales = obtenerCantidadGameRoster($con, $id);
+									if (!empty($totales) && mysqli_num_rows($totales) >= 1):
+										while ($total = mysqli_fetch_assoc($totales)):
 									?>
 											<p class="texto-count"><?= $total['Cantidad'] ?>/<?= $dato['total_jugadores'] ?> SPOTS FILLED</p>
 									<?php
 										endwhile;
 									endif; ?>
 								</div>
-								
+
 								<div class="box-game-roster" id="box-game-roster">
 									<?php
-										$jugadores = obtenerGameRoster($con, $id);
-										if (!empty($jugadores) && mysqli_num_rows($jugadores) >= 1):
-											while ($jugador = mysqli_fetch_assoc($jugadores)):
+									$jugadores = obtenerGameRoster($con, $id);
+									if (!empty($jugadores) && mysqli_num_rows($jugadores) >= 1):
+										while ($jugador = mysqli_fetch_assoc($jugadores)):
 									?>
 											<div class="item-roster">
 												<div class="flex align-center">
@@ -92,13 +119,14 @@ if (!isset($_GET)) {
 												</div>
 												<div class="texto"><?= $jugador['posicion'] ?></div>
 											</div>
-									<?php endwhile; else : ?>
-											<div class="item-roster">
-												Aun no hay jugadores
-											</div>
+										<?php endwhile;
+									else : ?>
+										<div class="item-roster">
+											Aun no hay jugadores
+										</div>
 									<?php endif; ?>
 								</div>
-								
+
 								<div class="mg-bt24">
 									<p class="text mg-bt24">At <strong>"<?= $dato['nombreLocal'] ?>" </strong>, you will enjoy a top-quality court.</p>
 									<p><strong>Instructions: </strong></p>
@@ -145,7 +173,7 @@ if (!isset($_GET)) {
 										<?= $_SESSION['fallo'] ?>
 									</div>
 								<?php endif; ?>
-								
+
 								<form class="formulario" action="system/models/add/registrar_jugador.php" method="post" id="form_register_player">
 									<div class="flex-col w100">
 										<input type="hidden" name="idDetallePartido" value="<?= $id ?>">
@@ -167,9 +195,12 @@ if (!isset($_GET)) {
 										<?php else: ?>
 											<a href="#" class="btn btn-verde btn-login">Login</a>
 										<?php endif; ?>
-										<a href="documentos/Politica-de-Privacidad.pdf" class="btn-link" target="_blank">Términos y condiciones</a>
+										<div class="flex-col align-center mg-tp24">
+											<a href="documentos/Privacy & Policy.pdf" class="btn-link" target="_blank">Privacy & Policy</a>
+											<a href="documentos/Terms & Conditions.pdf" class="btn-link" target="_blank">Terms & Condition</a>
+										</div>
 									</div>
-								</form>								
+								</form>
 							</div>
 
 							<div class="box-imagenes">

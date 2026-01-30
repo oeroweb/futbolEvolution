@@ -12,37 +12,38 @@ if (!isset($_GET)) {
 		<?php include('layout/navbar.php'); ?>
 
 		<section class="league-banner">
-			<div class="boxoverlay">				
-				<?php
-				$datos = detalleLigas($con, $id);
-				if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-					while ($dato = mysqli_fetch_assoc($datos)):
-				?>
+			<?php
+			$datos = detalleLigas($con, $id);
+			if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+				while ($dato = mysqli_fetch_assoc($datos)):
+			?>
+					<img src="assets/img/ligas/<?php echo $dato['imagen'] ?>" class="img-hover">
+					<div class="boxoverlay">
 						<div class="flex align-center center relative">
 							<div class="box-texto">
 								<h2 class="title"><?= $dato['en_nombre'] ?></h2>
 								<p class="texto"><?= $dato['en_descripcion'] ?></p>
 							</div>
 							<div class="box-botones">
-								<input type="hidden" id="idLigaSeleccion" value="<?=$id?>">
+								<input type="hidden" id="idLigaSeleccion" value="<?= $id ?>">
 								<a href="#" class="btn btn-outline" id="btn-free-player">Free player libre</a>
 								<a href="#" class="btn btn-verde" id="btn-team-player">Register team</a>
 							</div>
 						</div>
-				<?php
-					endwhile;
-				endif; ?>
-			</div>
+					</div>
+			<?php
+				endwhile;
+			endif; ?>
 		</section>
-			<?php if (isset($_SESSION['completado'])): ?>					
-				<div class="alerta-exito">
-					<?= $_SESSION['completado'] ?>
-				</div>
-			<?php elseif (isset($_SESSION['fallo'])): ?>
-				<div class="alerta-error">
-					<?= $_SESSION['fallo'] ?>
-				</div>
-			<?php endif; ?>
+		<?php if (isset($_SESSION['completado'])): ?>
+			<div class="alerta-exito">
+				<?= $_SESSION['completado'] ?>
+			</div>
+		<?php elseif (isset($_SESSION['fallo'])): ?>
+			<div class="alerta-error">
+				<?= $_SESSION['fallo'] ?>
+			</div>
+		<?php endif; ?>
 		<section class="home-partidos">
 			<div class="flex align-center h100 center">
 				<img src="assets/img/short-logo-white.png" class="img-back">
@@ -83,10 +84,10 @@ if (!isset($_GET)) {
 										endwhile;
 									endif; ?>
 									<div class="flex-col item-resultado">
-									<?php if($dato['en_subtitulo']): ?>
-										<p class="mg-bt10 font-small"> <?= $dato['en_subtitulo'] ?></p> 
-									<?php  endif ?>
-										<p><?= $dato['resultados'] ?></p> 
+										<?php if ($dato['en_subtitulo']): ?>
+											<p class="mg-bt10 font-small"> <?= $dato['en_subtitulo'] ?></p>
+										<?php endif ?>
+										<p><?= $dato['resultados'] ?></p>
 									</div>
 									<?php
 									$equipos = obtenerdatosString($con, 'equipos ', $dato['equipo_id_b']);
@@ -245,7 +246,7 @@ if (!isset($_GET)) {
 								endif; ?>
 								<div class="item-body flex-col justify-center bold">
 									<p class="mg-bt10"><?= $dato['subtitulo'] ?></p>
-									<p><?= $dato['resultados'] ?></p>									
+									<p><?= $dato['resultados'] ?></p>
 								</div>
 								<?php
 								$equipos = obtenerdatosString($con, 'equipos ', $dato['equipo_id_b']);
@@ -282,18 +283,18 @@ if (!isset($_GET)) {
 							while ($dato = mysqli_fetch_assoc($datos)):
 						?>
 								<div class="box-body tb-fixture">
-										<?php
-										$equipos = obtenerdatosString($con, 'equipos ', $dato['equipo_id_a']);
-										if (!empty($equipos) && mysqli_num_rows($equipos) >= 1):
-											while ($equipo = mysqli_fetch_assoc($equipos)):
-										?>
+									<?php
+									$equipos = obtenerdatosString($con, 'equipos ', $dato['equipo_id_a']);
+									if (!empty($equipos) && mysqli_num_rows($equipos) >= 1):
+										while ($equipo = mysqli_fetch_assoc($equipos)):
+									?>
 											<div class="item-body">
 												<img src="assets/img/equipos/<?= $equipo['imagen'] ?>" alt="logo de " class="img-logo">
 												<p><?= $equipo['nombre'] ?></p>
 											</div>
-										<?php
-											endwhile;
-										endif; ?>
+									<?php
+										endwhile;
+									endif; ?>
 									<div class="item-body justify-center bold"><?= $dato['resultados'] ?></div>
 									<?php
 									$equipos = obtenerdatosString($con, 'equipos ', $dato['equipo_id_b']);
@@ -314,15 +315,15 @@ if (!isset($_GET)) {
 					</div>
 				</div>
 				<?php
-					$datos = obtenerdatosActivos($con, 'ligasfixture ', $id);
-					if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-						while ($dato = mysqli_fetch_assoc($datos)):
-					?>
-					<?php  if($dato['archivo']): ?>
-					<div class="box-botones">
-						<a href="documentos/<?= $dato['archivo'] ?>" class="btn btn-outline-verde" target="_blank">Download fixture</a>
-					</div>
-					<?php  endif; ?>
+				$datos = obtenerdatosActivos($con, 'ligasfixture ', $id);
+				if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+					while ($dato = mysqli_fetch_assoc($datos)):
+				?>
+						<?php if ($dato['archivo']): ?>
+							<div class="box-botones">
+								<a href="documentos/<?= $dato['archivo'] ?>" class="btn btn-outline-verde" target="_blank">Download fixture</a>
+							</div>
+						<?php endif; ?>
 				<?php
 					endwhile;
 				endif; ?>
@@ -330,23 +331,24 @@ if (!isset($_GET)) {
 		</section>
 
 		<section class="league-contacto">
-			<div class="boxoverlay">
-				<div class="center">
-					<?php
-					$datos = selectalldatos($con, 'ligascontacto');
-					if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-						while ($dato = mysqli_fetch_assoc($datos)):
-					?>
+			<?php
+			$datos = selectalldatos($con, 'ligascontacto');
+			if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+				while ($dato = mysqli_fetch_assoc($datos)):
+			?>
+					<img src="assets/img/ligas/<?php echo $dato['imagen'] ?>" class="img-hover">
+					<div class="boxoverlay">
+						<div class="center">
 							<div class="box-texto">
 								<h2 class="title"><?= $dato['en_titulo'] ?></h2>
 								<p class="texto"><?= $dato['en_descripcion'] ?></p>
 							</div>
-					<?php
-						endwhile;
-					endif; ?>
-					<a href="#" class="btn btn-outline" target="_blank">Contact advisor</a>
-				</div>
-			</div>
+							<a href="#" class="btn btn-outline" target="_blank">Contact advisor</a>
+						</div>
+					</div>
+			<?php
+				endwhile;
+			endif; ?>
 		</section>
 	</main>
 	<?php include('layout/footer.php'); ?>

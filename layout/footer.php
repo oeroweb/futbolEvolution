@@ -7,27 +7,40 @@
         <img src="assets/img/logo.png" alt="logo de futbol evolution">
       </div>
       <div class="box-container-footer flex space-around">
-        <div class="item-footer">
-          <h2 class="title">Team</h2>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus autem nobis facere repellat odit recusandae, aliquid dolor officia voluptatem inventore.</p>
-        </div>
-        <div class="item-footer">
-          <h2 class="title">Contact</h2>
-          <div class="list">
-            <a href="tel:+999999999"><img src="assets/img/ico/phone.png" class="icon-redes" alt="icono telefono"> +51 999 999 999</a>
-            <a href="mailto:contact@futbolevolution.com"><img src="assets/img/ico/mail.png" class="icon-redes" alt="icono correo">contact@futbolevolution.com</a>
-            <a href="http:/futbolevolution.com"><img src="assets/img/ico/planet.png" class="icon-redes" alt="icono mundo">http://futbolevolution.com</a>
-          </div>
-        </div>
-        <div class="item-footer">
-          <h2 class="title">Follow us</h2>
-          <span class="flex space-between">
-            <a href="#"><img src="assets/img/ico/facebook.png" class="icon-redes" alt="icono facebook"></a>
-            <a href="#"><img src="assets/img/ico/instagram.png" class="icon-redes" alt="icono instagram"></a>
-            <a href="#"><img src="assets/img/ico/youtube.png" class="icon-redes" alt="icono YouTube"></a>
-            <a href="#"><img src="assets/img/ico/whatsapp.png" class="icon-redes" alt="icono WhatsApp"></a>
-          </span>
-        </div>
+        <?php
+        $datos = selectalldatos($con, 'globales');
+        if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+          while ($dato = mysqli_fetch_assoc($datos)):
+        ?>
+            <div class="item-footer">
+              <h2 class="title">Team</h2>
+              <p><?= $dato['descripcion'] ?></p>
+            </div>
+            <div class="item-footer">
+              <h2 class="title">Contact</h2>
+              <div class="list">
+                <a href="tel:+51<?= $dato['telefono'] ?>"><img src="assets/img/ico/phone.png" class="icon-redes" alt="icono telefono"> +51 <?= $dato['telefono'] ?></a>
+                <a href="mailto:contact@futbolevolution.com"><img src="assets/img/ico/mail.png" class="icon-redes" alt="icono correo"><?= $dato['correo'] ?></a>
+                <a href="<?= $dato['url_global'] ?>"><img src="assets/img/ico/planet.png" class="icon-redes" alt="icono mundo"><?= $dato['url_global'] ?></a>
+              </div>
+            </div>
+            <div class="item-footer">
+              <h2 class="title">Follow us</h2>
+              <span class="flex space-between">
+                <?php if ($dato['url_facebook']): ?>
+                  <a href="<?= $dato['url_facebook'] ?>" target="_blank"><img src="assets/img/ico/facebook.png" class="icon-redes" alt="icono facebook"></a>
+                <?php endif; ?>
+                <?php if ($dato['url_instagram']): ?>
+                  <a href="<?= $dato['url_instagram'] ?>" target="_blank"><img src="assets/img/ico/instagram.png" class="icon-redes" alt="icono instagram"></a>
+                <?php endif; ?>
+                <?php if ($dato['url_youtube']): ?>
+                  <a href="<?= $dato['url_youtube'] ?>" target="_blank"><img src="assets/img/ico/youtube.png" class="icon-redes" alt="icono YouTube"></a>
+                <?php endif; ?>
+                <a href="https://api.whatsapp.com/send?phone=51<?= $dato['telefono'] ?>" target="_blank"><img src="assets/img/ico/whatsapp.png" class="icon-redes" alt="icono WhatsApp"></a>
+              </span>
+            </div>
+        <?php endwhile;
+        endif; ?>
       </div>
     </div>
     <hr>
@@ -35,7 +48,7 @@
       <p>&copy <?php echo date("Y"); ?> Company Futbol Evolution. All rights reserved </p>
       <div>
         <a href="documentos/Politica-de-Privacidad.pdf" target="_blank">Privacy & Policy</a>
-        <a href="documentos/Politica-de-Privacidad.pdf" target="_blank">Terms & Condition</a>
+        <a href="documentos/Terms & Conditions.pdf" target="_blank">Terms & Condition</a>
       </div>
     </div>
   </div>
@@ -59,10 +72,10 @@
         <?= $_SESSION['error_login'] ?>
       </div>
     <?php endif; ?>
-    <form class="formulario flex-col" action="system/controller/login.php"  method="post" id="form_login" autocomplete="FALSE">
+    <form class="formulario flex-col" action="system/controller/login.php" method="post" id="form_login" autocomplete="FALSE">
       <div class="box-input inputEmail">
         <input type="email" name="email" class="input w100" id="email" placeholder="Enter your Email" required>
-        <div class="errorInput" >Correo no válido</div>
+        <div class="errorInput">Correo no válido</div>
       </div>
       <div class="box-input inputBox">
         <input type="password" name="password" id="password" class="input w100" placeholder="Ingresa tu contraseña" onkeydown="showHide()" required>
@@ -138,7 +151,7 @@
         <div class="box-input">
           <label for="email">Email: </label>
           <input class="w100" type="email" name="correo" id="email2" autocomplete="false" placeholder="Enter your Email" required>
-          <div class="errorInput" >Correo no válido</div>
+          <div class="errorInput">Correo no válido</div>
         </div>
         <div class="box-input">
           <label>Password: </label>
@@ -226,7 +239,7 @@
           </div>
           <div class="box-input">
             <input type="email" name="email" class="input w100" placeholder="Enter Email" required>
-            <div class="errorInput" >Correo no válido</div>
+            <div class="errorInput">Correo no válido</div>
           </div>
           <div class="box-input">
             <input type="number" name="phone" class="input w100" minlength="10" maxlength="11" placeholder="Enter phone" required>
@@ -251,7 +264,7 @@
       <form class="formulario" action="system/controller/regligas.php" id="form_registrar_ligas" method="post">
         <div class="box-botones">
           <input class="w100 " type="hidden" name="idusuario" value="<?php echo $_SESSION['usuario']['id'] ?>">
-          <input class="w100 idliga" type="hidden" name="idliga" >
+          <input class="w100 idliga" type="hidden" name="idliga">
           <button type="submit" class="btn btn-verde">Si, enviar solicitud</button>
         </div>
       </form>
@@ -299,13 +312,13 @@
             <input type="text" name="capitan" class="input w100" placeholder="Enter information" required>
           </div>
           <div class="box-input">
-             <label for="">Number Phone</label>
+            <label for="">Number Phone</label>
             <input type="number" name="telefono" class="input w100" minlength="10" maxlength="11" placeholder="Enter information" required>
           </div>
           <div class="box-input">
             <label for="">Email</label>
             <input type="email" name="correo" class="input w100" placeholder="Enter information" required>
-            <div class="errorInput" >Correo no válido</div>
+            <div class="errorInput">Correo no válido</div>
           </div>
           <button type="submit" class="btn btn-verde">Enviar</button>
         </form>
@@ -537,13 +550,13 @@
               <input type="hidden" name="id" value="<?= $dato['id'] ?>" readonly>
               <input type="hidden" name="nombre" value="<?= $dato['nombres'] ?>" readonly>
               <input type="hidden" name="apellidos" value="<?= $dato['apellidos'] ?>" readonly>
-              <input type="hidden" name="rol" value="<?= $dato['rol'] ?>" readonly>              
-              <input type="hidden" name="mvp" value="<?= $dato['mvp'] ?>" readonly>              
-              <input type="hidden" name="pie" value="<?= $dato['pie_dominante'] ?>" readonly>              
-              <input type="hidden" name="partidos" value="<?= $dato['partidos_jugados'] ?>" readonly>              
-              <input type="hidden" name="nivel_fb" value="<?= $dato['nivel_interno'] ?>" readonly>              
+              <input type="hidden" name="rol" value="<?= $dato['rol'] ?>" readonly>
+              <input type="hidden" name="mvp" value="<?= $dato['mvp'] ?>" readonly>
+              <input type="hidden" name="pie" value="<?= $dato['pie_dominante'] ?>" readonly>
+              <input type="hidden" name="partidos" value="<?= $dato['partidos_jugados'] ?>" readonly>
+              <input type="hidden" name="nivel_fb" value="<?= $dato['nivel_interno'] ?>" readonly>
               <div class="box-input">
-                <label for="nivel">Nivel de juego: </label>                
+                <label for="nivel">Nivel de juego: </label>
                 <select name="nivel" class="w100" required>
                   <option <?= ($dato['nivel_juego']) == "Rookie" ? 'selected="selected"' : '' ?>>Rookie</option>
                   <option <?= ($dato['nivel_juego']) == "Intermediate" ? 'selected="selected"' : '' ?>>Intermediate</option>
@@ -570,7 +583,7 @@
               </div>
               <div class="box-input">
                 <label for="pie">Pie dominante: </label>
-                <select name="pie" class="w100" required>                  
+                <select name="pie" class="w100" required>
                   <option <?= ($dato['pie_dominante']) == "Left" ? 'selected="selected"' : '' ?>>Left</option>
                   <option <?= ($dato['pie_dominante']) == "Right" ? 'selected="selected"' : '' ?>>Right</option>
                 </select>
@@ -635,12 +648,12 @@
       rpassword2.setAttribute('type', 'password');
     }, 1500);
   }
-  
+
   document.querySelectorAll('.formulario').forEach(form => {
     const emailInput = form.querySelector('input[type="email"]');
     const submitButton = form.querySelector('button[type="submit"]');
     const errorMsg = form.querySelector('.errorInput');
-    const  buttonStep = document.getElementById('btn-step');    
+    const buttonStep = document.getElementById('btn-step');
 
     function validateEmail() {
       const email = emailInput.value;
@@ -657,7 +670,7 @@
       }
     }
 
-    function validaClaves(){
+    function validaClaves() {
       const pass1 = rpassword.value;
       const pass2 = rpassword2.value;
 
@@ -672,7 +685,7 @@
     rpassword2.addEventListener('input', validaClaves);
     emailInput.addEventListener('input', validateEmail);
 
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', function(e) {
       const email = emailInput.value;
       if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,3}$/.test(email)) {
         e.preventDefault();
@@ -682,17 +695,17 @@
   });
 
   function validaPassword() {
-    const password = document.getElementById('rpassword').value; 
+    const password = document.getElementById('rpassword').value;
     const passwordRepeat = document.getElementById('rpassword2').value;
     const messageError = document.getElementById('error_password');
     // const  btnStep = document.getElementById('btn-step');
-    
-    if (password !== passwordRepeat) {      
+
+    if (password !== passwordRepeat) {
       messageError.innerHTML = "<p class='texto-alerta text-red'><img src='assets/img/ico/alert-triangle.png' class='img-ico-small'> Las contraseñas no conciden</p>";
       password.classList.add('inputError');
       passwordRepeat.classList.add('inputError');
       // btnStep.disabled = true;
-    } else {      
+    } else {
       messageError.innerHTML = "";
       password.classList.remove('inputError');
       passwordRepeat.classList.remove('inputError');
@@ -722,11 +735,11 @@
   });
 
   function refresh() {
-    setTimeout(function () {
-			location.reload();
-			listar();
+    setTimeout(function() {
+      location.reload();
+      listar();
     }, 3000);
-	}  
+  }
 
   function cerrarModal() {
     $("#modal2").addClass("hidden");
@@ -824,6 +837,4 @@
       });
     });
   }
-
-  
 </script>

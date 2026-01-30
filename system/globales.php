@@ -47,18 +47,18 @@ require_once "controller/helpers.php";
 									<td class="bold"><?= $dato['id'] ?> </td>
 									<td><?= $dato['nombre'] ?> </td>
 									<td>
-										<?=($dato['descripcion'] ? $dato['descripcion'] : '---'); ?>									
-								 </td>										
+										<?= ($dato['descripcion'] ? $dato['descripcion'] : '---'); ?>
+									</td>
 									<td>
 										<?php if ($dato['imagen']): ?>
 											<img class="img-beneficio" src="../assets/img/equipos/<?= $dato['imagen'] ?>" alt="logo del equipo">
 										<?php else: ?>
-											<div class="sinimagen"><?= $dato['nombre'] ?> </div>										
+											<div class="sinimagen"><?= $dato['nombre'] ?> </div>
 										<?php endif; ?>
 									</td>
 									<td>
 										<div class="flex-col align-center">
-											<p class="estado "><?=($dato['estado_id'] == 1 ? 'Inactivo' : 'Activo')  ?></p>											
+											<p class="estado "><?= ($dato['estado_id'] == 1 ? 'Inactivo' : 'Activo')  ?></p>
 										</div>
 									</td>
 									<td>
@@ -78,16 +78,128 @@ require_once "controller/helpers.php";
 						endif; ?>
 					</tbody>
 				</table>
-			</div>	
-			
+			</div>
 
 			<hr class="mg-bt30">
-				
+
+			<div class="box-tabla">
+				<h3 class="subtitle">Sección Complejos Deportivos / Sedes / Locales:</h3>
+				<a href="gamelocals-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
+
+				<table>
+					<thead>
+						<tr>
+							<th class="w10">ID</th>
+							<th class="w20">Nombre</th>
+							<th class="w20">Dirección</th>
+							<th class="w30">Imágenes</th>
+							<th class="w10">Estado</th>
+							<th class="w10">Opciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$datos = selectDatosNoEliminados($con, "partidoslocales");
+						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+							while ($dato = mysqli_fetch_assoc($datos)):
+						?>
+								<tr>
+									<td class="bold"><?= $dato['id'] ?> </td>
+									<td><?= $dato['en_nombre'] ?> </td>
+									<td><?= $dato['en_direccion'] ?> </td>
+									<td>
+										<div class="box-imagenes">
+											<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen1'] ?>" alt="img-partido">
+											<?php if ($dato['imagen2']): ?>
+												<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen2'] ?>" alt="img-partido">
+											<?php endif; ?>
+											<?php if ($dato['imagen3']): ?>
+												<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen3'] ?>" alt="img-partido">
+											<?php endif; ?>
+											<?php if ($dato['imagen4']): ?>
+												<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen4'] ?>" alt="img-partido">
+											<?php endif; ?>
+										</div>
+									</td>
+									<td>
+										<div class="flex-col align-center">
+											<?php if ($dato['estado_id'] == 1) : ?>
+												<p class="estado ">No Publicado</p>
+											<?php else : ?>
+												<p class="estado ">Publicado</p>
+											<?php endif; ?>
+										</div>
+									</td>
+									<td>
+										<div class="flex justify-center">
+											<?php if ($dato['estado_id'] == 1) : ?>
+												<a href="models/updates/gamelocals-public.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Publicar"><img src="assets/ico/check.svg"></a>
+											<?php else : ?>
+												<a href="models/updates/gamelocals-private.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Quitar Publicación"><img src="assets/ico/x.png"></a>
+											<?php endif; ?>
+											<a href="gamelocals-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico"><img src="assets/ico/edit.svg"> </a>
+											<a href="models/deletes/gamelocals.php?id=<?= $dato['id'] ?>" class="btn btn-rojo btn-ico"><img src="assets/ico/delete.svg"> </a>
+										</div>
+									</td>
+								</tr>
+						<?php
+							endwhile;
+						endif; ?>
+					</tbody>
+				</table>
+			</div>
+
+			<hr class="mg-bt30">
+
+			<div class="box-tabla">
+				<h3 class="subtitle">Datos Generales:</h3>
+				<table>
+					<thead>
+						<tr>
+							<th class="w30">Descripción</th>
+							<th class="w10">Teléfono</th>
+							<th class="w20">Correo</th>
+							<th class="w20">Url</th>
+							<th class="w10">Facebook</th>
+							<th class="w10">Opciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$datos = selectalldatos($con, "globales");
+						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+							while ($dato = mysqli_fetch_assoc($datos)):
+						?>
+								<tr>
+									<td> <?= ($dato['descripcion'] ? $dato['descripcion'] : '---'); ?>
+									</td>
+									<td><?= $dato['correo'] ?> </td>
+									<td>
+										<?= $dato['telefono'] ?>
+									</td>
+									<td>
+										<?= $dato['url_global'] ?>
+									</td>
+									<td>
+										<?= ($dato['url_facebook'] ? $dato['url_facebook'] : '---'); ?>
+									</td>
+									<td>
+										<div class="flex justify-center">
+											<a href="globales-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico"><img src="assets/ico/edit.svg"> </a>
+										</div>
+									</td>
+								</tr>
+						<?php
+							endwhile;
+						endif; ?>
+					</tbody>
+				</table>
+			</div>
 
 		</div>
 		<?php borrarErrores(); ?>
 	</div>
-	<?php include('layout/footer.php'); ?>	
+	<?php include('layout/footer.php'); ?>
 </body>
 
 </html>

@@ -71,10 +71,10 @@
 										endwhile;
 									endif; ?>
 									<div class="flex-col item-resultado">
-									<?php if($dato['en_subtitulo']): ?>
-										<p class="mg-bt10 bold"> <?= $dato['en_subtitulo'] ?></p> 
-									<?php  endif ?>
-										<p class="font-small"><?= $dato['resultados'] ?></p> 
+										<?php if ($dato['en_subtitulo']): ?>
+											<p class="mg-bt10 bold"> <?= $dato['en_subtitulo'] ?></p>
+										<?php endif ?>
+										<p class="font-small"><?= $dato['resultados'] ?></p>
 									</div>
 									<?php
 									$equipos = obtenerdatosString($con, 'equipos ', $dato['equipo_id_b']);
@@ -120,21 +120,22 @@
 		</section>
 
 		<section class="home-banner">
-			<div class="flex align-center justify-end center">
-				<?php
-				$datos = selectalldatos($con, "homebanner");
-				if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-					while ($dato = mysqli_fetch_assoc($datos)):
-				?>
+			<?php
+			$datos = selectalldatos($con, "homebanner");
+			if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+				while ($dato = mysqli_fetch_assoc($datos)):
+			?>
+					<img src="assets/img/home/<?= $dato['imagen'] ?>" class="img-hover" />
+					<div class="flex align-center justify-end center">
 						<div class="box-texto">
 							<h2 class="title"><?= $dato['en_titulo'] ?></h2>
 							<p class="texto"> <?= $dato['en_descripcion'] ?></p>
 							<a href="league.php" class="btn btn-verde">Watch League</a>
 						</div>
-				<?php
-					endwhile;
-				endif; ?>
-			</div>
+					</div>
+			<?php
+				endwhile;
+			endif; ?>
 		</section>
 	</main>
 	<?php include('layout/footer.php'); ?>

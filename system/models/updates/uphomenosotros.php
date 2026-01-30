@@ -33,7 +33,7 @@
 			$subir_imagen = $imagen_existente;
 		}							
 			
-		$sql="UPDATE homenosotros SET en_titulo='$en_titulo', es_titulo='$es_titulo', en_subtitulo='$en_subtitulo', es_subtitulo='$es_subtitulo', en_descripcion='$en_descripcion', es_descripcion='$es_descripcion', imagen='$subir_imagen'  WHERE id = $id;";
+		$sql="UPDATE homenosotros SET en_titulo='$en_titulo', es_titulo='$es_titulo', en_subtitulo='$en_subtitulo', es_subtitulo='$es_subtitulo', en_descripcion='$en_descripcion', es_descripcion='$es_descripcion', imagen='$subir_imagen' WHERE id = $id;";
 		
 		$resultado = mysqli_query($con,$sql);
 

@@ -170,6 +170,7 @@ require_once "controller/helpers.php";
 				<table>
 					<thead>
 						<tr>
+							<th class="w20">Imagen</th>
 							<th class="w20">Titulo</th>
 							<th class="w30">Descripción</th>
 							<th class="w10">Estado</th>
@@ -183,6 +184,7 @@ require_once "controller/helpers.php";
 							while ($dato = mysqli_fetch_assoc($datos)):
 						?>
 								<tr>
+									<td><img class="img-list" src="../assets/img/home/<?= $dato['imagen'] ?>" alt="img-tabs"> </td>
 									<td><strong>EN: </strong> <?= $dato['en_titulo'] ?> <br> <strong>ES: </strong><?= $dato['es_titulo'] ?></td>
 									<td><strong>EN: </strong> <?= $dato['en_descripcion'] ?> <br><strong>ES: </strong><?= $dato['es_descripcion'] ?></td>
 									<td>

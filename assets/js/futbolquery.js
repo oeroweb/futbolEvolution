@@ -228,6 +228,24 @@ $(document).ready(function () {
 		animateThreshold: 100,
 		scrollPollInterval: 50
 	}
+
+	$('.owl-carousel').owlCarousel({
+		loop:true,
+		margin:10,	
+		nav:true,
+		autoplay:true,
+		autoplayTimeout:1500,
+		autoplayHoverPause:true,
+		responsive:{
+			0:{
+					items:1
+			},			
+		}
+	});
+
+	$(".owl-prev").html('<span class="btn-owl"><i class="fas fa-angle-left"></i> </span>');
+	$(".owl-next").html('<span class="btn-owl"><i class="fas fa-angle-right"></i> </span>');
+	
 });	
 
 /*

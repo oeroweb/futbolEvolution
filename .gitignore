@@ -1,8 +1,10 @@
 .vscode/
+.github/
 assets/css/fonts/
 assets/css/webfonts/
 otros/
 BBDD/
+respaldo/
 documentos/
 system/excel/
 system/otros/
