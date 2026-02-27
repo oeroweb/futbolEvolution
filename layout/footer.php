@@ -335,7 +335,10 @@
       <h3 class="title">Perfil</h3>
     </div>
     <?php
-    $datos = obtenerdatos($con, "usuarios", $_SESSION['usuario']['id']);
+    $datos = '';
+    if (isset($_SESSION['usuario']['id']) && is_numeric($_SESSION['usuario']['id'])) {
+      $datos = obtenerdatos($con, "usuarios", (int)$_SESSION['usuario']['id']);
+    }
     if (!empty($datos) && mysqli_num_rows($datos) >= 1):
       while ($dato = mysqli_fetch_assoc($datos)):
     ?>
@@ -451,7 +454,10 @@
     </div>
     <form class="formulario form-container-grid" method="post" id="form_update_user" onsubmit="event.preventDefault();">
       <?php
-      $datos = obtenerdatos($con, "usuarios", $_SESSION['usuario']['id']);
+      $datos = '';
+      if (isset($_SESSION['usuario']['id']) && is_numeric($_SESSION['usuario']['id'])) {
+        $datos = obtenerdatos($con, "usuarios", (int)$_SESSION['usuario']['id']);
+      }
       if (!empty($datos) && mysqli_num_rows($datos) >= 1):
         while ($dato = mysqli_fetch_assoc($datos)):
       ?>
@@ -534,7 +540,10 @@
     </div>
     <form class="formulario form-container-grid" method="post" id="form_update_user_habilidades" onsubmit="event.preventDefault();">
       <?php
-      $datos = obtenerdatos($con, "usuarios", $_SESSION['usuario']['id']);
+      $datos = '';
+      if (isset($_SESSION['usuario']['id']) && is_numeric($_SESSION['usuario']['id'])) {
+        $datos = obtenerdatos($con, "usuarios", (int)$_SESSION['usuario']['id']);
+      }
       if (!empty($datos) && mysqli_num_rows($datos) >= 1):
         while ($dato = mysqli_fetch_assoc($datos)):
       ?>

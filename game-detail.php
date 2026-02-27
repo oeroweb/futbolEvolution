@@ -12,21 +12,22 @@ if (!isset($_GET)) {
 	<main class="main">
 		<?php include('layout/navbar.php'); ?>
 		<section class="game-banner">
-			<div class="flex align-center center">
-				<?php
-				$datos = detallePartido($con, $id);
-				if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-					while ($dato = mysqli_fetch_assoc($datos)):
-				?>
-						<img src="assets/img/partidos/<?php echo $dato['imagen'] ?>" class="img-hover">
-
-						<div class="box-texto-detail">
-							<h2 class="title"><?= $dato['nombreLocal'] ?></h2>
+			<?php
+			$datos = detallePartido($con, $id);
+			if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+				while ($dato = mysqli_fetch_assoc($datos)):
+			?>
+					<img src="assets/img/partidos/<?php echo $dato['imagen1'] ?>" class="img-hover">
+					<div class="boxoverlay">
+						<div class="flex align-center center">
+							<div class="box-texto">
+								<h2 class="title"><?= $dato['nombreLocal'] ?></h2>
+							</div>
 						</div>
-				<?php
-					endwhile;
-				endif; ?>
-			</div>
+					</div>
+			<?php
+				endwhile;
+			endif; ?>
 		</section>
 
 		<section class="game-banner-carousel">
@@ -191,7 +192,7 @@ if (!isset($_GET)) {
 									<hr>
 									<div class="flex-col align-center">
 										<?php if (isset($_SESSION['usuario'])): ?>
-											<button type="submit" class="w100 btn btn-verde web">Pagar</button>
+											<button type="submit" class="w100 btn btn-verde web">Go to payment</button>
 										<?php else: ?>
 											<a href="#" class="btn btn-verde btn-login">Login</a>
 										<?php endif; ?>

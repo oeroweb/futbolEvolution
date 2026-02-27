@@ -399,7 +399,7 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
   .img-hover{ width:100%; height:378px; object-fit: cover; position: absolute; z-index: 10;}
   .boxoverlay{ position: absolute; z-index: 20; width: 100%; background-color: rgba(0, 2, 11, 0.6); height: 378px; transition: $trst2; }
   .center{max-width: 1280px;}
-  .box-texto{width: 350px; padding: 74px 0; display: flex; flex-direction: column; 
+  .box-texto{min-width: 350px; max-width: 600px; padding: 74px 0; display: flex; flex-direction: column; 
     .title{ font-size: 80px; font-weight: 700; margin-bottom: 24px; line-height: 100%;  font-family: "GothamNarrow-Bold";}
     .texto{ margin-bottom: 24px; font-weight: 500;}
   }
@@ -409,6 +409,7 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
   }
   @media (max-width: 870px){
     height: 320px; transition: $trst2;
+    .img-hover{ height: 320px;}
     .boxoverlay { height: 320px; display: flex; transition: $trst2;}
     .box-texto, .box-texto-detail{ width: 100%; 
       .title{width: 100%; font-size: 70px;}
@@ -507,6 +508,7 @@ hr{ background-color: $crgris; border: none; width: 100%; height: 1px; margin: 1
       .select-position{ font-size: 14px; height: 46px; border-color: $crgris;}
       .btn-link{ color: $texto; text-decoration: underline; font-size: 12px; font-weight: 700;}
       .lista { margin-left: 24px;}
+      .formulario{ select{ width: 100%; height: 40px; border-radius: $radius; border: 1px solid $crgris; padding: 0 8px; font-size: 14px; }}
     }
     .box-imagenes{ 
       .box-imagenes-list{ display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 8px; margin-top: 32px;

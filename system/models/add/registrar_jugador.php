@@ -20,7 +20,8 @@
 
       if ($resultado) {
         $_SESSION['completado'] = "Registro realizado de forma exitosa";
-        header("Location: ../../../game-detail.php?id=$partidoid");
+        header("Location: ../../../payment.php?id=$partidoid");
+        // header("Location: ../../../game-detail.php?id=$partidoid");
       } else {
         $_SESSION['fallo'] = "Hubo un error; por favor volver a intentar";
         header("Location: ../../../game-detail.php?id=$partidoid");

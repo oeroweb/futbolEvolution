@@ -1,4 +1,17 @@
-<?php include('layout/header.php'); ?>
+<?php
+include('layout/header.php');
+
+if (!isset($_GET['id'])) {
+  header("Location:game.php");
+  exit;
+}
+
+$id = $_GET['id'];
+$amount = isset($_GET['amount']) ? $_GET['amount'] : '';
+
+$valorFormAction = 'process-payment.php';
+$valorIsDemo = false;
+?>
 
 <body>
   <!-------------- INICIO DE PAGINA -------------->
@@ -15,8 +28,9 @@
       </div>
     </section>
     <section class="section-formulario">
-      <form action="https://path-to-your-api-call" method="post" id="valor-checkout-form">
-        <input type="hidden" name="orderId" value="1" />
+      <form action="<?= htmlspecialchars($valorFormAction, ENT_QUOTES) ?>" method="post" id="valor-checkout-form">
+        <input type="hidden" name="orderId" value="<?= htmlspecialchars($id, ENT_QUOTES) ?>" />
+        <input type="hidden" name="amount" value="<?= htmlspecialchars($amount, ENT_QUOTES) ?>" />
         <div id="valor-fields"></div>
       </form>
     </section>
@@ -24,19 +38,49 @@
   </main>
 
   <?php include('layout/footer.php'); ?>
-  <script src="https://js.valorpaytech.com/V1/js/Passage.min.js" data-name="valor_passage" data-clientToken="4IwK1%Ka8dmqKkSA2%AI33yKV91RyY$@" data-epi="2501407042"></script>
+  <script src="https://js.valorpaytech.com/V2/js/Passage.min.js"></script>
   <script>
-    document.addEventListener("passageHiddenFormAdded", function(event) {
+    const tokenEndpoint = 'valor-client-token.php';
 
-      const form = event.detail.form;
+    fetch(tokenEndpoint, { credentials: 'same-origin' })
+      .then((res) => {
+        return res.json().then((data) => {
+          if (!res.ok) {
+            const msg = data && data.message ? data.message : 'Unable to get client token';
+            throw new Error(msg + ' (HTTP ' + res.status + ')');
+          }
+          return data;
+        });
+      })
+      .then((data) => {
+        if (!data || !data.clientToken) {
+          throw new Error('No clientToken returned');
+        }
 
-      form.addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
+        new PassageJS({
+          clientToken: data.clientToken,
+          epi: data.epi || '',
+          formAction: '<?= htmlspecialchars($valorFormAction, ENT_QUOTES) ?>',
+          isDemo: <?= $valorIsDemo ? 'true' : 'false' ?>,
+          variant: 'lightbox',
+          submitText: 'Pay Now',
+          customData: {
+            order_id: '<?= htmlspecialchars($id, ENT_QUOTES) ?>'
+          },
+          onSuccess: (result) => {
+            console.log('Payment successful:', result);
+            window.location.href = '/success';
+          },
+          onError: (error) => {
+            console.error('Payment failed:', error);
+            alert('Payment failed. Please try again.');
+          }
+        });
+      })
+      .catch((err) => {
+        console.error('Failed to initialize payment:', err);
+        alert('Payment initialization failed: ' + err.message);
       });
-
-    });
   </script>
 
 </body>

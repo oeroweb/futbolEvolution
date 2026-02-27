@@ -946,7 +946,8 @@ hr {
   max-width: 1280px;
 }
 .game-banner .box-texto {
-  width: 350px;
+  min-width: 350px;
+  max-width: 600px;
   padding: 74px 0;
   display: flex;
   flex-direction: column;
@@ -991,6 +992,9 @@ hr {
   .game-banner {
     height: 320px;
     transition: all 0.5s ease;
+  }
+  .game-banner .img-hover {
+    height: 320px;
   }
   .game-banner .boxoverlay {
     height: 320px;
@@ -1279,6 +1283,14 @@ hr {
 }
 .game-container-grid .container-grid-detail .card-partido .lista {
   margin-left: 24px;
+}
+.game-container-grid .container-grid-detail .card-partido .formulario select {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #bfbfbf;
+  padding: 0 8px;
+  font-size: 14px;
 }
 .game-container-grid .container-grid-detail .box-imagenes .box-imagenes-list {
   display: grid;
