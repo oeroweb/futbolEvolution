@@ -6,6 +6,18 @@
     $partidoid = isset($_POST['idDetallePartido']) ? $_POST['idDetallePartido'] : false;		
     $idUsuario = isset($_POST['idUsuario']) ? $_POST['idUsuario'] : false;		
     $posicion = isset($_POST['posicion']) ? $_POST['posicion'] : false;		
+    $amount = '';
+
+    if ($partidoid) {
+      $consultaMonto = "SELECT costo FROM detallepartido WHERE id = '$partidoid' LIMIT 1;";
+      $respuestaMonto = mysqli_query($con, $consultaMonto);
+      if ($respuestaMonto && mysqli_num_rows($respuestaMonto) >= 1) {
+        $detalleMonto = mysqli_fetch_assoc($respuestaMonto);
+        if (isset($detalleMonto['costo'])) {
+          $amount = $detalleMonto['costo'];
+        }
+      }
+    }
 
     $consulta = "SELECT * FROM partidos_jugados WHERE detallepartido_id='$partidoid' and usuario_id=$idUsuario;";
     $respuesta = mysqli_query($con, $consulta);
@@ -20,7 +32,7 @@
 
       if ($resultado) {
         $_SESSION['completado'] = "Registro realizado de forma exitosa";
-        header("Location: ../../../payment.php?id=$partidoid");
+        header("Location: ../../../payment.php?id=$partidoid&amount=$amount");
         // header("Location: ../../../game-detail.php?id=$partidoid");
       } else {
         $_SESSION['fallo'] = "Hubo un error; por favor volver a intentar";
