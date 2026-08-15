@@ -123,10 +123,21 @@ if (isset($_SESSION['usuario']['nombres']) || isset($_SESSION['usuario']['apelli
       statusEl.style.color = isError ? '#b91c1c' : '#1f2937';
     }
 
+    function isApprovedPayment(data) {
+      const response = data && data.response ? String(data.response).toLowerCase() : '';
+      const msg = data && data.msg ? String(data.msg).toLowerCase() : '';
+      return response === 'approved' ||
+        data && data.success_url === true ||
+        data && data.error_no === 'S00' && data.error_code === '00' ||
+        msg === 'approved';
+    }
+
     function findPassageToken() {
       const selectors = [
         'input[name="passage_token"]',
         'input[name="passageToken"]',
+        'input[name="cardToken"]',
+        'input[name="card_token"]',
         'input[name="token"]',
         'input[name="passage-token"]'
       ];
@@ -152,8 +163,11 @@ if (isset($_SESSION['usuario']['nombres']) || isset($_SESSION['usuario']['apelli
       return token;
     }
 
-function debugFormFields(form) {
-      const inputs = form.querySelectorAll('input');
+    function debugFormFields(targetForm) {
+      if (!targetForm) {
+        return;
+      }
+      const inputs = targetForm.querySelectorAll('input');
       console.log('Form fields debug:');
       inputs.forEach(input => {
         console.log(`  ${input.name || input.id}: "${input.value}"`);
@@ -180,7 +194,7 @@ function debugFormFields(form) {
       console.log('Token value for validation:', tokenValue);
 
       // Debug: mostrar todos los campos del formulario
-      const currentForm = submitEvent.target;
+      const currentForm = submitEvent && submitEvent.target ? submitEvent.target : form;
       debugFormFields(currentForm);
 
       if (!tokenValue) {
@@ -251,7 +265,7 @@ function debugFormFields(form) {
         console.log('Payment response:', data);
         if (data.error) {
           setStatus('Payment failed: ' + (data.message || data.mensaje || 'Unknown error'), true);
-        } else if (data.response && data.response.toLowerCase && data.response.toLowerCase() === 'approved') {
+        } else if (isApprovedPayment(data)) {
           setStatus('Payment successful! Redirecting...', false);
           setTimeout(() => {
             window.location.href = 'game.php?payment=success';
@@ -295,9 +309,10 @@ function debugFormFields(form) {
       // También escuchar por eventos de token generado
       if (window.Passage) {
         window.Passage.on('tokenGenerated', function(data) {
-          if (data && data.token) {
-            cardTokenInput.value = data.token;
-            console.log('Token generated via event:', data.token);
+          const generatedToken = data && (data.token || data.cardToken);
+          if (generatedToken) {
+            cardTokenInput.value = generatedToken;
+            console.log('Token generated via event:', generatedToken);
             setStatus('Card details verified and ready for payment.');
             clearInterval(tokenCheckInterval);
           }
@@ -355,7 +370,7 @@ function debugFormFields(form) {
 
           if (data.error) {
             setStatus('Payment failed: ' + (data.message || data.mensaje || 'Unknown error'), true);
-          } else if (data.response && data.response.toLowerCase && data.response.toLowerCase() === 'approved') {
+          } else if (isApprovedPayment(data)) {
             setStatus('Payment successful! Redirecting...', false);
             setTimeout(() => {
               window.location.href = 'game.php?payment=success';

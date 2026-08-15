@@ -24,6 +24,8 @@ $appId = getenv('VALOR_APP_ID') ?: (isset($cfg['app_id']) ? $cfg['app_id'] : '')
 $appKey = getenv('VALOR_APP_KEY') ?: (isset($cfg['app_key']) ? $cfg['app_key'] : '');
 $epi = getenv('VALOR_EPI') ?: (isset($cfg['epi']) ? $cfg['epi'] : '');
 $apiBase = getenv('VALOR_API_BASE') ?: (isset($cfg['api_base']) ? $cfg['api_base'] : 'https://securelink.valorpaytech.com:4430');
+$saleEndpoint = getenv('VALOR_SALE_ENDPOINT') ?: (isset($cfg['sale_endpoint']) ? $cfg['sale_endpoint'] : 'sale');
+$surchargeIndicator = getenv('VALOR_SURCHARGE_INDICATOR') !== false ? getenv('VALOR_SURCHARGE_INDICATOR') : (isset($cfg['surcharge_indicator']) ? $cfg['surcharge_indicator'] : '0');
 $verifySsl = isset($cfg['verify_ssl']) ? (bool)$cfg['verify_ssl'] : true;
 
 if ($appId === '' || $appKey === '' || $epi === '') {
@@ -67,10 +69,14 @@ $payload = [
   'appkey' => $appKey,
   'epi' => $epi,
   'txn_type' => 'sale',
+  'ecomm_channel' => 'passagejs',
   'amount' => $amount,
   'token' => $token,
-  'orderId' => isset($_POST['orderId']) ? trim($_POST['orderId']) : ''
+  'invoicenumber' => substr(preg_replace('/[^A-Za-z0-9]/', '', isset($_POST['orderId']) ? trim($_POST['orderId']) : ''), 0, 12),
+  'orderdescription' => 'Futbol Evolution'
 ];
+
+$payload['surchargeIndicator'] = (string)$surchargeIndicator;
 
 $optionalFields = [
   'email',
@@ -81,6 +87,9 @@ $optionalFields = [
   'state',
   'zip',
   'country',
+  'billing_country',
+  'shipping_country',
+  'cardholdername',
   'cardholderName'
 ];
 
@@ -90,29 +99,44 @@ foreach ($optionalFields as $field) {
   }
 }
 
-// Ensure cardholderName is present (required by some payment processors)
-if (!isset($payload['cardholderName']) || $payload['cardholderName'] === '') {
+if (!isset($payload['cardholdername']) && isset($_POST['cc_name']) && trim($_POST['cc_name']) !== '') {
+  $payload['cardholdername'] = trim($_POST['cc_name']);
+}
+
+$payload['shipping_country'] = isset($payload['shipping_country']) ? strtoupper($payload['shipping_country']) : 'US';
+$payload['billing_country'] = isset($payload['billing_country']) ? strtoupper($payload['billing_country']) : 'US';
+
+if (isset($payload['cardholderName']) && !isset($payload['cardholdername'])) {
+  $payload['cardholdername'] = $payload['cardholderName'];
+}
+unset($payload['cardholderName']);
+
+// Ensure cardholdername is present (required by some payment processors)
+if (!isset($payload['cardholdername']) || $payload['cardholdername'] === '') {
   // Try to get from session if available
   if (isset($_SESSION['usuario']['nombres']) || isset($_SESSION['usuario']['apellidos'])) {
-    $payload['cardholderName'] = trim(
+    $payload['cardholdername'] = trim(
       (isset($_SESSION['usuario']['nombres']) ? $_SESSION['usuario']['nombres'] : '') . ' ' .
       (isset($_SESSION['usuario']['apellidos']) ? $_SESSION['usuario']['apellidos'] : '')
     );
   } else {
-    $payload['cardholderName'] = 'Card Holder'; // Default fallback
+    $payload['cardholdername'] = 'Card Holder'; // Default fallback
   }
 }
 
-$url = rtrim($apiBase, '/') . '/?saleapi=';
+$saleEndpoint = ltrim($saleEndpoint, '?');
+$url = rtrim($apiBase, '/') . '/?' . $saleEndpoint;
 
-// Convert payload to URL-encoded format (some payment APIs expect this)
-$postData = http_build_query($payload);
+$postData = json_encode($payload);
+$logPayload = $payload;
+$logPayload['appid'] = '***';
+$logPayload['appkey'] = '***';
+$logPayload['token'] = substr($token, 0, 6) . '...';
 
 // Log the request for debugging
 error_log("VALOR SALE REQUEST: " . json_encode([
   'url' => $url,
-  'payload' => $payload,
-  'post_data' => $postData,
+  'payload' => $logPayload,
   'timestamp' => date('Y-m-d H:i:s')
 ]));
 
@@ -121,7 +145,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
   'Accept: application/json',
-  'Content-Type: application/x-www-form-urlencoded'
+  'Content-Type: application/json'
 ]);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $verifySsl);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $verifySsl ? 2 : 0);
@@ -163,20 +187,34 @@ if (!is_array($data)) {
   exit;
 }
 
-// Check for Valor-specific error messages
-if (isset($data['response']) && $data['response'] === null) {
-  error_log("VALOR NULL RESPONSE: " . json_encode($data));
-  
-  // If response is null but we have error codes, it might be a processing issue
-  if (isset($data['error_no']) && isset($data['error_code'])) {
-    http_response_code(400);
-    echo json_encode([
-      'error' => true,
-      'message' => 'Payment processing failed. Please check your card details.',
-      'valor_response' => $data
-    ]);
-    exit;
+$isApproved = false;
+if (isset($data['success_url']) && $data['success_url'] === true) {
+  $isApproved = true;
+} elseif (isset($data['error_no'], $data['error_code']) && $data['error_no'] === 'S00' && $data['error_code'] === '00') {
+  $isApproved = true;
+} elseif (isset($data['msg']) && strtoupper($data['msg']) === 'APPROVED') {
+  $isApproved = true;
+} elseif (isset($data['response']) && strtolower((string)$data['response']) === 'approved') {
+  $isApproved = true;
+}
+
+if (!$isApproved) {
+  $providerMessage = 'Payment was not approved.';
+  if (isset($data['desc']) && $data['desc'] !== '') {
+    $providerMessage = $data['desc'];
+  } elseif (isset($data['msg']) && $data['msg'] !== '') {
+    $providerMessage = $data['msg'];
+  } elseif (isset($data['mesg']) && $data['mesg'] !== '') {
+    $providerMessage = $data['mesg'];
   }
+
+  http_response_code(400);
+  echo json_encode([
+    'error' => true,
+    'message' => $providerMessage,
+    'valor_response' => $data
+  ]);
+  exit;
 }
 
 http_response_code($code >= 200 && $code < 300 ? 200 : 400);
