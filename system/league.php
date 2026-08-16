@@ -26,18 +26,22 @@ require_once "controller/helpers.php";
 				<table>
 					<thead>
 						<tr>
-							<th class="w30">Titulo</th>
+							<th class="w20">Imagen</th>
+							<th class="w20">Titulo</th>
 							<th class="w40">Descripción</th>
-							<th class="w30">Opciones</th>
+							<th class="w20">Opciones</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php
-						$datos = selectalldatos($con, "ligasBannerTop");
+						$datos = selectalldatos($con, "ligasbannertop");
 						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
 							while ($dato = mysqli_fetch_assoc($datos)):
 						?>
 								<tr>
+									<td>
+										<img class="img-list" src="../assets/img/ligas/<?= $dato['imagen'] ?>" alt="img-partido-banner">
+									</td>
 									<td><strong>EN: </strong> <?= $dato['en_titulo'] ?> <br> <strong>ES: </strong><?= $dato['es_titulo'] ?></td>
 									<td><strong>EN: </strong><?= $dato['en_descripcion'] ?> <br><strong>ES: </strong><?= $dato['es_descripcion'] ?></td>
 									<td>
@@ -58,7 +62,6 @@ require_once "controller/helpers.php";
       <div class="box-tabla mg-bt20">
 				<h3 class="subtitle">Sección Ligas Actuales:</h3>
 				<a href="league-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
-
 				<table>
 					<thead>
 						<tr>
@@ -85,8 +88,10 @@ require_once "controller/helpers.php";
 									<td>
 										<div class="flex justify-center">
 											<a href="league-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar"><img src="assets/ico/edit.svg"> </a>
+											<a href="leagueparties-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Partidos Destacados"><img src="assets/ico/upload.svg"> </a>
 											<a href="leagueposition-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Tabla de Posiciones"><img src="assets/ico/plus.svg"></a>
-											<a href="leaguefixture-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Fixture"><img src="assets/ico/plus-add.svg"> </a>
+											<a href="leaguefixture-excel.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir y Editar Fixture"><img src="assets/ico/plus-add.svg"> </a>
+											<a href="models/updates/league-private.php?id=<?= $dato['id'] ?>" class="btn btn-rojo btn-ico" title="Eliminar Liga"><img src="assets/ico/delete.svg"> </a>
 										</div>
 									</td>
 								</tr>
@@ -97,47 +102,14 @@ require_once "controller/helpers.php";
 				</table>
 			</div>
 
-      <div class="box-tabla mg-bt20">
-				<h3 class="subtitle">Sección Ligas Fixture:</h3>
-				<a href="league-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
-
-				<table>
-					<thead>
-						<tr>							
-							<th class="w10">Titulo</th>
-							<th class="w10">Descripción</th>												
-							<th class="w10">Opciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						$datos = selectalldatos($con, "ligasfixture");
-						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-							while ($dato = mysqli_fetch_assoc($datos)):
-						?>
-							<tr>									
-								<td><strong>EN: </strong> <?= $dato['en_titulo'] ?> <br> <strong>ES: </strong><?= $dato['es_titulo'] ?></td>
-								<td><strong>EN: </strong><?= $dato['en_descripcion'] ?> <br><strong>ES: </strong><?= $dato['es_descripcion'] ?></td>
-								<td>										
-									<a href="leaguefixture-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar"><img src="assets/ico/edit.svg"> </a>										
-								</td>
-							</tr>
-						<?php
-							endwhile;
-						endif; ?>
-					</tbody>
-				</table>
-			</div>
-      
 			<div class="box-tabla mg-bt20">
 				<h3 class="subtitle">Sección Ligas Contacto:</h3>
-				<a href="league-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
-
 				<table>
 					<thead>
 						<tr>							
-							<th class="w10">Titulo</th>
-							<th class="w10">Descripción</th>												
+							<th class="w20">Imagen</th>
+							<th class="w20">Titulo</th>
+							<th class="w30">Descripción</th>												
 							<th class="w10">Opciones</th>
 						</tr>
 					</thead>
@@ -147,7 +119,10 @@ require_once "controller/helpers.php";
 							if (!empty($datos) && mysqli_num_rows($datos) >= 1):
 								while ($dato = mysqli_fetch_assoc($datos)):
 						?>
-							<tr>									
+							<tr> 
+								<td>
+									<img class="img-list" src="../assets/img/ligas/<?= $dato['imagen'] ?>" alt="img-banner-contacto">
+								</td>							
 								<td><strong>EN: </strong> <?= $dato['en_titulo'] ?> <br> <strong>ES: </strong><?= $dato['es_titulo'] ?></td>
 								<td><strong>EN: </strong><?= $dato['en_descripcion'] ?> <br><strong>ES: </strong><?= $dato['es_descripcion'] ?></td>
 								<td>										
@@ -160,6 +135,10 @@ require_once "controller/helpers.php";
 					</tbody>
 				</table>
 			</div>
+			
+			<!-- <hr class="mg-bt30"> -->
+			     
+			
 
 		</div>
 	</div>

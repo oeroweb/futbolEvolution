@@ -33,6 +33,7 @@
     }
 
     .container .form {
+      max-width: 450px;
       background: #fff;
       padding: 30px 35px;
       border-radius: 5px;
@@ -86,7 +87,7 @@
   <div class="container">
     <div class="row">
       <div class="form login-form">
-        <form action="index.php" method="POST" autocomplete="">
+        <form action="index.php" method="POST" autocomplete="false">
           <h2 class="text-center">ADMINISTRACIÓN <br> Futbol Evolution</h2>
           <p class="text-center">Ingresa tu correo y contraseña</p>
           <?php

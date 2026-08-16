@@ -8,8 +8,8 @@
       $this->conexion->conectar();
     }
 
-    function Registrar_Excel($EQUIPO_A,$RESULTADOS,$EQUIPO_B,$IDLIGA,$ESTADO,$FECHA){
-			$sql = "call PA_REGISTRAR_FIXTURES('$EQUIPO_A','$RESULTADOS','$EQUIPO_B',$IDLIGA,$ESTADO,'$FECHA')";
+    function Registrar_Excel($EQUIPO_A,$RESULTADOS,$SUBTITULO, $EQUIPO_B,$IDLIGA,$ESTADO,$FECHA){
+			$sql = "call PA_REGISTRAR_FIXTURES('$EQUIPO_A','$RESULTADOS','$SUBTITULO','$EQUIPO_B',$IDLIGA,$ESTADO,'$FECHA')";
       
 			if ($resultado = $this->conexion->conexion->query($sql)){
 				$id_retornado = mysqli_insert_id($this->conexion->conexion);

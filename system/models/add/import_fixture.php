@@ -17,7 +17,8 @@
     <thead>
       <tr class='header-tabla'>
         <td>Equipo A</td>
-        <td>ResultadosPJ</td>
+        <td>Resultados</td>
+        <td>Subtitlo Resultados</td>
         <td>Equipo B</td>        
       </tr>
     </thead>
@@ -25,12 +26,14 @@
     for($row = 2; $row<=$filas;$row++){
       $equipo_a = $hoja -> getCell('A'. $row)->getValue();
       $resultados = $hoja -> getCell('B'. $row)->getValue();
-      $equipo_b = $hoja -> getCell('C'. $row)->getValue();
+      $subtitulo = $hoja -> getCell('C'. $row)->getValue();
+      $equipo_b = $hoja -> getCell('D'. $row)->getValue();
       
       if($equipo_a <> ""){
         echo "<tr>";
         echo "<td>" . $equipo_a . "</td>";
         echo "<td>" . $resultados . "</td>";
+        echo "<td>" . $subtitulo . "</td>";
         echo "<td>" . $equipo_b . "</td>";        
         echo "</tr>";
       }

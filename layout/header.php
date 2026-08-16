@@ -20,8 +20,9 @@
   <!-- Slider -->
   <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
   <link rel="stylesheet" href="assets/css/square.min.css" />
+  <script src="assets/js/jquery.js"></script>  
+  <!-- <script src="https://js.valorpaytech.com/V2/js/Passage.min.js"></script> -->
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-video@latest/dist/css/splide-extension-video.min.css"> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-video@latest/dist/js/splide-extension-video.min.js"></script> -->
-  <script src="assets/js/jquery.js"></script>  
   <!-- <script src="js/jquery-ui.min.js"></script> -->
 </head>

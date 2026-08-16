@@ -90,7 +90,7 @@ if (isset($_POST['login'])) {
       $errors['rol'] = "No tienes los permisos necesarios!";
     } 
   } else {
-    $errors['email'] = "Al parecer aún no estas registrado! Haga clic en el enlace inferior para registrarse!";
+    $errors['email'] = "El correo ingresado no existe!";
   }
 }
 

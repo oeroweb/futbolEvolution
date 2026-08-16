@@ -43,18 +43,18 @@
 								<label for="nombre">Titulo : </label>	
 								<input type="hidden" name="id" value="<?php echo $dato['id']; ?>">
 								<!-- <input class="w100" type="text" name="nombre" value="<?php //echo $dato['nombre']; ?>"> -->
-								<input class="w100 " type="text" name="en_titulo" value="<?=$dato['en_titulo']?>">
-								<input class="w100 " type="text" name="es_titulo" value="<?=$dato['es_titulo']?>">
+								<input class="w100 " type="text" name="en_titulo" placeholder="intro title" value="<?=$dato['en_titulo']?>">
+								<input class="w100 " type="text" name="es_titulo" placeholder="ingresar un titulo" value="<?=$dato['es_titulo']?>">
 							</div>
 							<div class="box-input">
 								<label for="nombre">Sub Titulo: </label>	
-								<input class="w100 " type="text" name="en_subtitulo" value="<?=$dato['en_subtitulo']?>">
-								<input class="w100 " type="text" name="es_subtitulo" value="<?=$dato['es_subtitulo']?>">
+								<input class="w100 " type="text" name="en_subtitulo" placeholder="intro subtitle"  value="<?=$dato['en_subtitulo']?>">
+								<input class="w100 " type="text" name="es_subtitulo" placeholder="ingresa un sub titulo" value="<?=$dato['es_subtitulo']?>">
 							</div>
 							<div class="box-input">
 								<label for="descripcion">Descripción: </label>
-								<textarea class="w100" name="en_descripcion" rows="3" ><?=$dato['en_descripcion']?></textarea>		
-								<textarea class="w100" name="es_descripcion" rows="3" ><?=$dato['es_descripcion']?></textarea>								
+								<textarea class="w100" name="en_descripcion" rows="3" placeholder="intro description" ><?=$dato['en_descripcion']?></textarea>		
+								<textarea class="w100" name="es_descripcion" rows="3" placeholder="ingresa una descripción"><?=$dato['es_descripcion']?></textarea>								
 							</div>
 							<div class="box-input">								
 								<label for="">Cambiar Imagen:</label>								

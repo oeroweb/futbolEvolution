@@ -1,4 +1,5 @@
 <?php 
+// $con = mysqli_connect('localhost', 'u781511255_evoluser', 'yTu?SkI3jG>', 'u781511255_evoluciones');
 $con = mysqli_connect('localhost', 'root', '', 'dbfutbolevolution');
 
 if (!$con) {
@@ -8,9 +9,5 @@ if (!$con) {
     exit;
 }
 
-// $con = mysqli_connect('127.0.0.1', 'stella01_usersmadm', '$94&F2uHrwdK8J', 'stella01_dbstella');
-// echo "Éxito: Se realizó una conexión apropiada a MySQL! La base de datos mi_bd es genial." . PHP_EOL;
-// echo "Información del host: " . mysqli_get_host_info($con) . PHP_EOL;
 
-// mysqli_close($con);
 ?>

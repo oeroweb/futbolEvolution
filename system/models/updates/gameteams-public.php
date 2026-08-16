@@ -11,9 +11,9 @@ if (isset($_GET)) {
 
   if ($resultado) {
     $_SESSION['completado'] = "Actualizado de forma exitosa!";
-    header("Location: ../../game.php");
+    header("Location: ../../globales.php");
   } else {
     $_SESSION['fallo'] = "Hubo un error, por favor volver a intentar";
-    header("Location: ../../game.php");
+    header("Location: ../../globales.php");
   }
 }

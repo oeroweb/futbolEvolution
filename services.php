@@ -4,15 +4,71 @@
   <main class="main">    
     <?php include('layout/navbar.php'); ?> 
 		
-		<section class="home-banner">
-			<div class="flex align-center justify-end center">
-				<div class="box-texto">
-					<h2 class="title">La liga ya está
-					en marcha</h2>
-					<p class="texto"> Forma tu equipo y vive la emoción de jugar con amigos en nuestra comunidad.</p>
-					<a href="" class="btn btn-verde">Ver liga</a>
-				</div>				
+		<section class="services-banner">
+			<div class="boxoverlay">
+				<div class="flex align-center center">
+					<?php
+						$datos = selectalldatos($con, "serviciosbanner");
+						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+							while ($dato = mysqli_fetch_assoc($datos)):
+						?>
+					<div class="box-texto">
+						<h2 class="title"><?= $dato['en_titulo'] ?></h2>
+						<p class="texto"> <?= $dato['en_descripcion'] ?></p>
+						<div class="box-botones">
+							<a href="documentos/servicios.pdf" target="_blank" class="btn btn-verde">Download services</a>
+							<a href="#" target="_blank" class="btn btn-outline-verde" id="">Contacto</a>
+							<input type="hidden" id="idServicio" value="4">
+						</div>
+					</div>
+					<?php
+							endwhile;
+						endif; ?>			
+				</div>
 			</div>
+		</section>
+		
+		<section class="box-servicies">
+			<?php if (isset($_SESSION['completado'])): ?>
+				<div class="alerta-exito">
+					<?= $_SESSION['completado'] ?>
+				</div>
+			<?php elseif (isset($_SESSION['fallo'])): ?>
+				<div class="alerta-error">
+					<?= $_SESSION['fallo'] ?>
+				</div>
+			<?php endif; ?>
+
+			<?php
+				$datos = obtenerTodosDatosActivos($con, "servicios");
+				if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+					$contador = 0;
+					while ($dato = mysqli_fetch_assoc($datos)):
+						$contador = $contador + 1;																	
+
+				?>
+			<div class="box-image-service">
+				<img src="assets/img/services/<?= $dato['imagen'] ?>" class="img-service" alt="Imagen de servicio <?= $dato['en_titulo'] ?>">
+				<div class="boxoverlay">
+					<div class="box-texto center">
+						<div class="col1">
+							<h2 class="title"><?= $dato['en_titulo'] ?></h2>
+						</div>
+						<div class="col2">
+							<h2 class="subtitle"><?= $dato['en_subtitulo'] ?></h2>
+							<p class="texto"> <?= $dato['en_descripcion'] ?></p>
+							<div class="box-botones">
+								<a href="documentos/<?= $dato['archivo'] ?>" class="btn btn-verde">Download services</a>
+								<a href="#" class="btn btn-outline-verde" id="btn-contacto-<?=$contador?>">Contact</a>
+								<input type="hidden" id="idServicio-<?=$contador?>" value="<?=$contador?>">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php
+					endwhile;
+				endif; ?>	
 		</section>
   </main>
 	<?php include('layout/footer.php'); ?>	

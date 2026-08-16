@@ -1,6 +1,6 @@
 <?php 
 
-	if(isset($_POST)){	
+	if(isset($_POST)){
 		require_once 'connection.php';
 		if(!isset($_SESSION)){
 			session_start();			
@@ -20,17 +20,15 @@
 			$verify = password_verify($password, $usuario['clave']);      
 			// $verify = password_verify($password, $usuario['clave']);      
       
-			if($password == $usuario['clave']){
-        echo 'verificado';
+			if($password == $usuario['clave']){       
 				$_SESSION['usuario'] = $usuario;				
 				header('Location:../../index.php');
-			}else{
-				echo 'fallo';
-				$_SESSION['error_login'] = "Datos ingresados incorrectos!";
+			}else{				
+				$_SESSION['error_login'] = "Contraseña incorrecta!!";
 				header('Location:../../index.php');    
 			}
 		}else{
-			$_SESSION['error_login'] = "Datos ingresados incorrectos!";
+			$_SESSION['error_login'] = "El correo ingresado no existe!";
 			header('Location:../../index.php');
 		}	
 	}

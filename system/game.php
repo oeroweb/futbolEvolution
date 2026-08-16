@@ -27,9 +27,10 @@ require_once "controller/helpers.php";
 				<table>
 					<thead>
 						<tr>
-							<th class="w30">Titulo</th>
-							<th class="w40">Descripción</th>
-							<th class="w30">Opciones</th>
+							<th class="w30">Imagen</th>
+							<th class="w20">Titulo</th>
+							<th class="w30">Descripción</th>
+							<th class="w20">Opciones</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -39,6 +40,9 @@ require_once "controller/helpers.php";
 							while ($dato = mysqli_fetch_assoc($datos)):
 						?>
 								<tr>
+									<td>
+										<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen'] ?>" alt="img-partido-banner">
+									</td>
 									<td><strong>EN: </strong> <?= $dato['en_titulo'] ?> <br> <strong>ES: </strong><?= $dato['es_titulo'] ?></td>
 									<td><strong>EN: </strong><?= $dato['en_descripcion'] ?> <br><strong>ES: </strong><?= $dato['es_descripcion'] ?></td>
 									<td>
@@ -56,22 +60,26 @@ require_once "controller/helpers.php";
 				</table>
 			</div>
 
+			<hr class="mg-bt30">
+
 			<div class="box-tabla ">
 				<h3 class="subtitle">Sección Partidos Actuales:</h3>
 				<a href="gamesoccer-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
-
+				<a href="pickups-excel.php" class="btn btn-azul" title="Subir partidos">
+					<img src="assets/ico/upload_white.svg" class="img-ico"> Subir Partidos - Pickups
+				</a>
 				<table>
 					<thead>
 						<tr>
 							<th class="w10">ID</th>
 							<th class="w10">Imagen</th>
 							<th class="w10">Campo/Sede</th>
-							<th class="w10">Dirección</th>
 							<th class="w10">Fecha</th>
-							<th class="w10">Genero</th>
 							<th class="w10">Hora</th>
-							<th class="w10">Costo</th>
+							<th class="w10">Genero</th>
+							<th class="w10">Cant. Jugadores y Equipos</th>
 							<th class="w10">Versus</th>
+							<th class="w10">Costo</th>
 							<th class="w10">Opciones</th>
 						</tr>
 					</thead>
@@ -80,6 +88,8 @@ require_once "controller/helpers.php";
 						$datos = listaPartidos($con, 2);
 						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
 							while ($dato = mysqli_fetch_assoc($datos)):
+								$cantidad = $dato['total_jugadores'] / $dato['total_equipos'];
+								$newFecha = formatearFecha($dato['fecha_partido']);
 						?>
 								<tr>
 									<td class="bold"><?= $dato['id'] ?> </td>
@@ -87,16 +97,23 @@ require_once "controller/helpers.php";
 										<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen1'] ?>" alt="img-partido">
 									</td>
 									<td><?= $dato['en_nombre'] ?> </td>
-									<td><?= $dato['en_direccion'] ?> </td>
-									<td><?= $dato['fecha_partido'] ?> </td>
-									<td><?= $dato['genero'] ?></td>
+									<td><?= $newFecha ?> </td>
 									<td><?= $dato['hora'] ?></td>
+									<td><?= $dato['genero'] ?></td>
+									<td><?= $dato['total_jugadores'] . ' / ' . $dato['total_equipos'] ?> </td>
+									<td><?= $cantidad . 'v' . $cantidad ?></td>
 									<td>$<?= $dato['costo'] ?></td>
-									<td><?= $dato['nombreCantidad'] ?></td>
 									<td>
 										<div class="flex justify-center">
 											<a href="gamesoccer-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar"><img src="assets/ico/edit.svg"> </a>
-											<a href="gamesoccerteams.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Equipos"><img src="assets/ico/plus.svg"> </a>
+											<?php
+											$partidos = obtenerDatosPorCampo($con, "detallepartido_equipos", "detallepartido_id", $dato['id']);
+											if (!empty($partidos) && mysqli_num_rows($partidos) >= 1):
+											?>
+												<a href="gamesoccerteams.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Editar Equipos"><img src="assets/ico/edit_2.svg"></a>
+											<?php else: ?>
+												<a href="gamesoccerteams_add.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Equipos"><img src="assets/ico/plus.svg"> </a>
+											<?php endif; ?>
 											<a href="gamesoccerplayers.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Añadir Jugadores"><img src="assets/ico/plus-add.svg"> </a>
 										</div>
 									</td>
@@ -108,75 +125,7 @@ require_once "controller/helpers.php";
 				</table>
 			</div>
 
-			<hr class="mg-bt30">
-			<div class="box-tabla">
-				<h3 class="subtitle">Sección Complejos Deportivos / Sedes / Locales:</h3>
-				<a href="gamelocals-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
-
-				<table>
-					<thead>
-						<tr>
-							<th class="w10">ID</th>
-							<th class="w20">Nombre</th>
-							<th class="w20">Dirección</th>
-							<th class="w30">Imágenes</th>
-							<th class="w10">Estado</th>
-							<th class="w10">Opciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						$datos = selectDatosNoEliminados($con, "partidoslocales");
-						if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-							while ($dato = mysqli_fetch_assoc($datos)):
-						?>
-								<tr>
-									<td class="bold"><?= $dato['id'] ?> </td>
-									<td><?= $dato['en_nombre'] ?> </td>
-									<td><?= $dato['en_direccion'] ?> </td>
-									<td>
-										<div class="box-imagenes">
-											<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen1'] ?>" alt="img-partido">
-											<?php if ($dato['imagen2']): ?>
-												<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen2'] ?>" alt="img-partido">
-											<?php endif; ?>
-											<?php if ($dato['imagen3']): ?>
-												<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen3'] ?>" alt="img-partido">
-											<?php endif; ?>
-											<?php if ($dato['imagen4']): ?>
-												<img class="img-list" src="../assets/img/partidos/<?= $dato['imagen4'] ?>" alt="img-partido">
-											<?php endif; ?>
-										</div>
-									</td>
-									<td>
-										<div class="flex-col align-center">
-											<?php if ($dato['estado_id'] == 1) : ?>
-												<p class="estado ">No Publicado</p>
-											<?php else : ?>
-												<p class="estado ">Publicado</p>
-											<?php endif; ?>
-										</div>
-									</td>
-									<td>
-										<div class="flex justify-center">
-											<?php if ($dato['estado_id'] == 1) : ?>
-												<a href="models/updates/gamelocals-public.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Publicar"><img src="assets/ico/check.svg"></a>
-											<?php else : ?>
-												<a href="models/updates/gamelocals-private.php?id=<?= $dato['id'] ?>" class="btn btn-ico" title="Quitar Publicación"><img src="assets/ico/x.png"></a>
-											<?php endif; ?>
-											<a href="gamelocals-edit.php?id=<?= $dato['id'] ?>" class="btn btn-ico"><img src="assets/ico/edit.svg"> </a>
-											<a href="models/deletes/gamelocals.php?id=<?= $dato['id'] ?>" class="btn btn-rojo btn-ico"><img src="assets/ico/delete.svg"> </a>
-										</div>
-									</td>
-								</tr>
-						<?php
-							endwhile;
-						endif; ?>
-					</tbody>
-				</table>
-			</div>
-			
-			<div class="box-tabla">
+			<!-- <div class="box-tabla">
 				<h3 class="subtitle">Sección Equipos:</h3>
 				<a href="gameteams-add.php" class="btn btn-azul" title="Añadir"><img src="assets/ico/plus.png"> Añadir</a>
 
@@ -201,7 +150,7 @@ require_once "controller/helpers.php";
 									<td class="bold"><?= $dato['id'] ?> </td>
 									<td><?= $dato['nombre'] ?> </td>
 									<td>
-										<?=($dato['descripcion'] ? $dato['descripcion'] : '---'); ?>									
+										<?= ($dato['descripcion'] ? $dato['descripcion'] : '---'); ?>									
 								 </td>										
 									<td>
 										<?php if ($dato['imagen']): ?>
@@ -212,7 +161,7 @@ require_once "controller/helpers.php";
 									</td>
 									<td>
 										<div class="flex-col align-center">
-											<p class="estado "><?=($dato['estado_id'] == 1 ? 'Inactivo' : 'Activo')  ?></p>											
+											<p class="estado "><?= ($dato['estado_id'] == 1 ? 'Inactivo' : 'Activo')  ?></p>											
 										</div>
 									</td>
 									<td>
@@ -232,7 +181,7 @@ require_once "controller/helpers.php";
 						endif; ?>
 					</tbody>
 				</table>
-			</div>			
+			</div>			 -->
 
 		</div>
 		<?php borrarErrores(); ?>

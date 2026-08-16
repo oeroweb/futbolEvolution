@@ -68,21 +68,21 @@
 								<textarea class="w100" name="en_descripcion" rows="3" ><?=$dato['en_descripcion']?></textarea>
 								<textarea class="w100" name="es_descripcion" rows="3" ><?=$dato['es_descripcion']?></textarea>
 							</div>
-							<div class="box-input">
-								<?php if ($dato['imagen']): ?>
+							<?php if ($dato['imagen']): ?>
+								<div class="box-input">
 									<label for="">Cambiar Imagen:</label>
 									<hr class="w100 mg-bt10">
 									<input type="hidden" name="imagen_existente" value="<?php echo $dato['imagen']; ?>">
 									<img src="../assets/img/ligas/<?php echo $dato['imagen'] ?>" alt="">
-									<input class="" type="file" name="imagen1" accept="image/*">
+									<input class="" type="file" name="imagen" accept="image/*">
 								</div>
-								<?php else: ?>
-									<div class="box-input">
-										<label for="">Añadir Imagen:</label>
-										<hr class="w100 mg-bt10">
-										<input class="" type="file" name="imagen" accept="image/*">
-									</div>
-								<?php endif; ?>									
+							<?php else: ?>
+								<div class="box-input">
+									<label for="">Añadir Imagen:</label>
+									<hr class="w100 mg-bt10">
+									<input class="" type="file" name="imagen" accept="image/*">
+								</div>
+							<?php endif; ?>									
 						</div>						
 						<input type="submit" value="Actualizar Datos" class="btn2 btn-azul">				
 						

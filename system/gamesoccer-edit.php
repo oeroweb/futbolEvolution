@@ -42,7 +42,7 @@ if (!isset($_GET)) {
 								<div class="w100 container-wrap mg-bt10">
 									<input type="hidden" name="id" value="<?=$id?>">
 									<div class="box-input">
-										<label for='local'>Local o Sede</label>															
+										<label for='local'>Local o Sede:</label>															
 										<select name="idlocal" class="w100">
 											<?php 
 												$partidos = selectDatosEstado($con, "partidoslocales", 2);
@@ -61,9 +61,9 @@ if (!isset($_GET)) {
 									<div class="box-input">
 										<label for="descripcion">Genero: </label>
 										<select name="genero" class="w100">											
-											<option value="female" <?=($dato['genero']) == "female" ? 'selected="selected"' : '' ?>>Femenino</option>
-											<option value="male" <?=($dato['genero']) == "male" ? 'selected="selected"' : '' ?>>Masculino</option>
-											<option value="mixto" <?=($dato['genero']) == "mixto" ? 'selected="selected"' : '' ?>>Mixto</option>											
+											<option value="Female" <?=($dato['genero']) == "Female" ? 'selected="selected"' : '' ?>>Femenino</option>
+											<option value="Male" <?=($dato['genero']) == "Male" ? 'selected="selected"' : '' ?>>Masculino</option>
+											<option value="Mixto" <?=($dato['genero']) == "Mixto" ? 'selected="selected"' : '' ?>>Mixto</option>											
 										</select>		
 									</div>
 									<div class="box-input">
@@ -79,24 +79,15 @@ if (!isset($_GET)) {
 										<input class="" type="text" name="total_jugadores" value="<?=$dato['total_jugadores']?>">
 									</div>
 									<div class="box-input">
-										<label for='local'>Versus</label>															
-										<select name="idversus" class="w100">
-											<?php 
-												$partidos = selectalldatos($con, "partidoscantidad");
-												if(!empty($partidos) && mysqli_num_rows($partidos) >= 1):
-													while($partido = mysqli_fetch_assoc($partidos)):		
-											?>
-												<option value="<?=$partido['id']?>" <?=($partido['id']) == $dato['cantidad_id'] ? 'selected="selected"' : '' ?>><?=$partido['nombre']?></option>
-											<?php endwhile; 
-											endif; ?>
-										</select>								
-									</div>
+										<label for="nombre">Cantidad de Equipos: </label>
+										<input class="" type="text" name="total_equipos" value="<?=$dato['total_equipos']?>">
+									</div>									
 									<div class="box-input">
 										<label for="descripcion">Nivel de Juego: </label>
 										<select name="nivel" class="w100">											
-											<option value="advanced" <?=($dato['en_nivel']) == "advanced" ? 'selected="selected"' : '' ?>>Advanced</option>
-											<option value="middle" <?=($dato['en_nivel']) == "middle" ? 'selected="selected"' : '' ?>>Middle</option>
-											<option value="basic" <?=($dato['en_nivel']) == "basic" ? 'selected="selected"' : '' ?>>Basic</option>											
+											<option value="Advanced" <?=($dato['en_nivel']) == "advanced" ? 'selected="selected"' : '' ?>>Advanced</option>
+											<option value="Middle" <?=($dato['en_nivel']) == "middle" ? 'selected="selected"' : '' ?>>Middle</option>
+											<option value="Basic" <?=($dato['en_nivel']) == "basic" ? 'selected="selected"' : '' ?>>Basic</option>											
 										</select>		
 									</div>								
 									<label for="nombre">Beneficios del partido: </label>

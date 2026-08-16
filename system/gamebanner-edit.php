@@ -43,14 +43,20 @@
 							<div class="box-input">
 								<label for="nombre">Titulo del Banner: </label>	
 								<input type="hidden" name="id" value="<?php echo $dato['id']; ?>">
-								<!-- <input class="w100" type="text" name="nombre" value="<?php //echo $dato['nombre']; ?>"> -->
-								<input class="w100 " type="text" name="en_titulo" value="<?=$dato['en_titulo']?>">
-								<input class="w100 " type="text" name="es_titulo" value="<?=$dato['es_titulo']?>">
+								<input class="w100 " type="text" name="en_titulo" placeholder="intro title" value="<?=$dato['en_titulo']?>">
+								<input class="w100 " type="text" name="es_titulo" placeholder="ingresar un titulo" value="<?=$dato['es_titulo']?>">
 							</div>
 							<div class="box-input">
 								<label for="descripcion">Descripción: </label>						
-								<input class="w100 " type="text" name="en_descripcion" value="<?=$dato['en_descripcion']?>">
-								<input class="w100 " type="text" name="es_descripcion" value="<?=$dato['es_descripcion']?>">
+								<input class="w100 " type="text" name="en_descripcion" placeholder="intro description" value="<?=$dato['en_descripcion']?>">
+								<input class="w100 " type="text" name="es_descripcion" placeholder="ingresa una descripción" value="<?=$dato['es_descripcion']?>">
+							</div>
+							<div class="box-input">								
+								<label for="">Cambiar Imagen:</label>								
+								<hr class="w100 mg-bt10">							
+								<input class="w100" type="hidden" name="imagen_existente" value="<?php echo $dato['imagen']; ?>">
+								<img src="../assets/img/partidos/<?php echo $dato['imagen'] ?>" alt="">
+								<input class="w100" type="file" name="imagen" >
 							</div>											
 						</div>						
 						<input type="submit" value="Actualizar Datos" class="btn2 btn-azul" name="editarfase" >						
@@ -68,20 +74,3 @@
 	<?php include 'layout/footer.php'; ?>
 </div>
 </main>
-
-<script>
-
-	const input = document.querySelector("form .inputnombre"), 
-	maxlength = input.getAttribute("maxlength"),
-	counter = document.querySelector("form .counterNombre"), 
-	textarea = document.querySelector("form .textdescripcion"), 
-  maxlengtharea = textarea.getAttribute("maxlength"),
-	counterarea = document.querySelector("form .counterDescripcion"); 
-
-  input.onkeyup = () =>{
-    counter.innerText = maxlength - input.value.length;
-  }
-  textarea.onkeyup = () =>{
-    counterarea.innerText = maxlengtharea - textarea.value.length;
-  }
-</script>

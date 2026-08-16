@@ -44,9 +44,9 @@ require_once "controller/helpers.php";
 								<?php endif; ?>
 							</div>
 							<div class="box-input">
-								<label for='local'>Local o Sede</label>
+								<label for='local'>Local o Sede:</label>
 								<select name="idlocal" class="w100">
-									<option>Selecciona una sede</option>
+									<option>Select an option</option>
 									<?php
 									$partidos = selectDatosEstado($con, "partidoslocales", 2);
 									if (!empty($partidos) && mysqli_num_rows($partidos) >= 1):
@@ -64,43 +64,34 @@ require_once "controller/helpers.php";
 							<div class="box-input">
 								<label for="descripcion">Genero: </label>
 								<select name="genero" class="w100">
-									<option>Selecciona genero</option>
-									<option value="female">Femenino</option>
-									<option value="male">Masculino</option>
-									<option value="mixto">Mixto</option>
+									<option>Select an option</option>
+									<option value="Female">Femenino</option>
+									<option value="Male">Masculino</option>
+									<option value="Mixto">Mixto</option>
 								</select>
 							</div>
 							<div class="box-input">
 								<label for="nombre">Hora: </label>
-								<input type="time" name="hora" value="">
+								<input type="time" name="hora" >
 							</div>
 							<div class="box-input">
 								<label for="nombre">Costo $: </label>
-								<input class="" type="number" name="costo" value="">
+								<input type="number" name="costo" >
 							</div>
 							<div class="box-input">
 								<label for="nombre">Total de jugadores: </label>
-								<input class="" type="number" name="total_jugadores" value="">
+								<input type="number" min="4" name="total_jugadores" >
 							</div>
 							<div class="box-input">
-								<label for='local'>Versus</label>
-								<select name="idversus" class="w100">
-									<?php
-									$partidos = selectalldatos($con, "partidoscantidad");
-									if (!empty($partidos) && mysqli_num_rows($partidos) >= 1):
-										while ($partido = mysqli_fetch_assoc($partidos)):
-									?>
-											<option value="<?= $partido['id'] ?>"><?= $partido['nombre'] ?></option>
-									<?php endwhile;
-									endif; ?>
-								</select>
-							</div>
+								<label for="nombre">Cantidad de Equipos: </label>
+								<input type="number" min="2" name="total_equipos" >
+							</div>							
 							<div class="box-input">
 								<label for="descripcion">Nivel de Juego: </label>
 								<select name="nivel" class="w100">
-									<option value="advanced">Advanced</option>
-									<option value="middle">Middle</option>
-									<option value="basic">Basic</option>
+									<option value="Advanced">Advanced</option>
+									<option value="Middle">Middle</option>
+									<option value="Basic">Basic</option>
 								</select>
 							</div>
 							<label for="nombre">Beneficios del partido: </label>
@@ -128,11 +119,8 @@ require_once "controller/helpers.php";
 							</div>
 						</div>
 						<input type="submit" value="Guardar" class="btn2 btn-azul" name="editar">
-
 					</form>
-
 				</div>
-
 			</div>
 			<?php borrarErrores(); ?>
 		</div>

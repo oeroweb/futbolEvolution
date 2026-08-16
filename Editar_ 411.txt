@@ -1,0 +1,14 @@
+home:
+banner inferior: foto editable
+
+partidos: 
+header: foto editable
+
+ligas
+header: foto editable
+
+detalle de ligas
+contact: foto editable
+
+gobales:
+informacion de la web
