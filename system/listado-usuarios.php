@@ -29,14 +29,18 @@ require_once "controller/helpers.php";
           <thead>
             <tr>
               <th class="al-ct w10">id</th>
-              <th class="w10">Nombres</th>
-              <th class="w10">Apellidos</th>
-              <th class="w10">Posición</th>
-              <th class="w10">Nivel de Juego</th>
-              <th class="w10">Nivel de FE</th>
-              <th class="w10">Pais</th>
+              <th class="w10">Name</th>
+              <th class="w10">Last Name</th>
+              <th class="w10">Gender</th>
+              <th class="w10">Phone</th>
+              <th class="w10">Email</th>
+              <th class="w10">Position</th>
+              <th class="w10">Position Secondary</th>
+              <th class="w10">Skill Level</th>
+              <th class="w10">Dominant Foot</th>
+              <th class="w10">Country</th>
               <th class="w10">Rol</th>
-              <th class="al-ct w10">Opciones</th>
+              <th class="w10">Opciones</th>
             </tr>
           </thead>
         </table>
@@ -329,13 +333,25 @@ require_once "controller/helpers.php";
             "data": "apellidos"
           },
           {
+            "data": "genero"
+          },
+          {
+            "data": "telefono"
+          },
+          {
+            "data": "email"
+          },
+          {
             "data": "posicion"
+          },
+          {
+            "data": "posicion_dos"
           },
           {
             "data": "nivel_juego"
           },
           {
-            "data": "nivel_interno"
+            "data": "pie_dominante"
           },
           {
             "data": "pais"
@@ -344,7 +360,7 @@ require_once "controller/helpers.php";
             "data": "rol"
           },
           {
-            "defaultContent": "<a class='editar btn-ico' title='Editar Perfil'><span class='material-symbols-outlined'>edit</span></a><a class='habilidades btn-ico' title='Editar Habilidades'><span class='material-symbols-outlined'>edit_square</span></a><a class='eliminar btn-ico' title='Borrar'><span class='material-symbols-outlined'>delete</span></a>"
+            "defaultContent": "<div class='flex'><a class='editar btn-ico' title='Editar Perfil'><span class='material-symbols-outlined'>edit</span></a><a class='habilidades btn-ico' title='Editar Habilidades'><span class='material-symbols-outlined'>edit_square</span></a><a class='eliminar btn-ico' title='Borrar'><span class='material-symbols-outlined'>delete</span></a></div>"
           }
         ],
         "language": idioma_espanol,

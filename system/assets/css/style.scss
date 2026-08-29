@@ -34,6 +34,7 @@ html,body{
 .container{display: flex; flex-wrap: wrap}
 .align-center {align-items: center;}
 .justify-center {justify-content: center;}
+.justify-between {justify-content: space-between;}
 
 .grid-container{
   display: grid;    
@@ -52,10 +53,13 @@ html,body{
 .w100{ width: 100%; }
 
 .mg-r10{ margin-right: 10px;}
+.mg-btnone{margin-bottom: 0px !important;}
 .mg-bt10{margin-bottom: 10px;}
 .mg-bt30{margin-bottom: 30px;}
+.pd-10{padding: 10px;}
 .pd-20{padding: 20px;}
 .pd-lt30{padding-left: 30px;}
+.mg-lt30{margin-left: 30px;}
 .hidden{ display: none;}
 .mostrar { display: flex;}
 
@@ -186,6 +190,16 @@ html,body{
  
   .img-ico{ width: 22px; margin-right: 4px; }
   .box-retorno{ width: 300px; margin-bottom: 12px;}
+  .box-searchs{ display: flex; justify-content: space-between; align-items: center;
+    .box-search{ display: flex; align-items: center;
+      input[type="search"]{ padding: 8px 16px; border-radius: $radius; border: 1px solid $crazul; outline: none;}
+      .btn-search{ padding: 8px 16px; border-radius: $radius; background-color: $crazul; color: $crblanco; margin-left: 8px;}
+    }
+  }
+  .box-formulario2{ width: 100%; 
+    .box-input{ display: flex; flex-direction: column; margin-bottom: 24px;
+      input { padding: 10px 20px; margin: 8px 0; border:1px solid $crgris; border-radius: $radius; outline: none; box-sizing: border-box;}
+  }}
   .box-formulario{ width: 80%; padding: 20px;
     label{font-weight: 700;}
     .box-input{ display: flex; flex-direction: column; margin-bottom: 24px;
@@ -246,7 +260,7 @@ html,body{
 /**************************************
 ***            DATATABLES         ***
 *************************************/
-.dataTable { margin-bottom: 20px; font-size: 14px; z-index: 10; }
+.dataTable { margin-bottom: 20px; font-size: 12px; z-index: 10; }
 .dataTables_length { display: inline-block; font-size: 16px;
   select { padding: 6px;}
 }

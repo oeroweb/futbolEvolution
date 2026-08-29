@@ -43,6 +43,7 @@
 						while ($dato = mysqli_fetch_assoc($datos)):
 							$newFecha = formatearFecha($dato['fecha_partido']);
 							$cantidad = $dato['total_jugadores'] / $dato['total_equipos'];
+							if ($dato['fecha_partido'] >= date('Y-m-d')):
 					?>
 							<div class="card-partido">
 								<a href="game-detail.php?id=<?= $dato['id'] ?>">
@@ -70,7 +71,8 @@
 									</div>
 								</a>
 							</div>
-					<?php
+					<?php					
+							endif;
 						endwhile;
 					endif; ?>
 				</div>
