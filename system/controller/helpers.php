@@ -226,22 +226,17 @@ function listaPartidos($conexion, $estatoId)
 	return $resultado;
 }
 
-function detallePartido($conexion, $id)
-{
+function detallePartido($conexion, $id){
 	$sql = "SELECT pd.id as IdDetalle, pd.*, pl.en_nombre as nombreLocal, pl.en_direccion, pl.imagen1, pl.imagen2, pl.imagen3, pl.imagen4, pl.imagen5, url_google, url_apple
 		FROM detallepartido pd 
 		INNER JOIN partidoslocales pl on pd.local_id = pl.id		
 		WHERE pd.id = '$id'";
-	// $sql = "SELECT pd.id as IdDetalle, fecha_partido, hora, genero, en_nivel, es_nivel, total_jugadores,  total_equipos, costo, en_descripcion, es_descripcion, beneficio1, beneficio2, beneficio3, beneficio4, beneficio5, cantidad_id, local_id, pd.estado_id, pd.fecha, pl.en_nombre as nombreLocal, pl.en_direccion, pl.imagen1, pl.imagen2, pl.imagen3, pl.imagen4, pl.imagen5, url_google, url_apple
-	// FROM detallepartido pd 
-	// INNER JOIN partidoslocales pl on pd.local_id = pl.id		
-	// WHERE pd.id = '$id'";
 
 	$datos = mysqli_query($conexion, $sql);
 	if ($datos && mysqli_num_rows($datos) >= 1) {
 		$resultado = $datos;
 	} else {
-		$resultado = '';
+		$resultado = false;
 	}
 	return $resultado;
 }
@@ -362,11 +357,32 @@ function obtenerCantidadGameRoster($conexion, $detalleid)
 }
 
 
-function obtenerListadoUsuaiosLibres($conexion)
+function obtenerListadoUsuaiosLibres($conexion, $detalleid, $buscar)
 {
-	$sql = "SELECT u.* FROM usuarios u LEFT JOIN partidos_jugados pj ON u.id = pj.usuario_id WHERE pj.usuario_id IS NULL";
+	
+	$sql = "SELECT 
+    u.id as idUsuario,
+		u.posicion,
+    u.nombres, 
+    u.apellidos, 
+    u.nivel_juego,
+		u.nivel_interno,
+    u.pie_dominante
+	FROM usuarios u
+	WHERE NOT EXISTS (
+			SELECT 1 
+			FROM partidos_jugados pj 
+			WHERE pj.usuario_id = u.id 
+				AND pj.detallepartido_id = '$detalleid'
+	)";
 
-	$datos = mysqli_query($conexion, $sql);
+	if (!empty($buscar)) {
+		$consulta = $sql . " and u.nombres like '%$buscar%' or u.apellidos like '%$buscar%' or u.posicion like '%$buscar%'";
+	} else {
+		$consulta = $sql;
+	}
+	
+	$datos = mysqli_query($conexion, $consulta);
 	if ($datos && mysqli_num_rows($datos) >= 1) {
 		$resultado = $datos;
 	} else {

@@ -31,112 +31,112 @@
 			endif; ?>
 		</section>
 
-		<section class="home-partidos">
-			<div class="flex align-center h100 center">
-				<img src="assets/img/short-logo-white.png" class="img-back">
-				<div class="box-container-texto">
-					<?php
-					$datos = selectalldatos($con, "homepartidos");
-					if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-						while ($dato = mysqli_fetch_assoc($datos)):
-					?>
-							<div class="box-texto">
-								<h2 class="title"><?= $dato['en_titulo'] ?></h2>
-								<p class="texto"> <?= $dato['en_descripcion'] ?></p>
-							</div>
-					<?php
-						endwhile;
-					endif; ?>
+		<section class="formulario-home">
+			<?php if (isset($_SESSION['completado'])): ?>
+					<div class="alerta-exito">
+						<?= $_SESSION['completado'] ?>
+					</div>
+				<?php elseif (isset($_SESSION['fallo'])): ?>
+					<div class="alerta-error">
+						<?= $_SESSION['fallo'] ?>
+					</div>
+				<?php endif; ?>
+			<form class="formulario w100" method="post" action="system/controller/adduser-home.php">
+				<div class="w100 grid form-grid">
+					<div class="box-input">
+						<label for="nombre">Name: </label>
+						<input class="w100 " type="text" name="nombre" id="nombre" required>
+						<input type="hidden" name="rol" id="rol" value="jugador" required>
+					</div>
+					<div class="box-input">
+						<label for="apellidos">Last Name: </label>
+						<input class="w100 " type="text" name="apellidos" id="apellidos" required>
+					</div>
+					<div class="box-input">
+						<label for="genero">Gender: </label>
+						<select name="genero" id="genero" class="w100" required>
+							<option disabled selected>Select an option</option>
+							<option value="female">Female</option>
+							<option value="male">Male</option>
+						</select>
+					</div>
+					<div class="box-input">
+						<label for="fecha">Date of Birth: </label>
+						<input class="w100 " type="date" name="fecha" id="fecha" required>
+					</div>
+					<div class="box-input">
+						<label for="nacionalidad">Country: </label>
+						<select name="nacionalidad" id="nacionalidad" class="w100" required>
+							<option disabled selected>Select an option</option>
+							<?php
+							$datos = selectalldatos($con, 'paises');
+							if (!empty($datos) && mysqli_num_rows($datos) >= 1):
+								while ($dato = mysqli_fetch_assoc($datos)):
+							?>
+									<option value="<?= $dato['id'] ?>">
+										<?= $dato['nombre'] ?>
+									</option>
+							<?php endwhile;
+							endif; ?>
+						</select>
+					</div>
+					<div class="box-input">
+						<label for="telefono">Phone: </label>
+						<input class="w100 " type="number" minlength="10" maxlength="11" name="telefono" required>
+					</div>
+					<div class="box-input">
+						<label for="email">Email: </label>
+						<input class="w100" type="email" name="correo" id="email2" autocomplete="false" placeholder="Enter your Email" required>
+						<div class="errorInput">Correo no válido</div>
+					</div>
+					<input class="w100" type="hidden" name="password" value="12345678" required>										
 				</div>
-				<div class="flex box-container-card">
-					<?php
-					$datos = obtenerdatosActivos($con, "homebarrapartidos", '');
-					if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-						while ($dato = mysqli_fetch_assoc($datos)):
-					?>
-							<div class="box-card">
-								<div class="title"><?= $dato['en_titulo'] ?></div>
-								<div class="date"><?= $dato['en_descripcion'] ?></div>
-								<div class="box-resultados">
-									<?php
-									$equipos = obtenerdatosString($con, 'equipos ', $dato['equipo_id_a']);
-									if (!empty($equipos) && mysqli_num_rows($equipos) >= 1):
-										while ($equipo = mysqli_fetch_assoc($equipos)):
-									?>
-											<div class="flex-col item-resultado">
-												<img src="assets/img/equipos/<?= $equipo['imagen'] ?>" class="img-logo" alt="">
-												<p class="texto"><?= $equipo['nombre'] ?></p>
-											</div>
-									<?php
-										endwhile;
-									endif; ?>
-									<div class="flex-col item-resultado">
-										<?php if ($dato['en_subtitulo']): ?>
-											<p class="mg-bt10 bold"> <?= $dato['en_subtitulo'] ?></p>
-										<?php endif ?>
-										<p class="font-small"><?= $dato['resultados'] ?></p>
-									</div>
-									<?php
-									$equipos = obtenerdatosString($con, 'equipos ', $dato['equipo_id_b']);
-									if (!empty($equipos) && mysqli_num_rows($equipos) >= 1):
-										while ($equipo = mysqli_fetch_assoc($equipos)):
-									?>
-											<div class="flex-col item-resultado">
-												<img src="assets/img/equipos/<?= $equipo['imagen'] ?>" class="img-logo" alt="">
-												<p class="texto"><?= $equipo['nombre'] ?></p>
-											</div>
-									<?php
-										endwhile;
-									endif; ?>
-								</div>
-							</div>
-					<?php
-						endwhile;
-					endif; ?>
+				<div class="w100 form-grid">
+					<div class="box-input">
+						<label for="nivel">Nivel de juego: </label>
+						<select name="nivel" class="w100" required>
+							<option disabled selected>Select an option</option>
+							<option value="Rookie">Rookie</option>
+							<option value="Intermediate">Intermediate</option>
+							<option value="Advanced">Advanced</option>
+						</select>
+					</div>
+					<div class="box-input">
+						<label for="posicion">Posición: </label>
+						<select name="posicion" class="w100" required>
+							<option disabled selected>Select an option</option>
+							<option value="GK">GK</option>
+							<option value="DEF">DEF</option>
+							<option value="MID">MID</option>
+							<option value="ATK">ATK</option>
+						</select>
+					</div>
+					<div class="box-input">
+						<label for="posicion2">Posición secundaria: </label>
+						<select name="posicion2" class="w100">
+							<option disabled selected>Select an option</option>
+							<option value="GK">GK</option>
+							<option value="DEF">DEF</option>
+							<option value="MID">MID</option>
+							<option value="ATK">ATK</option>
+						</select>
+					</div>
+					<div class="box-input">
+						<label for="pie">Pie dominante: </label>
+						<select name="pie" class="w100" required>
+							<option disabled selected>Select an option</option>
+							<option value="Left">Left</option>
+							<option value="Right">Right</option>
+						</select>
+					</div>
 				</div>
-			</div>
+				<div class="flex flex-col align-center">					
+					<button type="submit" class="btn btn-verde w100">Crear cuenta</button>					
+				</div>
+			</form>
 		</section>
 
-		<section class="home-nosotros">
-			<?php
-			$datos = selectalldatos($con, "homenosotros");
-			if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-				while ($dato = mysqli_fetch_assoc($datos)):
-			?>
-					<div class="container-nowrap align-center space-between center">
-						<div class="box-texto">
-							<h2 class="title"><?= $dato['en_titulo'] ?></h2>
-							<h2 class="subtitle"><?= $dato['en_subtitulo'] ?></h2>
-							<p class="texto"> <?= $dato['en_descripcion'] ?></p>
-							<a href="game.php#partidos" class="btn btn-verde">Play a Match</a>
-						</div>
-						<div class="box-image">
-							<img class="img-list" src="assets/img/home/<?= $dato['imagen'] ?>" alt="imagen de partido">
-						</div>
-					</div>
-			<?php
-				endwhile;
-			endif; ?>
-		</section>
-
-		<section class="home-banner">
-			<?php
-			$datos = selectalldatos($con, "homebanner");
-			if (!empty($datos) && mysqli_num_rows($datos) >= 1):
-				while ($dato = mysqli_fetch_assoc($datos)):
-			?>
-					<img src="assets/img/home/<?= $dato['imagen'] ?>" class="img-hover" />
-					<div class="flex align-center justify-end center">
-						<div class="box-texto">
-							<h2 class="title"><?= $dato['en_titulo'] ?></h2>
-							<p class="texto"> <?= $dato['en_descripcion'] ?></p>
-							<a href="league.php" class="btn btn-verde">Watch League</a>
-						</div>
-					</div>
-			<?php
-				endwhile;
-			endif; ?>
-		</section>
+	<?php borrarErrores(); ?>
 	</main>
 	<?php include('layout/footer.php'); ?>
 

@@ -19,7 +19,7 @@
       <div class="list-nav-link">
         <a href="index.php" class="nav-link"><span class="hidden"><img src="assets/img/ico/home.png" /> </span> Inicio</a>
         <a href="game.php" class="nav-link"><span class="hidden"><img src="assets/img/ico/partidos.png" /> </span>Partidos</a>
-        <a href="league.php" class="nav-link"><span class="hidden"><img src="assets/img/ico/ligas.png" /> </span>Ligas / Torneos</a>
+        <!-- <a href="league.php" class="nav-link"><span class="hidden"><img src="assets/img/ico/ligas.png" /> </span>Ligas / Torneos</a> -->
         <!-- <a href="services.php" class="nav-link"><span class="hidden"><img src="assets/img/ico/servicios.png" /> </span>Más servicios</a> -->
         <!-- <a href="sponsor.php" class="nav-link"><span class="hidden"><img src="assets/img/ico/sponsor.png" /> </span>Patrocinado</a> -->
       </div>

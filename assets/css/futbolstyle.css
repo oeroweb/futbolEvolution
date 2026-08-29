@@ -922,6 +922,60 @@ hr {
   }
 }
 
+.formulario-home {
+  width: 50%;
+  margin: 0 auto;
+  padding: 40px 0;
+  transition: all 0.5s ease;
+}
+.formulario-home .formulario {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 8px rgba(10, 19, 28, 0.16);
+}
+.formulario-home .formulario .title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+.formulario-home .formulario .box-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+.formulario-home .formulario .box-input label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.formulario-home .formulario .box-input input, .formulario-home .formulario .box-input select {
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #bfbfbf;
+  padding-left: 8px;
+}
+.formulario-home .formulario .box-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+.formulario-home .formulario .box-btn .btn {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+@media (max-width: 700px) {
+  .formulario-home {
+    width: 100%;
+    padding: 0 16px;
+  }
+  .formulario-home .formulario {
+    padding: 20px;
+  }
+}
+
+/********************************************
+****               GAME                ****
+*********************************************/
 .game-banner {
   height: 378px;
   color: #ffffff;

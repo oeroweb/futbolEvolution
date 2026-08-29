@@ -119,7 +119,7 @@
         <div class="box-input">
           <label for="genero">Gender: </label>
           <select name="genero" id="genero" class="w100" required>
-            <option>Select an option</option>
+            <option disabled selected>Select an option</option>
             <option value="female">Female</option>
             <option value="male">Male</option>
           </select>
@@ -131,7 +131,7 @@
         <div class="box-input">
           <label for="nacionalidad">Country: </label>
           <select name="nacionalidad" id="nacionalidad" class="w100" required>
-            <option>Select an option</option>
+            <option disabled selected>Select an option</option>
             <?php
             $datos = selectalldatos($con, 'paises');
             if (!empty($datos) && mysqli_num_rows($datos) >= 1):
@@ -167,38 +167,38 @@
         <div class="box-input">
           <label for="nivel">Nivel de juego: </label>
           <select name="nivel" class="w100" required>
-            <option>Select an option</option>
-            <option>Rookie</option>
-            <option>Intermediate</option>
-            <option>Advanced</option>
+            <option disabled selected>Select an option</option>
+            <option value="Rookie">Rookie</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
           </select>
         </div>
         <div class="box-input">
           <label for="posicion">Posición: </label>
           <select name="posicion" class="w100" required>
-            <option>Select an option</option>
-            <option>GK</option>
-            <option>DEF</option>
-            <option>MID</option>
-            <option>ATK</option>
+            <option disabled selected>Select an option</option>
+            <option value="GK">GK</option>
+            <option value="DEF">DEF</option>
+            <option value="MID">MID</option>
+            <option value="ATK">ATK</option>
           </select>
         </div>
         <div class="box-input">
           <label for="posicion2">Posición secundaria: </label>
           <select name="posicion2" class="w100" required>
-            <option>Select an option</option>
-            <option>GK</option>
-            <option>DEF</option>
-            <option>MID</option>
-            <option>ATK</option>
+            <option disabled selected>Select an option</option>
+            <option value="GK">GK</option>
+            <option value="DEF">DEF</option>
+            <option value="MID">MID</option>
+            <option value="ATK">ATK</option>
           </select>
         </div>
         <div class="box-input">
           <label for="pie">Pie dominante: </label>
           <select name="pie" class="w100" required>
-            <option>Select an option</option>
-            <option>Left</option>
-            <option>Right</option>
+            <option disabled selected>Select an option</option>
+            <option value="Left">Left</option>
+            <option value="Right">Right</option>
           </select>
         </div>
       </div>
@@ -446,6 +446,7 @@
   </div>
 </div>
 
+<!-- Editar Perfil -->
 <div class="modalfull hidden" id="modal12">
   <div class="box-fullModal modal-little">
     <div class="header-modal">

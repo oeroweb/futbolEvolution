@@ -1,15 +1,18 @@
 <?php  
   require_once ('../../controller/helpers.php');
+  use PhpOffice\PhpSpreadsheet\IOFactory;
 
   if(is_array($_FILES['archivoexcel']) && count($_FILES['archivoexcel']) >0){
     session_start();
 		require_once '../../controller/connection.php';
-    require '../../excel/Classes/PHPExcel.php';
+    // require '../../excel/Classes/PHPExcel.php';
+    require '../../excel/vendor/autoload.php';
+
 
     $tmpfname = $_FILES['archivoexcel']['tmp_name'];
+    // $leerexcel = PHPExcel_IOFactory::createReaderForFile($tmpfname);
 
-    $leerexcel = PHPExcel_IOFactory::createReaderForFile($tmpfname);
-
+    $leerexcel = IOFactory::createReaderForFile($tmpfname);
     $excelobj = $leerexcel->load($tmpfname);
 
     $hoja = $excelobj -> getSheet(0);
